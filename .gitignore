@@ -16,3 +16,10 @@
 /BanBif.Nuevo.Pandora.DA/bin/Debug
 /BanBif.Nuevo.Pandora.DA/obj/Debug
 /packages
+/BanBif.Comunes/obj/Release
+/BanBif.Nuevo.Pandora.Api/obj/Release
+/BanBif.Nuevo.Pandora.App/obj/Release
+/BanBif.Nuevo.Pandora.BE/obj/Release
+/BanBif.Nuevo.Pandora.BL/obj/Release
+/BanBif.Nuevo.Pandora.DA/obj/Release
+/.vs/NuevoPandora/FileContentIndex
