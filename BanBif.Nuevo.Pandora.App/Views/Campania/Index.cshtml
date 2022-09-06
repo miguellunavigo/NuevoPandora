@@ -1,0 +1,223 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var listaExperimento = (List<BanBif.Nuevo.Pandora.BE.NewPandoraExperimentoBE>)ViewBag.ListaExperimento;
+}
+
+@Html.Hidden("hdn_Listar_Campania", Url.Action("Listar", "Campania"))
+@Html.Hidden("hdn_Obtener_Campania", Url.Action("Obtener", "Campania"))
+@Html.Hidden("hdn_Crear_Campania", Url.Action("Crear", "Campania"))
+@Html.Hidden("hdn_Modificar_Campania", Url.Action("Modificar", "Campania"))
+<!-- Users List Table -->
+<div class="card">
+    <div class="card-datatable table-responsive">
+        <table class="datatables-users table border-top">
+            <thead>
+                <tr>
+                    <th>Campania</th>
+                    <th>Fecha Inicio</th>
+                    <th>Fecha Fin</th>
+                    <th>Texto</th>
+                    <th>Url Campania</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+    <div class="modal fade" id="editCampania" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-simple modal-edit-user">
+            <div class="modal-content p-3 p-md-5">
+                <div class="modal-body">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="text-center mb-4">
+                        <h3 id="offcanvasExperimentLabel">Edit User Information</h3>
+                    </div>
+                    <form id="campaniaForm" class="row g-3" onsubmit="return false">
+                        @Html.Hidden("modalhdnIdCampania","0")
+
+                        <div class="validate col-12 col-md-6">
+                            <label class="form-label" for="modaltxtNombre">Nombre</label>
+                            <input type="text"
+                                   id="modaltxtNombre"
+                                   name="modaltxtNombre"
+                                   class="form-control"
+                                   placeholder="Nombre" />
+                        </div>
+                        <div class="validate col-12 col-md-6">
+                            <label class="form-label" for="modaltxtDescripcion">Descripción</label>
+                            <input type="text"
+                                   id="modaltxtDescripcion"
+                                   name="modaltxtDescripcion"
+                                   class="form-control"
+                                   placeholder="Descripción" />
+                        </div>
+
+                        <div class="validate col-12 col-md-6">
+                            <label class="form-label" for="modaltxtTecnologia">Tecnología</label>
+                            <input type="text"
+                                   id="modaltxtTecnologia"
+                                   name="modaltxtTecnologia"
+                                   class="form-control"
+                                   placeholder="Tecnología" />
+                        </div>
+
+                        <div class="validate col-12 col-md-6">
+                            <label class="form-label" for="modaltxtDesarrolladoPor">Desarrollado Por</label>
+                            <input type="text"
+                                   id="modaltxtDesarrolladoPor"
+                                   name="modaltxtDesarrolladoPor"
+                                   class="form-control"
+                                   placeholder="Desarrollado Por" />
+                        </div>
+
+                        <div class="validate col-12 col-md-6">
+                            <label class="form-label" for="modaltxtFechaInicio">Fecha Solicitud</label>
+                            <input type="text"
+                                   id="modaltxtFechaInicio"
+                                   name="modaltxtFechaInicio"
+                                   class="form-control"
+                                   placeholder="DD/MM/YYYY" />
+                        </div>
+
+                        <div class="validate col-12 col-md-6">
+                            <label class="form-label" for="modaltxtFechaFin">Fecha Publicación</label>
+                            <input type="text"
+                                   id="modaltxtFechaFin"
+                                   name="modaltxtFechaFin"
+                                   class="form-control"
+                                   placeholder="DD/MM/YYYY" />
+                        </div>
+                        <div class="validate col-12">
+                            <label class="form-label" for="modaltxtUrl">Url</label>
+                            <input type="text"
+                                   id="modaltxtUrl"
+                                   name=""
+                                   class="form-control"
+                                   placeholder="www.url.com" />
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label class="switch">
+                                <input type="checkbox" id="modalchkPublicado" class="switch-input" />
+                                <span class="switch-toggle-slider">
+                                    <span class="switch-on"></span>
+                                    <span class="switch-off"></span>
+                                </span>
+                                <span class="switch-label">Publico</span>
+                            </label>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label class="form-label" for="user-role">Estado</label>
+                            <select id="modalSelectIdEstado" class="form-select">
+                                @foreach (var item in listaExperimento)
+                                {
+                                    <option value="@item.IdExperimento">@item.NombreExperimento</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-12 text-center">
+                            <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit" id="btn_Campania">Registrar</button>
+                            <button type="reset"
+                                    class="btn btn-label-secondary"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close">
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- Page JS -->
+@section Scripts
+{
+    <!-- Vendors JS -->
+    <script src="../../assets/vendor/libs/moment/moment.js"></script>
+    <script src="../../assets/vendor/libs/datatables/jquery.dataTables.js"></script>
+    <script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
+    <script src="../../assets/vendor/libs/datatables-responsive/datatables.responsive.js"></script>
+    <script src="../../assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.js"></script>
+    <script src="../../assets/vendor/libs/datatables-buttons/datatables-buttons.js"></script>
+    <script src="../../assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.js"></script>
+    <script src="../../assets/vendor/libs/jszip/jszip.js"></script>
+    <script src="../../assets/vendor/libs/pdfmake/pdfmake.js"></script>
+    <script src="../../assets/vendor/libs/datatables-buttons/buttons.html5.js"></script>
+    <script src="../../assets/vendor/libs/datatables-buttons/buttons.print.js"></script>
+    <script src="../../assets/vendor/libs/select2/select2.js"></script>
+    <script src="../../assets/vendor/libs/formvalidation/dist/js/FormValidation.min.js"></script>
+    <script src="../../assets/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js"></script>
+    <script src="../../assets/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js"></script>
+    <script src="../../assets/vendor/libs/cleavejs/cleave.js"></script>
+    <script src="../../assets/vendor/libs/cleavejs/cleave-phone.js"></script>
+
+    <!-- Vendors JS -->
+    
+    <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
+    <script src="../../assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+    <script src="../../assets/vendor/libs/bootstrap-daterangepicker/bootstrap-daterangepicker.js"></script>
+    <script src="../../assets/vendor/libs/jquery-timepicker/jquery-timepicker.js"></script>
+    <script src="../../assets/vendor/libs/pickr/pickr.js"></script>
+
+    <script src="~/assets/js/app-campania-list.js"></script>
+    <script>
+        function NuevoCampania() {
+            $("#offcanvasExperimentLabel").html("Agregar Campaña");
+            $("#btn_Campania").html("Registrar")
+            $('#modalhdnIdCampania').val("0");
+            $('#modaltxtNombre').val("");
+            $('#modaltxtDescripcion').val("");
+            $('#modaltxtTecnologia').val("");
+            $('#modaltxtDesarrolladoPor').val("");
+            $('#modaltxtFechaInicio').val("");
+            $('#modaltxtFechaFin').val("");
+            $('#modaltxtUrl').val("");           
+            $('#modalchkPublicado').prop('checked', false);
+            //$('#modalchkEstado').prop('checked', true);            
+            
+        }
+        function ObtenerCampania(event, id) {
+            event.stopPropagation()
+            var Campania = {};
+            Campania.IdCampania = id;
+
+            $.ajax({
+                url: $("#hdn_Obtener_Campania").val(),
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                processData: true,
+                data: JSON.stringify(Campania),
+                success: function (response) {
+                    $("#btn_Campania").html("Modificar")
+                    $("#offcanvasExperimentLabel").html("Modificar Campaña");
+                    
+                    $('#modalhdnIdCampania').val(response.data.IdCampania);
+                    $('#modaltxtNombre').val(response.data.NombreCampania);
+                    $('#modaltxtDescripcion').val(response.data.Descripcion);
+                    $('#modaltxtTecnologia').val(response.data.Tecnologia);
+                    $('#modaltxtDesarrolladoPor').val(response.data.DesarrolladoPor);
+                    $('#modaltxtFechaInicio').val(moment(response.data.FechaInicioString, 'DD/MM/YYYY').format("DD/MM/YYYY"));
+                    $('#modaltxtFechaFin').val(moment(response.data.FechaFinString, 'DD/MM/YYYY').format("DD/MM/YYYY"));
+                    $('#modaltxtUrl').val(response.data.Url);
+                    $('#modalchkPublicado').prop('checked', response.data.FlagPublico);
+                    //$('#modalchkEstado').prop('checked', response.data.FlagEstado);
+                    $('#modalSelectIdEstado').val(response.data.IdStatusCampania);
+                    myModaleditCampania.show()
+                },
+                failure: function (msg) {             
+                    console.log(msg);
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                },
+                complete: function () {
+                }
+            });
+        }
+    </script>
+}

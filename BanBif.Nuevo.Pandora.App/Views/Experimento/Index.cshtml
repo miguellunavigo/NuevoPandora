@@ -1,0 +1,260 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var listaStatus = (List<BanBif.Nuevo.Pandora.BE.NewPandoraExperimentoStatusBE>)ViewBag.ListaStatus;
+}
+
+@Html.Hidden("hdn_Listar_Experimento", Url.Action("Listar", "Experimento"))
+@Html.Hidden("hdn_Obtener_Experimento", Url.Action("Obtener", "Experimento"))
+@Html.Hidden("hdn_Crear_Experimento", Url.Action("Crear", "Experimento"))
+@Html.Hidden("hdn_Modificar_Experimento", Url.Action("Modificar", "Experimento"))
+<!-- Users List Table -->
+<div class="card">
+    <div class="card-datatable table-responsive">
+        <table class="datatables-users table border-top">
+            <thead>
+                <tr>
+                    @*<th></th>*@
+                    <th>Nombre</th>
+                    <th>Descripcion</th>
+                    <th>Tecnologia</th>
+                    <th>Desarrollado</th>
+                    @*<th>Indicador</th>*@
+                    <th>Fec.Sol.</th>
+                    <th>Fec. Publ.</th>
+                    <th>Url</th>
+                    @*<th>Publica</th>*@
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+    <div class="modal fade" id="editExperimento" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-simple modal-edit-user">
+            <div class="modal-content p-3 p-md-5">
+                <div class="modal-body">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="text-center mb-4">
+                        <h3 id="offcanvasExperimentLabel">Edit User Information</h3>
+                    </div>
+                    <form id="experimentoForm" class="row g-3" onsubmit="return false">
+                        @Html.Hidden("modalhdnIdExperimento","0")
+                        <div class="validate col-12 col-md-6">
+                            <label class="form-label" for="modaltxtNombre">Nombre</label>
+                            <input type="text"
+                                   id="modaltxtNombre"
+                                   name="modaltxtNombre"
+                                   class="form-control"
+                                   placeholder="Nombre" />
+                        </div>
+                        <div class="validate col-12 col-md-6">
+                            <label class="form-label" for="modaltxtDescripcion">Descripción</label>
+                            <input type="text"
+                                   id="modaltxtDescripcion"
+                                   name="modaltxtDescripcion"
+                                   class="form-control"
+                                   placeholder="Descripción" />
+                        </div>
+
+                        <div class="validate col-12 col-md-6">
+                            <label class="form-label" for="modaltxtTecnologia">Tecnología</label>
+                            <input type="text"
+                                   id="modaltxtTecnologia"
+                                   name="modaltxtTecnologia"
+                                   class="form-control"
+                                   placeholder="Tecnología" />
+                        </div>
+
+                        <div class="validate col-12 col-md-6">
+                            <label class="form-label" for="modaltxtDesarrolladoPor">Desarrollado Por</label>
+                            <input type="text"
+                                   id="modaltxtDesarrolladoPor"
+                                   name="modaltxtDesarrolladoPor"
+                                   class="form-control"
+                                   placeholder="Desarrollado Por" />
+                        </div>
+
+                        <div class="validate col-12 col-md-6">
+                            <label class="form-label" for="modaltxtfechasolicitud">Fecha Solicitud</label>
+                            <input type="text"
+                                   id="modaltxtfechasolicitud"
+                                   name="modaltxtfechasolicitud"
+                                   class="form-control"
+                                   placeholder="DD/MM/YYYY" />
+                        </div>
+
+                        <div class="validate col-12 col-md-6">
+                            <label class="form-label" for="modaltxtfechapublicacion">Fecha Publicación</label>
+                            <input type="text"
+                                   id="modaltxtfechapublicacion"
+                                   name="modaltxtfechapublicacion"
+                                   class="form-control"
+                                   placeholder="DD/MM/YYYY" />
+                        </div>
+                        <div class="validate col-12">
+                            <label class="form-label" for="modaltxtUrl">Url</label>
+                            <input type="text"
+                                   id="modaltxtUrl"
+                                   name=""
+                                   class="form-control"
+                                   placeholder="www.url.com" />
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label class="switch">
+                                <input type="checkbox" id="modalchkPublicado" class="switch-input" />
+                                <span class="switch-toggle-slider">
+                                    <span class="switch-on"></span>
+                                    <span class="switch-off"></span>
+                                </span>
+                                <span class="switch-label">Publico</span>
+                            </label>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label class="form-label" for="user-role">Estado</label>
+                            <select id="modalSelectIdEstado" class="form-select">
+                                @foreach (var item in listaStatus)
+                                {
+                                    <option value="@item.IdStatusExperimento">@item.Status</option>
+                                }
+                            </select>
+                            @*<label class="switch">
+            <input type="checkbox" id="modalchkEstado" class="switch-input" />
+            <span class="switch-toggle-slider">
+                <span class="switch-on"></span>
+                <span class="switch-off"></span>
+            </span>
+            <span class="switch-label">Estado</span>
+        </label>*@
+                        </div>
+                        <div class="col-12 text-center">
+                            <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit" id="btn_Experimento">Registrar</button>
+                            <button type="reset"
+                                    class="btn btn-label-secondary"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close">
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- Page JS -->
+@section Scripts
+{
+    <!-- Vendors JS -->
+    <script src="../../assets/vendor/libs/moment/moment.js"></script>
+    <script src="../../assets/vendor/libs/datatables/jquery.dataTables.js"></script>
+    <script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
+    <script src="../../assets/vendor/libs/datatables-responsive/datatables.responsive.js"></script>
+    <script src="../../assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.js"></script>
+    <script src="../../assets/vendor/libs/datatables-buttons/datatables-buttons.js"></script>
+    <script src="../../assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.js"></script>
+    <script src="../../assets/vendor/libs/jszip/jszip.js"></script>
+    <script src="../../assets/vendor/libs/pdfmake/pdfmake.js"></script>
+    <script src="../../assets/vendor/libs/datatables-buttons/buttons.html5.js"></script>
+    <script src="../../assets/vendor/libs/datatables-buttons/buttons.print.js"></script>
+    <script src="../../assets/vendor/libs/select2/select2.js"></script>
+    <script src="../../assets/vendor/libs/formvalidation/dist/js/FormValidation.min.js"></script>
+    <script src="../../assets/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js"></script>
+    <script src="../../assets/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js"></script>
+    <script src="../../assets/vendor/libs/cleavejs/cleave.js"></script>
+    <script src="../../assets/vendor/libs/cleavejs/cleave-phone.js"></script>
+
+    <!-- Vendors JS -->
+    
+    <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
+    <script src="../../assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+    <script src="../../assets/vendor/libs/bootstrap-daterangepicker/bootstrap-daterangepicker.js"></script>
+    <script src="../../assets/vendor/libs/jquery-timepicker/jquery-timepicker.js"></script>
+    <script src="../../assets/vendor/libs/pickr/pickr.js"></script>
+
+    <script src="~/assets/js/app-experimento-list.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            //$("#btn_Experimento").click(function () {
+            //    //if (!$("form#addNewUserForm").valid()) {
+            //    //    alert("ddasda");
+            //    //    return false;
+            //    //} else {
+            //        alert("Grabacion");
+            //    //s}
+            //})
+        })
+        function NuevoExperimento() {
+            $("#offcanvasExperimentLabel").html("Agregar Experimento");
+            $("#btn_Experimento").html("Registrar")
+            $('#modalhdnIdExperimento').val("0");
+            $('#modaltxtNombre').val("");
+            $('#modaltxtDescripcion').val("");
+            $('#modaltxtTecnologia').val("");
+            $('#modaltxtDesarrolladoPor').val("");
+            $('#modaltxtfechasolicitud').val("");
+            $('#modaltxtfechapublicacion').val("");
+            $('#modaltxtUrl').val("");           
+            $('#modalchkPublicado').prop('checked', false);
+            //$('#modalchkEstado').prop('checked', true);            
+            
+        }
+        function ObtenerExperimento(event, id) {
+            event.stopPropagation()
+            var Experimento = {};
+            Experimento.IdExperimento = id;
+
+            $.ajax({
+                url: $("#hdn_Obtener_Experimento").val(),
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                processData: true,
+                data: JSON.stringify(Experimento),
+                success: function (response) {
+                    $("#btn_Experimento").html("Modificar")
+                    $("#offcanvasExperimentLabel").html("Modificar Experimento");
+                    
+                    $('#modalhdnIdExperimento').val(response.data.IdExperimento);
+                    $('#modaltxtNombre').val(response.data.NombreExperimento);
+                    $('#modaltxtDescripcion').val(response.data.Descripcion);
+                    $('#modaltxtTecnologia').val(response.data.Tecnologia);
+                    $('#modaltxtDesarrolladoPor').val(response.data.DesarrolladoPor);
+                    $('#modaltxtfechasolicitud').val(moment(response.data.FechaSolicitudString, 'DD/MM/YYYY').format("DD/MM/YYYY"));
+                    $('#modaltxtfechapublicacion').val(moment(response.data.FechaPublicacionString, 'DD/MM/YYYY').format("DD/MM/YYYY"));
+                    $('#modaltxtUrl').val(response.data.Url);
+                    $('#modalchkPublicado').prop('checked', response.data.FlagPublico);
+                    //$('#modalchkEstado').prop('checked', response.data.FlagEstado);
+                    $('#modalSelectIdEstado').val(response.data.IdStatusExperimento);
+                    
+                
+                    myModaleditExperimento.show()
+                },
+                failure: function (msg) {
+                    
+                    console.log(msg);
+                    // $.unblockUI();
+                },
+                error: function (xhr, status, error) {
+                    
+                    console.log(error);
+                    //$.unblockUI();
+                },
+                complete: function () {
+                    
+                    //$.unblockUI();
+                    //$("#prueba").dialog("close")
+                }
+            });
+
+        }
+
+
+
+
+    </script>
+}
