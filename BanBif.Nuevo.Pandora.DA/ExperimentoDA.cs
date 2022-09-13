@@ -40,7 +40,6 @@ namespace BanBif.Nuevo.Pandora.DA
                             Url = p.Url,
                             IdUsuarioContacto = p.IdUsuarioContacto,
                             FlagPublico = p.FlagPublico,
-                            FlagEstado = p.FlagEstado,
                             IdStatusExperimento = p.IdStatusExperimento,
                         });
                     });
@@ -78,7 +77,6 @@ namespace BanBif.Nuevo.Pandora.DA
                     response.data.Url = objNewPandoraExperimento.Url;
                     response.data.IdUsuarioContacto = objNewPandoraExperimento.IdUsuarioContacto;
                     response.data.FlagPublico = objNewPandoraExperimento.FlagPublico;
-                    response.data.FlagEstado = objNewPandoraExperimento.FlagEstado;
                     response.data.IdStatusExperimento = objNewPandoraExperimento.IdStatusExperimento;
                 }
             }
@@ -111,9 +109,7 @@ namespace BanBif.Nuevo.Pandora.DA
                     NewPandora_Experimento.Url = request.Url;
                     NewPandora_Experimento.IdUsuarioContacto = request.IdUsuarioContacto;
                     NewPandora_Experimento.FlagPublico = request.FlagPublico;
-                    NewPandora_Experimento.FlagEstado = request.FlagEstado;
                     NewPandora_Experimento.IdStatusExperimento = request.IdStatusExperimento;
-                    NewPandora_Experimento.FlagEstado = true;
                     db.NewPandora_Experimento.Add(NewPandora_Experimento);
                     db.SaveChanges();
                 }
@@ -148,7 +144,6 @@ namespace BanBif.Nuevo.Pandora.DA
                     NewPandora_Experimento.Url = request.Url;
                     //NewPandora_Experimento.IdUsuarioContacto = request.IdUsuarioContacto;
                     NewPandora_Experimento.FlagPublico = request.FlagPublico;
-                    NewPandora_Experimento.FlagEstado = request.FlagEstado;
                     NewPandora_Experimento.IdStatusExperimento = request.IdStatusExperimento;
                     
                     db.Entry(NewPandora_Experimento).State = EntityState.Modified;

@@ -18,12 +18,17 @@ namespace BanBif.Nuevo.Pandora.DA
         public NewPandora_StatusExperimento()
         {
             this.NewPandora_Experimento = new HashSet<NewPandora_Experimento>();
+            this.NewPandora_PropuestaExperimento = new HashSet<NewPandora_PropuestaExperimento>();
         }
     
         public int IdStatusExperimento { get; set; }
         public string Status { get; set; }
+        public Nullable<bool> FlagExperimento { get; set; }
+        public Nullable<int> Orden { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<NewPandora_Experimento> NewPandora_Experimento { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NewPandora_PropuestaExperimento> NewPandora_PropuestaExperimento { get; set; }
     }
 }

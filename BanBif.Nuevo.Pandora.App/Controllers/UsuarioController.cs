@@ -26,6 +26,16 @@ namespace BanBif.Nuevo.Pandora.App.Controllers
                 string response = WebApi<NewPandoraRolRequest>.RequestWebApi(request, strURL);
                 usuarioResponse = JsonConvert.DeserializeObject<NewPandoraRolResponse>(response);
                 ViewBag.ListaRol = usuarioResponse.Data;
+
+                NewPandoraUsuarioResponse<List<NewPandoraUsuarioBE>> usuarioResponse1 = new NewPandoraUsuarioResponse<List<NewPandoraUsuarioBE>>();
+                NewPandoraUsuarioRequest request1 = new NewPandoraUsuarioRequest();
+                request1.IdRol = login.IdRol.Value;
+                string strURL1 = ConfigurationManager.AppSettings["BaseUrlService"] + "api/Usuario/Listar";
+                string response1 = WebApi<NewPandoraUsuarioRequest>.RequestWebApi(request1, strURL1);
+                usuarioResponse1 = JsonConvert.DeserializeObject<NewPandoraUsuarioResponse<List<NewPandoraUsuarioBE>>>(response1);
+
+                ViewBag.ListaUsuario = usuarioResponse1.data;
+
             }
             catch (Exception ex)
             {

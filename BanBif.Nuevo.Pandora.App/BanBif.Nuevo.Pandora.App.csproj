@@ -121,6 +121,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CampaniaController.cs" />
+    <Compile Include="Controllers\PropuestaController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\SinCampaniaController.cs" />
     <Compile Include="Controllers\GraciasController.cs" />
@@ -378,6 +379,7 @@
     <Content Include="assets\js\app-calendar-events.js" />
     <Content Include="assets\js\app-calendar.js" />
     <Content Include="assets\js\app-campania-list.js" />
+    <Content Include="assets\js\app-propuesta-list.js" />
     <Content Include="assets\js\app-invoice-add.js" />
     <Content Include="assets\js\app-invoice-edit.js" />
     <Content Include="assets\js\app-invoice-list.js" />
@@ -1395,6 +1397,7 @@
     <Content Include="Views\Experimento\Index.cshtml" />
     <Content Include="Views\Usuario\Index.cshtml" />
     <Content Include="Views\Campania\Index.cshtml" />
+    <Content Include="Views\Propuesta\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BanBif.Comunes\BanBif.Comunes.csproj">

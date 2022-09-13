@@ -23,6 +23,8 @@
         <EntityTypeShape EntityType="panelModel.ReinventaDatosCampaniaRegistro" Width="1.5" PointX="7.625" PointY="1.125" />
         <AssociationConnector Association="panelModel.FK_DatosCampaniaCarrusel_DatosCampania" />
         <AssociationConnector Association="panelModel.FK_DatosCampaniaRegistro_DatosCampania" />
+        <EntityTypeShape EntityType="panelModel.NewPandora_PropuestaExperimento" Width="1.5" PointX="3.75" PointY="15.625" />
+        <AssociationConnector Association="panelModel.FK_NewPandora_PropuestaExperimento_NewPandora_StatusExperimento" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

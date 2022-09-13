@@ -31,7 +31,6 @@ namespace BanBif.Nuevo.Pandora.DA
         public string Url { get; set; }
         public Nullable<int> IdUsuarioContacto { get; set; }
         public Nullable<bool> FlagPublico { get; set; }
-        public Nullable<bool> FlagEstado { get; set; }
         public Nullable<int> IdStatusExperimento { get; set; }
     
         public virtual NewPandora_StatusExperimento NewPandora_StatusExperimento { get; set; }

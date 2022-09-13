@@ -1,5 +1,7 @@
 ﻿<!DOCTYPE html>
-
+@{
+    var login = (BanBif.Nuevo.Pandora.BE.NewPandoraLoginBE)Session["UsuarioAutentificado"];
+ }
 <html lang="en"
       class="light-style"
       dir="ltr"
@@ -11,7 +13,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Dashboard - Pandora</title>
 
     <meta name="description" content="" />
 
@@ -114,7 +116,7 @@
                                     </g>
                                 </svg>
                             </span>
-                            <span class="app-brand-text demo menu-text fw-bolder">Sneat</span>
+                            <span class="app-brand-text demo menu-text fw-bolder">Pandora</span>
                         </a>
 
                         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-xl-none">
@@ -530,7 +532,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1">
-                                                    <span class="fw-semibold d-block">John Doe</span>
+                                                    <span class="fw-semibold d-block">@login.Nombre</span>
                                                     <small class="text-muted">Admin</small>
                                                 </div>
                                             </div>
@@ -539,7 +541,7 @@
                                     <li>
                                         <div class="dropdown-divider"></div>
                                     </li>
-                                    <li>
+                                    @*<li>
                                         <a class="dropdown-item" href="pages-profile-user.html">
                                             <i class="bx bx-user me-2"></i>
                                             <span class="align-middle">My Profile</span>
@@ -583,11 +585,11 @@
                                     </li>
                                     <li>
                                         <div class="dropdown-divider"></div>
-                                    </li>
+                                    </li>*@
                                     <li>
                                         <a class="dropdown-item" href="auth-login-cover.html" target="_blank">
                                             <i class="bx bx-power-off me-2"></i>
-                                            <span class="align-middle">Log Out</span>
+                                            <span class="align-middle">Cerrar Sesion</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -645,7 +647,7 @@
                                 </li>
 
                                 <!-- Layouts -->
-                                <li class="menu-item">
+                                @*<li class="menu-item">
                                     <a href="javascript:void(0)" class="menu-link menu-toggle">
                                         <i class="menu-icon tf-icons bx bx-layout"></i>
                                         <div data-i18n="Layouts">Layouts</div>
@@ -683,128 +685,67 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </li>
+                                </li>*@
 
                                 <!-- Apps -->
                                 <li class="menu-item">
                                     <a href="javascript:void(0)" class="menu-link menu-toggle">
                                         <i class="menu-icon tf-icons bx bx-customize"></i>
-                                        <div data-i18n="Apps">Apps</div>
+                                        <div data-i18n="Mantenimientos">Mantenimientos</div>
                                     </a>
                                     <ul class="menu-sub">
-                                        <li class="menu-item">
-                                            <a href="app-calendar.html" class="menu-link">
-                                                <i class="menu-icon tf-icons bx bx-calendar"></i>
+                                        @*<li class="menu-item">
+            <a href="app-calendar.html" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-calendar"></i>
 
-                                                <div data-i18n="Calendar">Calendar</div>
+                <div data-i18n="Calendar">Calendar</div>
+            </a>
+        </li>
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-food-menu"></i>
+                <div data-i18n="Invoice">Invoice</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item">
+                    <a href="app-invoice-list.html" class="menu-link">
+                        <div data-i18n="List">List</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="app-invoice-preview.html" class="menu-link">
+                        <div data-i18n="Preview">Preview</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="app-invoice-edit.html" class="menu-link">
+                        <div data-i18n="Edit">Edit</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="app-invoice-add.html" class="menu-link">
+                        <div data-i18n="Add">Add</div>
+                    </a>
+                </li>
+            </ul>
+        </li>*@
+                                        <li class="menu-item">
+                                            <a href="@Url.Action("Index","Usuario")" class="menu-link">
+                                                <i class="menu-icon tf-icons bx bx-user-circle"></i>
+                                                <div data-i18n="Usuarios">Usuarios</div>
                                             </a>
                                         </li>
                                         <li class="menu-item">
-                                            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                                                <i class="menu-icon tf-icons bx bx-food-menu"></i>
-                                                <div data-i18n="Invoice">Invoice</div>
+                                            <a href="@Url.Action("Index","Propuesta")" class="menu-link">
+                                                <i class="menu-icon tf-icons bx bx-window-open"></i>
+                                                <div data-i18n="Propuesta">Propuesta</div>
                                             </a>
-                                            <ul class="menu-sub">
-                                                <li class="menu-item">
-                                                    <a href="app-invoice-list.html" class="menu-link">
-                                                        <div data-i18n="List">List</div>
-                                                    </a>
-                                                </li>
-                                                <li class="menu-item">
-                                                    <a href="app-invoice-preview.html" class="menu-link">
-                                                        <div data-i18n="Preview">Preview</div>
-                                                    </a>
-                                                </li>
-                                                <li class="menu-item">
-                                                    <a href="app-invoice-edit.html" class="menu-link">
-                                                        <div data-i18n="Edit">Edit</div>
-                                                    </a>
-                                                </li>
-                                                <li class="menu-item">
-                                                    <a href="app-invoice-add.html" class="menu-link">
-                                                        <div data-i18n="Add">Add</div>
-                                                    </a>
-                                                </li>
-                                            </ul>
                                         </li>
-                                        <li class="menu-item">
-                                            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                                                <i class="menu-icon tf-icons bx bx-user"></i>
-                                                <div data-i18n="Users">Users</div>
-                                            </a>
-                                            <ul class="menu-sub">
-                                                <li class="menu-item">
-                                                    <a href="@Url.Action("Index","Usuario")" class="menu-link">
-                                                        <div data-i18n="List">List</div>
-                                                    </a>
-                                                </li>
-                                                <li class="menu-item">
-                                                    <a href="javascript:void(0);" class="menu-link menu-toggle">
-                                                        <div data-i18n="View">View</div>
-                                                    </a>
-                                                    <ul class="menu-sub">
-                                                        <li class="menu-item">
-                                                            <a href="app-user-view-account.html" class="menu-link">
-                                                                <div data-i18n="Account">Account</div>
-                                                            </a>
-                                                        </li>
-                                                        <li class="menu-item">
-                                                            <a href="app-user-view-security.html" class="menu-link">
-                                                                <div data-i18n="Security">Security</div>
-                                                            </a>
-                                                        </li>
-                                                        <li class="menu-item">
-                                                            <a href="app-user-view-billing.html" class="menu-link">
-                                                                <div data-i18n="Billing & Plans">Billing & Plans</div>
-                                                            </a>
-                                                        </li>
-                                                        <li class="menu-item">
-                                                            <a href="app-user-view-notifications.html" class="menu-link">
-                                                                <div data-i18n="Notifications">Notifications</div>
-                                                            </a>
-                                                        </li>
-                                                        <li class="menu-item">
-                                                            <a href="app-user-view-connections.html" class="menu-link">
-                                                                <div data-i18n="Connections">Connections</div>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                                                <i class="menu-icon tf-icons bx bx-check-shield"></i>
-                                                <div data-i18n="Roles & Permissions">Roles & Permission</div>
-                                            </a>
-                                            <ul class="menu-sub">
-                                                <li class="menu-item">
-                                                    <a href="app-access-roles.html" class="menu-link">
-                                                        <div data-i18n="Roles">Roles</div>
-                                                    </a>
-                                                </li>
-                                                <li class="menu-item">
-                                                    <a href="app-access-permission.html" class="menu-link">
-                                                        <div data-i18n="Permission">Permission</div>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <!-- Pages -->
-                                <li class="menu-item">
-                                    <a href="javascript:void(0)" class="menu-link menu-toggle">
-                                        <i class="menu-icon tf-icons bx bx-collection"></i>
-                                        <div data-i18n="Pages">Pages</div>
-                                    </a>
-                                    <ul class="menu-sub">
                                         <li class="menu-item">
                                             <a href="@Url.Action("Index","Experimento")" class="menu-link">
                                                 <i class="menu-icon tf-icons bx bx-window-open"></i>
                                                 <div data-i18n="Experimento">Experimento</div>
-                                            </a>                                           
+                                            </a>
                                         </li>
                                         <li class="menu-item">
                                             <a href="@Url.Action("Index","Campania")" class="menu-link">
@@ -812,6 +753,35 @@
                                                 <div data-i18n="Campañas">Campañas</div>
                                             </a>
                                         </li>
+                                        @*<li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-check-shield"></i>
+                <div data-i18n="Roles & Permissions">Roles & Permission</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item">
+                    <a href="app-access-roles.html" class="menu-link">
+                        <div data-i18n="Roles">Roles</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="app-access-permission.html" class="menu-link">
+                        <div data-i18n="Permission">Permission</div>
+                    </a>
+                </li>
+            </ul>
+        </li>*@
+                                    </ul>
+                                </li>
+
+                                <!-- Pages -->
+                                @*<li class="menu-item">
+                                    <a href="javascript:void(0)" class="menu-link menu-toggle">
+                                        <i class="menu-icon tf-icons bx bx-collection"></i>
+                                        <div data-i18n="Pages">Pages</div>
+                                    </a>
+                                    <ul class="menu-sub">
+
 
                                         <li class="menu-item">
                                             <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -1083,17 +1053,17 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </li>
+                                </li>*@
 
                                 <!-- Components -->
-                                <li class="menu-item">
+                                <!--<li class="menu-item">
                                     <a href="javascript:void(0)" class="menu-link menu-toggle">
                                         <i class="menu-icon tf-icons bx bx-code-block"></i>
                                         <div data-i18n="Components">Components</div>
                                     </a>
-                                    <ul class="menu-sub">
+                                    <ul class="menu-sub">-->
                                         <!-- Cards -->
-                                        <li class="menu-item">
+                                        <!--<li class="menu-item">
                                             <a href="javascript:void(0);" class="menu-link menu-toggle">
                                                 <i class="menu-icon tf-icons bx bx-collection"></i>
                                                 <div data-i18n="Cards">Cards</div>
@@ -1130,9 +1100,9 @@
                                                     </a>
                                                 </li>
                                             </ul>
-                                        </li>
+                                        </li>-->
                                         <!-- User interface -->
-                                        <li class="menu-item">
+                                        <!--<li class="menu-item">
                                             <a href="javascript:void(0)" class="menu-link menu-toggle">
                                                 <i class="menu-icon tf-icons bx bx-box"></i>
                                                 <div data-i18n="User interface">User interface</div>
@@ -1234,9 +1204,9 @@
                                                     </a>
                                                 </li>
                                             </ul>
-                                        </li>
+                                        </li>-->
                                         <!-- Extended components -->
-                                        <li class="menu-item">
+                                        <!--<li class="menu-item">
                                             <a href="javascript:void(0)" class="menu-link menu-toggle">
                                                 <i class="menu-icon tf-icons bx bx-copy"></i>
                                                 <div data-i18n="Extended UI">Extended UI</div>
@@ -1315,9 +1285,9 @@
                                                     </a>
                                                 </li>
                                             </ul>
-                                        </li>
+                                        </li>-->
                                         <!-- Icons -->
-                                        <li class="menu-item">
+                                        <!--<li class="menu-item">
                                             <a href="javascript:void(0)" class="menu-link menu-toggle">
                                                 <i class="menu-icon tf-icons bx bx-crown"></i>
                                                 <div data-i18n="Icons">Icons</div>
@@ -1336,10 +1306,10 @@
                                             </ul>
                                         </li>
                                     </ul>
-                                </li>
+                                </li>-->
 
                                 <!-- Forms -->
-                                <li class="menu-item">
+                                @*<li class="menu-item">
                                     <a href="javascript:void(0)" class="menu-link menu-toggle">
                                         <i class="menu-icon tf-icons bx bx-book-content"></i>
                                         <div data-i18n="Forms">Forms</div>
@@ -1451,17 +1421,17 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </li>
+                                </li>*@
 
                                 <!-- Tables -->
-                                <li class="menu-item">
+                                <!--<li class="menu-item">
                                     <a href="javascript:void(0)" class="menu-link menu-toggle">
                                         <i class="menu-icon tf-icons bx bx-grid-alt"></i>
                                         <div data-i18n="Tables">Tables</div>
                                     </a>
-                                    <ul class="menu-sub">
+                                    <ul class="menu-sub">-->
                                         <!-- Tables -->
-                                        <li class="menu-item">
+                                        <!--<li class="menu-item">
                                             <a href="tables-basic.html" class="menu-link">
                                                 <i class="menu-icon tf-icons bx bx-table"></i>
                                                 <div data-i18n="Tables">Tables</div>
@@ -1491,10 +1461,10 @@
                                             </ul>
                                         </li>
                                     </ul>
-                                </li>
+                                </li>-->
 
                                 <!-- Charts & Maps -->
-                                <li class="menu-item">
+                                @*<li class="menu-item">
                                     <a href="javascript:void(0)" class="menu-link menu-toggle">
                                         <i class="menu-icon tf-icons bx bx-bar-chart-square"></i>
                                         <div data-i18n="Charts & Maps">Charts & Maps</div>
@@ -1525,10 +1495,10 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </li>
+                                </li>*@
 
                                 <!-- Misc -->
-                                <li class="menu-item">
+                                @*<li class="menu-item">
                                     <a href="javascript:void(0)" class="menu-link menu-toggle">
                                         <i class="menu-icon tf-icons bx bx-shape-circle"></i>
                                         <div data-i18n="Misc">Misc</div>
@@ -1549,7 +1519,7 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </li>
+                                </li>*@
                             </ul>
                         </div>
                     </aside>

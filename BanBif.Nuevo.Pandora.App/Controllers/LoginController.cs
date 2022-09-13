@@ -32,11 +32,11 @@ namespace BanBif.Nuevo.Pandora.App.Controllers
                 string strURL = ConfigurationManager.AppSettings["BaseUrlService"] + "api/Login/Autenticacion";
                 string response = WebApi<NewPandoraLoginRequest>.RequestWebApi(request, strURL);
                 logResponse = JsonConvert.DeserializeObject<NewPandoraLoginResponse>(response);
-                //if (logResponse.Result)
-                //{
-                //    Session["UsuarioAutentificado"] = logResponse.Data;
-                //    return RedirectToAction("Index", "Home");
-                //}
+                if (logResponse.Result)
+                {
+                    Session["UsuarioAutentificado"] = logResponse.Data;
+                    //return RedirectToAction("Index", "Home");
+                }
             }
             catch (Exception ex)
             {

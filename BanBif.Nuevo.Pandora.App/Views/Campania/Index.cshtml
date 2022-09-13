@@ -34,7 +34,7 @@
                         <h3 id="offcanvasExperimentLabel">Edit User Information</h3>
                     </div>
                     <form id="campaniaForm" class="row g-3" onsubmit="return false">
-                        @Html.Hidden("modalhdnIdCampania","0")
+                        @Html.Hidden("modalhdnIdCampania", "0")
 
                         <div class="validate col-12 col-md-6">
                             <label class="form-label" for="modaltxtNombre">Nombre</label>
@@ -44,35 +44,18 @@
                                    class="form-control"
                                    placeholder="Nombre" />
                         </div>
+
                         <div class="validate col-12 col-md-6">
-                            <label class="form-label" for="modaltxtDescripcion">Descripción</label>
+                            <label class="form-label" for="modaltxtTextoPrimario">Texto Cabecera</label>
                             <input type="text"
-                                   id="modaltxtDescripcion"
-                                   name="modaltxtDescripcion"
+                                   id="modaltxtTextoPrimario"
+                                   name="modaltxtTextoPrimario"
                                    class="form-control"
-                                   placeholder="Descripción" />
+                                   placeholder="Texto Cabecera" />
                         </div>
 
                         <div class="validate col-12 col-md-6">
-                            <label class="form-label" for="modaltxtTecnologia">Tecnología</label>
-                            <input type="text"
-                                   id="modaltxtTecnologia"
-                                   name="modaltxtTecnologia"
-                                   class="form-control"
-                                   placeholder="Tecnología" />
-                        </div>
-
-                        <div class="validate col-12 col-md-6">
-                            <label class="form-label" for="modaltxtDesarrolladoPor">Desarrollado Por</label>
-                            <input type="text"
-                                   id="modaltxtDesarrolladoPor"
-                                   name="modaltxtDesarrolladoPor"
-                                   class="form-control"
-                                   placeholder="Desarrollado Por" />
-                        </div>
-
-                        <div class="validate col-12 col-md-6">
-                            <label class="form-label" for="modaltxtFechaInicio">Fecha Solicitud</label>
+                            <label class="form-label" for="modaltxtFechaInicio">Fecha Inicio</label>
                             <input type="text"
                                    id="modaltxtFechaInicio"
                                    name="modaltxtFechaInicio"
@@ -81,42 +64,117 @@
                         </div>
 
                         <div class="validate col-12 col-md-6">
-                            <label class="form-label" for="modaltxtFechaFin">Fecha Publicación</label>
+                            <label class="form-label" for="modaltxtFechaFin">Fecha Fin</label>
                             <input type="text"
                                    id="modaltxtFechaFin"
                                    name="modaltxtFechaFin"
                                    class="form-control"
                                    placeholder="DD/MM/YYYY" />
                         </div>
-                        <div class="validate col-12">
-                            <label class="form-label" for="modaltxtUrl">Url</label>
+
+
+                        <div class="validate col-12 col-md-6">
+                            <label class="form-label" for="modaltxtImagenPrimario">Imagen Cabecera</label>
                             <input type="text"
-                                   id="modaltxtUrl"
-                                   name=""
+                                   id="modaltxtImagenPrimario"
+                                   name="modaltxtImagenPrimario"
+                                   class="form-control"
+                                   placeholder="Imagen Cabecera" />
+                        </div>
+
+                        <div class="validate col-12 col-md-6">
+                            <label class="form-label" for="modaltxtImagenSecundario">Imagen Body</label>
+                            <input type="text"
+                                   id="modaltxtImagenSecundario"
+                                   name="modaltxtImagenSecundario"
+                                   class="form-control"
+                                   placeholder="Imagen Body" />
+                        </div>
+
+                        <div class="validate col-12 col-md-12">
+                            <label class="form-label" for="modaltxtTextoSecundario">Texto Body</label>
+                            <input type="text"
+                                   id="modaltxtTextoSecundario"
+                                   name="modaltxtTextoSecundario"
+                                   class="form-control"
+                                   placeholder="Texto Body" />
+                        </div>
+
+                        <div class="validate col-12 col-md-12">
+                            <label class="form-label" for="modaltxtTextoTerciario">Texto Body 2</label>
+                            <input type="text"
+                                   id="modaltxtTextoTerciario"
+                                   name="modaltxtTextoTerciario"
+                                   class="form-control"
+                                   placeholder="Texto Footer" />
+                        </div>
+
+
+                        <div class="validate col-12">
+                            <label class="form-label" for="modaltxtUrlCampania">Url</label>
+                            <input type="text"
+                                   id="modaltxtUrlCampania"
+                                   name="modaltxtUrlCampania"
                                    class="form-control"
                                    placeholder="www.url.com" />
                         </div>
 
-                        <div class="col-12 col-md-6">
-                            <label class="switch">
-                                <input type="checkbox" id="modalchkPublicado" class="switch-input" />
-                                <span class="switch-toggle-slider">
-                                    <span class="switch-on"></span>
-                                    <span class="switch-off"></span>
-                                </span>
-                                <span class="switch-label">Publico</span>
-                            </label>
+                        --------------------------
+                        <div class="validate col-12 col-md-12">
+                            <label class="form-label" for="modaltxtTextoFinal1">Texto Body</label>
+                            <input type="text"
+                                   id="modaltxtTextoFinal1"
+                                   name="modaltxtTextoFinal1"
+                                   class="form-control"
+                                   placeholder="Texto Body" />
                         </div>
 
-                        <div class="col-12 col-md-6">
-                            <label class="form-label" for="user-role">Estado</label>
-                            <select id="modalSelectIdEstado" class="form-select">
-                                @foreach (var item in listaExperimento)
-                                {
-                                    <option value="@item.IdExperimento">@item.NombreExperimento</option>
-                                }
-                            </select>
+                        <div class="validate col-12 col-md-12">
+                            <label class="form-label" for="modaltxtTextoFinal2">Texto Body 2</label>
+                            <input type="text"
+                                   id="modaltxtTextoFinal2"
+                                   name="modaltxtTextoFinal2"
+                                   class="form-control"
+                                   placeholder="Texto Footer" />
                         </div>
+                        <div class="validate col-12 col-md-12">
+                            <label class="form-label" for="modaltxtTextoFinalUrl">Texto Body</label>
+                            <input type="text"
+                                   id="modaltxtTextoFinalUrl"
+                                   name="modaltxtTextoFinalUrl"
+                                   class="form-control"
+                                   placeholder="Texto Body" />
+                        </div>
+
+                        <div class="validate col-12 col-md-12">
+                            <label class="form-label" for="modaltxtImagenFinal">Imagen Final</label>
+                            <input type="text"
+                                   id="modaltxtImagenFinal"
+                                   name="modaltxtImagenFinal"
+                                   class="form-control"
+                                   placeholder="Texto Footer" />
+                        </div>
+
+                        @*<div class="col-12 col-md-6">
+            <label class="switch">
+                <input type="checkbox" id="modalchkPublicado" class="switch-input" />
+                <span class="switch-toggle-slider">
+                    <span class="switch-on"></span>
+                    <span class="switch-off"></span>
+                </span>
+                <span class="switch-label">Publico</span>
+            </label>
+        </div>
+
+        <div class="col-12 col-md-6">
+            <label class="form-label" for="user-role">Estado</label>
+            <select id="modalSelectIdEstado" class="form-select">
+                @foreach (var item in listaExperimento)
+                {
+                    <option value="@item.IdExperimento">@item.NombreExperimento</option>
+                }
+            </select>
+        </div>*@
                         <div class="col-12 text-center">
                             <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit" id="btn_Campania">Registrar</button>
                             <button type="reset"
@@ -156,7 +214,7 @@
     <script src="../../assets/vendor/libs/cleavejs/cleave-phone.js"></script>
 
     <!-- Vendors JS -->
-    
+
     <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
     <script src="../../assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
     <script src="../../assets/vendor/libs/bootstrap-daterangepicker/bootstrap-daterangepicker.js"></script>
@@ -171,14 +229,17 @@
             $('#modalhdnIdCampania').val("0");
             $('#modaltxtNombre').val("");
             $('#modaltxtDescripcion').val("");
-            $('#modaltxtTecnologia').val("");
-            $('#modaltxtDesarrolladoPor').val("");
+            $('#modaltxtTextoPrimario').val("");
+            $('#modaltxtImagenPrimario').val("");
+            $('#modaltxtTextoSecundario').val("");
+            $('#modaltxtImagenSecundario').val("");
+            $('#modaltxtTextoTerciario').val("");
             $('#modaltxtFechaInicio').val("");
             $('#modaltxtFechaFin').val("");
-            $('#modaltxtUrl').val("");           
+            $('#modaltxtUrlCampania').val("");
             $('#modalchkPublicado').prop('checked', false);
-            //$('#modalchkEstado').prop('checked', true);            
-            
+            //$('#modalchkEstado').prop('checked', true);
+
         }
         function ObtenerCampania(event, id) {
             event.stopPropagation()
@@ -195,21 +256,27 @@
                 success: function (response) {
                     $("#btn_Campania").html("Modificar")
                     $("#offcanvasExperimentLabel").html("Modificar Campaña");
-                    
+
                     $('#modalhdnIdCampania').val(response.data.IdCampania);
                     $('#modaltxtNombre').val(response.data.NombreCampania);
                     $('#modaltxtDescripcion').val(response.data.Descripcion);
-                    $('#modaltxtTecnologia').val(response.data.Tecnologia);
-                    $('#modaltxtDesarrolladoPor').val(response.data.DesarrolladoPor);
+                    $('#modaltxtTextoPrimario').val(response.data.TextoPrimario);
+                    $('#modaltxtImagenPrimario').val(response.data.ImagenPrimario);
+                    $('#modaltxtTextoSecundario').val(response.data.TextoSecundario);
+
+                    $('#modaltxtImagenSecundario').val(response.data.ImagenSecundario);
+                    $('#modaltxtTextoTerciario').val(response.data.TextoTerciario);
+
+
                     $('#modaltxtFechaInicio').val(moment(response.data.FechaInicioString, 'DD/MM/YYYY').format("DD/MM/YYYY"));
                     $('#modaltxtFechaFin').val(moment(response.data.FechaFinString, 'DD/MM/YYYY').format("DD/MM/YYYY"));
-                    $('#modaltxtUrl').val(response.data.Url);
+                    $('#modaltxtUrlCampania').val(response.data.UrlCampania);
                     $('#modalchkPublicado').prop('checked', response.data.FlagPublico);
                     //$('#modalchkEstado').prop('checked', response.data.FlagEstado);
                     $('#modalSelectIdEstado').val(response.data.IdStatusCampania);
                     myModaleditCampania.show()
                 },
-                failure: function (msg) {             
+                failure: function (msg) {
                     console.log(msg);
                 },
                 error: function (xhr, status, error) {

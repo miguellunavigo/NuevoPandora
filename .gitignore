@@ -23,3 +23,7 @@
 /BanBif.Nuevo.Pandora.BL/obj/Release
 /BanBif.Nuevo.Pandora.DA/obj/Release
 /.vs/NuevoPandora/FileContentIndex
+*.config
+*.vsidx
+*.lock
+*.bin

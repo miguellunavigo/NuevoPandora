@@ -21,7 +21,6 @@ namespace BanBif.Nuevo.Pandora.BE
         public string Url { get; set; }
         public Nullable<int> IdUsuarioContacto { get; set; }
         public Nullable<bool> FlagPublico { get; set; }
-        public Nullable<bool> FlagEstado { get; set; }
         public Nullable<int> IdStatusExperimento { get; set; }
     }
     public class NewPandoraExperimentoResponse<T>

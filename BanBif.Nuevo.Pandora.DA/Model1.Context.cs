@@ -35,5 +35,6 @@ namespace BanBif.Nuevo.Pandora.DA
         public virtual DbSet<ReinventaDatosCampania> ReinventaDatosCampania { get; set; }
         public virtual DbSet<ReinventaDatosCampaniaCarrusel> ReinventaDatosCampaniaCarrusel { get; set; }
         public virtual DbSet<ReinventaDatosCampaniaRegistro> ReinventaDatosCampaniaRegistro { get; set; }
+        public virtual DbSet<NewPandora_PropuestaExperimento> NewPandora_PropuestaExperimento { get; set; }
     }
 }
