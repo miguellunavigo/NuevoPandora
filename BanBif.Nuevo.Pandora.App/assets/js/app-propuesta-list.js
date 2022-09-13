@@ -52,7 +52,6 @@ $(function () {
                 { data: 'DesarrolladoPor' },
                /* { data: 'Indicador' },*/
                 { data: 'FechaSolicitudString' },
-                { data: 'FechaPublicacionString' },
                 { data: 'Url' },
                 { data: 'FlagPublico' },
                 { data: 'action' }
@@ -297,7 +296,7 @@ $(function () {
                     ]
                 },
                 {
-                    text: '<i class="bx bx-plus me-0 me-sm-2"></i><span class="d-none d-lg-inline-block">Nuevo Experimento</span>',
+                    text: '<i class="bx bx-plus me-0 me-sm-2"></i><span class="d-none d-lg-inline-block">Nueva Propuesta</span>',
                     className: 'add-new btn btn-primary',
                     attr: {
                         'onclick': 'NuevoExperimento()',

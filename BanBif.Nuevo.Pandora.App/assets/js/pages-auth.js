@@ -98,10 +98,10 @@ document.addEventListener('DOMContentLoaded', function (e) {
                         }
                     });
                 }
-            }).on('core.form.valid', function (e) {                
+            }).on('core.form.valid', function (e) {
                 var request = {
-                    Username: "zoluxiones31",
-                    Password: "demo123"
+                    Username: $("#UsuarioWindows").val(),
+                    Password: $("#password").val()
                 }
                 $.ajax({
                     url: sessionStorage.URL + '/Login/Autenticacion',
