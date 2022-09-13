@@ -49,7 +49,7 @@ namespace BanBif.Nuevo.Pandora.BL
             try
             {
                 var usuarioDA = new UsuarioDA();
-                request.Contrasenia = BanBif.Comunes.Util.Seguridad.Encrypt("abcd1234");
+                request.Contrasenia = BanBif.Comunes.Util.Seguridad.Encrypt("123456");
                 response = usuarioDA.Crear(request);
             }
             catch (Exception ex)
