@@ -53,6 +53,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExperimentoIndicadorDA.cs" />
+    <Compile Include="NewPandora_ExperimentoCorreo.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NewPandora_Indicador.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NewPandora_IndicadorRegistro.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NewPandora_VP.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="PropuestaDA .cs" />
     <Compile Include="NewPandora_PropuestaExperimento.cs">
       <DependentUpon>Model1.tt</DependentUpon>

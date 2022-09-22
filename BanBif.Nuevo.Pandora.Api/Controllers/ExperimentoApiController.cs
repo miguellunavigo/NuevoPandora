@@ -39,5 +39,13 @@ namespace BanBif.Nuevo.Pandora.Api.Controllers
             var oBL = new ExperimentoBL();
             return Json(oBL.Modificar(request));
         }
+
+        [Route("api/Experimento/ListarIndicador")]
+        [HttpPost]
+        public IHttpActionResult ListarIndicador(NewPandoraIndicadorRequest request)
+        {
+            var oBL = new ExperimentoBL();
+            return Json(oBL.Listar(request));
+        }
     }
 }

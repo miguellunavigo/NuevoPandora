@@ -45,6 +45,7 @@
     <Compile Include="Correo\CorreoRequest.cs" />
     <Compile Include="Correo\CorreoResponse.cs" />
     <Compile Include="Correo\EnviarRequest.cs" />
+    <Compile Include="NewPandoraIndicadorBE.cs" />
     <Compile Include="NewPandoraPropuestaExperimentoBE.cs" />
     <Compile Include="ReinventaDatosCampaniaBE.cs" />
     <Compile Include="NewPandoraExperimentoBE.cs" />

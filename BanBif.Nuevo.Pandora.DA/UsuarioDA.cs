@@ -21,9 +21,9 @@ namespace BanBif.Nuevo.Pandora.DA
                 {
 
                     var listUsuario = db.NewPandora_Usuario.Where(p => p.IdRol > request.IdRol || 1 == request.IdRol).ToList();
-                    var listRol = db.NewPandora_Rol.ToList();
+                    //var listRol = db.NewPandora_Rol.ToList();
                     response.data = new List<NewPandoraUsuarioBE>();
-                    listUsuario.ForEach(p => { response.data.Add(new NewPandoraUsuarioBE { IdUsuario = p.IdUsuario, IdRol = p.IdRol, Nombre = p.Nombre, Correo = p.Correo, Rol = listRol.Find(r => r.IdRol == p.IdRol).NombreRol, FlagEstado = p.FlagEstado }); });
+                    listUsuario.ForEach(p => { response.data.Add(new NewPandoraUsuarioBE { IdUsuario = p.IdUsuario, IdRol = p.IdRol, Nombre = p.Nombre, Correo = p.Correo, Rol = p.NewPandora_Rol.NombreRol, FlagEstado = p.FlagEstado }); });
                 }
             }
             catch (Exception ex)

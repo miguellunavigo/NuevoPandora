@@ -1,12 +1,58 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
     var listaStatus = (List<BanBif.Nuevo.Pandora.BE.NewPandoraExperimentoStatusBE>)ViewBag.ListaStatus;
+    var listaExperimento = (List<BanBif.Nuevo.Pandora.BE.NewPandoraExperimentoBE>)ViewBag.ListaExperimento;
 }
 
 @Html.Hidden("hdn_Listar_Experimento", Url.Action("Listar", "Experimento"))
 @Html.Hidden("hdn_Obtener_Experimento", Url.Action("Obtener", "Experimento"))
 @Html.Hidden("hdn_Crear_Experimento", Url.Action("Crear", "Experimento"))
 @Html.Hidden("hdn_Modificar_Experimento", Url.Action("Modificar", "Experimento"))
+@Html.Hidden("hdn_Listar_Indicador", Url.Action("ListarIndicador", "Experimento"))
+<div class="row g-4 mb-4">
+    <div class="col-sm-6 col-xl-2" onclick="IdStatusExperimento=0;dt_experimento.ajax.reload();" style="cursor: pointer">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-start justify-content-between">
+                    <div class="content-left">
+                        <span>Total Experimentos</span>
+                        <div class="d-flex align-items-end mt-2">
+                            <h4 class="mb-0 me-2">@listaExperimento.Count</h4>
+                            @*<small class="text-success">(+29%)</small>*@
+                        </div>
+                        @*<small>Total Usuario</small>*@
+                    </div>
+                    <span class="badge bg-label-primary rounded p-2">
+                        <i class="bx bx-user bx-sm"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    @foreach (var item in listaExperimento.GroupBy(p => new { p.StatusExperimento, p.IdStatusExperimento }))
+    {
+
+        <div class="col-sm-6 col-xl-2" onclick="IdStatusExperimento=@(item.Key.IdStatusExperimento) ;dt_experimento.ajax.reload();" style="cursor: pointer">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-start justify-content-between">
+                        <div class="content-left">
+                            <span>@item.Key.StatusExperimento</span>
+                            <div class="d-flex align-items-end mt-2">
+                                <h4 class="mb-0 me-2">@(listaExperimento.Where(p => p.StatusExperimento == item.Key.StatusExperimento).Count())</h4>
+                                @*<small class="text-success">(+29%)</small>*@
+                            </div>
+                            @*<small>Total Users</small>*@
+                        </div>
+                        <span class="badge bg-label-primary rounded p-2">
+                            <i class="bx bx-user bx-sm"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
 <!-- Users List Table -->
 <div class="card">
     <div class="card-datatable table-responsive">
@@ -23,7 +69,7 @@
                     <th>Fec. Publ.</th>
                     <th>Url</th>
                     @*<th>Publica</th>*@
-                    <th>Estado</th>
+                    <th>Publico</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -39,7 +85,7 @@
                         <h3 id="offcanvasExperimentLabel">Edit User Information</h3>
                     </div>
                     <form id="experimentoForm" class="row g-3" onsubmit="return false">
-                        @Html.Hidden("modalhdnIdExperimento","0")
+                        @Html.Hidden("modalhdnIdExperimento", "0")
                         <div class="validate col-12 col-md-6">
                             <label class="form-label" for="modaltxtNombre">Nombre</label>
                             <input type="text"
@@ -121,13 +167,13 @@
                                 }
                             </select>
                             @*<label class="switch">
-            <input type="checkbox" id="modalchkEstado" class="switch-input" />
-            <span class="switch-toggle-slider">
-                <span class="switch-on"></span>
-                <span class="switch-off"></span>
-            </span>
-            <span class="switch-label">Estado</span>
-        </label>*@
+                                    <input type="checkbox" id="modalchkEstado" class="switch-input" />
+                                    <span class="switch-toggle-slider">
+                                        <span class="switch-on"></span>
+                                        <span class="switch-off"></span>
+                                    </span>
+                                    <span class="switch-label">Estado</span>
+                                </label>*@
                         </div>
                         <div class="col-12 text-center">
                             <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit" id="btn_Experimento">Registrar</button>
@@ -144,6 +190,57 @@
         </div>
     </div>
 
+
+    <div class="modal fade" id="modalExperimentoIndicador" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-simple modal-edit-user">
+            <div class="modal-content p-3 p-md-5">
+                <div class="modal-body">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="col-12 mb-4">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-md-center align-items-start">
+                                <h5 class="card-title mb-0">Indicadores</h5>
+                                <div class="dropdown">
+                                    <button type="button"
+                                            class="btn dropdown-toggle p-0"
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                        <i class="bx bx-calendar"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li>
+                                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Today</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Yesterday</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Last 7 Days</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Last 30 Days</a>
+                                        </li>
+                                        <li>
+                                            <hr class="dropdown-divider" />
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Current Month</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Last Month</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div id="barChart"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- Page JS -->
 @section Scripts
@@ -168,13 +265,14 @@
     <script src="../../assets/vendor/libs/cleavejs/cleave-phone.js"></script>
 
     <!-- Vendors JS -->
-    
+
     <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
     <script src="../../assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
     <script src="../../assets/vendor/libs/bootstrap-daterangepicker/bootstrap-daterangepicker.js"></script>
     <script src="../../assets/vendor/libs/jquery-timepicker/jquery-timepicker.js"></script>
     <script src="../../assets/vendor/libs/pickr/pickr.js"></script>
-
+    <!-- Vendors JS -->
+    <script src="../../assets/vendor/libs/apex-charts/apexcharts.js"></script>
     <script src="~/assets/js/app-experimento-list.js"></script>
     <script>
         $(document).ready(function () {
@@ -198,10 +296,10 @@
             $('#modaltxtDesarrolladoPor').val("");
             $('#modaltxtfechasolicitud').val("");
             $('#modaltxtfechapublicacion').val("");
-            $('#modaltxtUrl').val("");           
+            $('#modaltxtUrl').val("");
             $('#modalchkPublicado').prop('checked', false);
-            //$('#modalchkEstado').prop('checked', true);            
-            
+            //$('#modalchkEstado').prop('checked', true);
+
         }
         function ObtenerExperimento(event, id) {
             event.stopPropagation()
@@ -218,7 +316,7 @@
                 success: function (response) {
                     $("#btn_Experimento").html("Modificar")
                     $("#offcanvasExperimentLabel").html("Modificar Experimento");
-                    
+
                     $('#modalhdnIdExperimento').val(response.data.IdExperimento);
                     $('#modaltxtNombre').val(response.data.NombreExperimento);
                     $('#modaltxtDescripcion').val(response.data.Descripcion);
@@ -230,26 +328,252 @@
                     $('#modalchkPublicado').prop('checked', response.data.FlagPublico);
                     //$('#modalchkEstado').prop('checked', response.data.FlagEstado);
                     $('#modalSelectIdEstado').val(response.data.IdStatusExperimento);
-                    
-                
+
+
                     myModaleditExperimento.show()
                 },
                 failure: function (msg) {
-                    
+
                     console.log(msg);
                     // $.unblockUI();
                 },
                 error: function (xhr, status, error) {
-                    
+
                     console.log(error);
                     //$.unblockUI();
                 },
                 complete: function () {
-                    
+
                     //$.unblockUI();
                     //$("#prueba").dialog("close")
                 }
             });
+
+        }
+
+        function ObtenerIndicadores(event, id) {
+            var Experimento = {};
+            Experimento.IdExperimento = id;
+            $.ajax({
+                url: $("#hdn_Listar_Indicador").val(),
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                processData: true,
+                data: JSON.stringify(Experimento),
+                success: function (response) {
+                    var datosArray = [];
+                    var datosAnios = [];
+                    var indicadorOld = "";
+                    for (const objFather of response.data) {
+                        debugger
+                        if (objFather.Indicador != indicadorOld) {
+                            var obj = {
+                                name: objFather.Indicador,
+                                data: []
+                            }
+                            obj.data.push(objFather.Contador);
+                            datosArray.push(obj);
+
+                            if (datosAnios.length == 0) {
+                                datosAnios.push(objFather.AnioMes)
+                            } else {
+                                var existYear = false;
+                                for (const obj of datosAnios) {
+                                    if (obj === objFather.AnioMes) {
+                                        existYear = true;
+
+                                        break;
+                                    }
+                                }
+                                if (!existYear) {
+                                    datosAnios.push(objFather.AnioMes)
+                                }
+                            }
+                            indicadorOld = objFather.Indicador
+                        } else {
+                            for (const obj of datosArray) {
+                                if (obj.name === indicadorOld) {
+                                    obj.data.push(objFather.Contador);
+
+                                    break;
+                                }
+                            }
+                            if (datosAnios.length == 0) {
+                                datosAnios.push(objFather.AnioMes)
+                            } else {
+                                var existYear = false;
+                                for (const obj of datosAnios) {
+                                    if (obj === objFather.AnioMes) {
+                                        existYear = true;
+
+                                        break;
+                                    }
+                                }
+                                if (!existYear) {
+                                    datosAnios.push(objFather.AnioMes)
+                                }
+                            }
+                        }
+                    }
+
+                    console.log(datosArray)
+                    let cardColor, headingColor, axisColor, borderColor;
+
+                    if (isDarkStyle) {
+                        cardColor = config.colors_dark.cardColor;
+                        headingColor = config.colors_dark.headingColor;
+                        axisColor = config.colors_dark.axisColor;
+                        borderColor = config.colors_dark.borderColor;
+                    } else {
+                        cardColor = config.colors.white;
+                        headingColor = config.colors.headingColor;
+                        axisColor = config.colors.axisColor;
+                        borderColor = config.colors.borderColor;
+                    }
+                    // Color constant
+                    const chartColors = {
+                        column: {
+                            series1: '#1052fd',
+                            series2: '#fc110f',
+                            bg: '#f8d3ff'
+                        },
+                        donut: {
+                            series1: '#fee802',
+                            series2: '#3fd0bd',
+                            series3: '#826bf8',
+                            series4: '#2b9bf4'
+                        },
+                        area: {
+                            series1: '#29dac7',
+                            series2: '#60f2ca',
+                            series3: '#a5f8cd'
+                        }
+                    };
+                    // Bar Chart
+                    // --------------------------------------------------------------------
+                    const barChartEl = document.querySelector('#barChart'),
+                        barChartConfig = {
+                            chart: {
+                                height: 400,
+                                type: 'bar',
+                                stacked: true,
+                                parentHeightOffset: 0,
+                                toolbar: {
+                                    show: false
+                                }
+                            },
+                            plotOptions: {
+                                bar: {
+                                    columnWidth: '15%',
+                                    colors: {
+                                        backgroundBarColors: [
+                                            chartColors.column.bg,
+                                            chartColors.column.bg,
+                                            chartColors.column.bg,
+                                            chartColors.column.bg,
+                                            chartColors.column.bg
+                                        ],
+                                        backgroundBarRadius: 10
+                                    }
+                                }
+                            },
+                            dataLabels: {
+                                enabled: false
+                            },
+                            legend: {
+                                show: true,
+                                position: 'top',
+                                horizontalAlign: 'start',
+                                labels: {
+                                    colors: '#aab3bf',
+                                    useSeriesColors: false
+                                }
+                            },
+                            colors: [chartColors.column.series1, chartColors.column.series2],
+                            stroke: {
+                                show: true,
+                                colors: ['transparent']
+                            },
+                            grid: {
+                                borderColor: borderColor,
+                                xaxis: {
+                                    lines: {
+                                        show: true
+                                    }
+                                }
+                            },
+                            series: datosArray,
+                            xaxis: {
+                                categories: datosAnios,
+                                axisBorder: {
+                                    show: false
+                                },
+                                axisTicks: {
+                                    show: false
+                                },
+                                labels: {
+                                    style: {
+                                        colors: axisColor,
+                                        fontSize: '13px'
+                                    }
+                                }
+                            },
+                            yaxis: {
+                                labels: {
+                                    style: {
+                                        colors: axisColor,
+                                        fontSize: '13px'
+                                    }
+                                }
+                            },
+                            fill: {
+                                opacity: 1
+                            }
+                        };
+                    if (typeof barChartEl !== undefined && barChartEl !== null) {
+                        const barChart = new ApexCharts(barChartEl, barChartConfig);
+                        barChart.render();
+                    }
+                    modalExperimentoIndicador.show()
+                    //$("#btn_Experimento").html("Modificar")
+                    //$("#offcanvasExperimentLabel").html("Modificar Experimento");
+
+                    //$('#modalhdnIdExperimento').val(response.data.IdExperimento);
+                    //$('#modaltxtNombre').val(response.data.NombreExperimento);
+                    //$('#modaltxtDescripcion').val(response.data.Descripcion);
+                    //$('#modaltxtTecnologia').val(response.data.Tecnologia);
+                    //$('#modaltxtDesarrolladoPor').val(response.data.DesarrolladoPor);
+                    //$('#modaltxtfechasolicitud').val(moment(response.data.FechaSolicitudString, 'DD/MM/YYYY').format("DD/MM/YYYY"));
+                    //$('#modaltxtfechapublicacion').val(moment(response.data.FechaPublicacionString, 'DD/MM/YYYY').format("DD/MM/YYYY"));
+                    //$('#modaltxtUrl').val(response.data.Url);
+                    //$('#modalchkPublicado').prop('checked', response.data.FlagPublico);
+                    ////$('#modalchkEstado').prop('checked', response.data.FlagEstado);
+                    //$('#modalSelectIdEstado').val(response.data.IdStatusExperimento);
+
+
+                    //myModaleditExperimento.show()
+                },
+                failure: function (msg) {
+
+                    console.log(msg);
+                    // $.unblockUI();
+                },
+                error: function (xhr, status, error) {
+
+                    console.log(error);
+                    //$.unblockUI();
+                },
+                complete: function () {
+
+                    //$.unblockUI();
+                    //$("#prueba").dialog("close")
+                }
+            });
+
+
+
+
 
         }
 

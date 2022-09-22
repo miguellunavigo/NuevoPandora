@@ -25,7 +25,9 @@ namespace BanBif.Nuevo.Pandora.DA
         public string NombreRol { get; set; }
         public Nullable<int> Orden { get; set; }
         public Nullable<bool> FlagEstado { get; set; }
+        public Nullable<int> IdVp { get; set; }
     
+        public virtual NewPandora_VP NewPandora_VP { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<NewPandora_RolOpcion> NewPandora_RolOpcion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

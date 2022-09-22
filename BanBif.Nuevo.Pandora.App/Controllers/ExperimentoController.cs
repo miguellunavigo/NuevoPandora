@@ -26,6 +26,14 @@ namespace BanBif.Nuevo.Pandora.App.Controllers
                 string response = WebApi<NewPandoraExperimentoStatusRequest>.RequestWebApi(request, strURL);
                 listExperimentoStatusResponse = JsonConvert.DeserializeObject<NewPandoraExperimentoStatusResponse>(response);
                 ViewBag.ListaStatus = listExperimentoStatusResponse.Data;
+
+                NewPandoraExperimentoResponse<List<NewPandoraExperimentoBE>> usuarioResponse1 = new NewPandoraExperimentoResponse<List<NewPandoraExperimentoBE>>();
+                NewPandoraExperimentoRequest request1 = new NewPandoraExperimentoRequest();                
+                string strURL1 = ConfigurationManager.AppSettings["BaseUrlService"] + "api/Experimento/Listar";
+                string response1 = WebApi<NewPandoraExperimentoRequest>.RequestWebApi(request1, strURL1);
+                usuarioResponse1 = JsonConvert.DeserializeObject<NewPandoraExperimentoResponse<List<NewPandoraExperimentoBE>>>(response1);
+                ViewBag.ListaExperimento = usuarioResponse1.data;
+
             }
             catch (Exception ex)
             {
@@ -35,10 +43,10 @@ namespace BanBif.Nuevo.Pandora.App.Controllers
             return View();
         }
 
-        public ActionResult Listar()
+        public ActionResult Listar(NewPandoraExperimentoRequest request)
         {
             NewPandoraExperimentoResponse<List<NewPandoraExperimentoBE>> ExperimentoResponse = new NewPandoraExperimentoResponse<List<NewPandoraExperimentoBE>>();
-            NewPandoraExperimentoRequest request = new NewPandoraExperimentoRequest();
+            //NewPandoraExperimentoRequest request = new NewPandoraExperimentoRequest();
             var login = (NewPandoraLoginBE)Session["UsuarioAutentificado"];
             //request.IdRol = login.IdRol.Value;
             try
@@ -54,6 +62,23 @@ namespace BanBif.Nuevo.Pandora.App.Controllers
             }
 
             return Json(ExperimentoResponse);
+        }
+
+        public ActionResult ListarIndicador(NewPandoraIndicadorRequest request)
+        {
+            NewPandoraIndicadorResponse<List<NewPandoraIndicadorGraficaBE>> experimentoIndicador = new NewPandoraIndicadorResponse<List<NewPandoraIndicadorGraficaBE>>();            
+            try
+            {                
+                string strURL = ConfigurationManager.AppSettings["BaseUrlService"] + "api/Experimento/ListarIndicador";
+                string response = WebApi<NewPandoraIndicadorRequest>.RequestWebApi(request, strURL);
+                experimentoIndicador = JsonConvert.DeserializeObject<NewPandoraIndicadorResponse<List<NewPandoraIndicadorGraficaBE>>>(response);
+            }
+            catch (Exception ex)
+            {
+                experimentoIndicador.Result = false;
+            }
+
+            return Json(experimentoIndicador);
         }
         public ActionResult Obtener(NewPandoraExperimentoRequest request)
         {

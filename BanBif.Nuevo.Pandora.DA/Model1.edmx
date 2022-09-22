@@ -10,17 +10,25 @@
             <PropertyRef Name="IdExperimento" />
           </Key>
           <Property Name="IdExperimento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="NombreExperimento" Type="varchar" MaxLength="100" />
-          <Property Name="Descripcion" Type="varchar" MaxLength="100" />
+          <Property Name="NombreExperimento" Type="varchar" MaxLength="250" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="2500" />
           <Property Name="Tecnologia" Type="varchar" MaxLength="200" />
-          <Property Name="DesarrolladoPor" Type="varchar" MaxLength="100" />
-          <Property Name="Indicador" Type="int" />
+          <Property Name="DesarrolladoPor" Type="varchar" MaxLength="500" />
           <Property Name="FechaSolicitud" Type="datetime" />
           <Property Name="FechaPublicacion" Type="datetime" />
           <Property Name="Url" Type="varchar" MaxLength="200" />
           <Property Name="IdUsuarioContacto" Type="int" />
           <Property Name="FlagPublico" Type="bit" />
           <Property Name="IdStatusExperimento" Type="int" />
+        </EntityType>
+        <EntityType Name="NewPandora_ExperimentoCorreo">
+          <Key>
+            <PropertyRef Name="IdExperimentoCorreo" />
+          </Key>
+          <Property Name="IdExperimentoCorreo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdExperimento" Type="int" />
+          <Property Name="AsuntoCorreo" Type="nvarchar" MaxLength="200" />
+          <Property Name="Estado" Type="bit" />
         </EntityType>
         <EntityType Name="NewPandora_ExperimentoOpcion">
           <Key>
@@ -29,6 +37,26 @@
           <Property Name="IdExperimentoOpcion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdOpcion" Type="int" />
           <Property Name="IdExperimento" Type="int" />
+        </EntityType>
+        <EntityType Name="NewPandora_Indicador">
+          <Key>
+            <PropertyRef Name="IdIndicador" />
+          </Key>
+          <Property Name="IdIndicador" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdExperimento" Type="int" />
+          <Property Name="Indicador" Type="nvarchar" MaxLength="200" />
+          <Property Name="Estado" Type="bit" />
+          <Property Name="FlagMostrar" Type="bit" />
+        </EntityType>
+        <EntityType Name="NewPandora_IndicadorRegistro">
+          <Key>
+            <PropertyRef Name="IdIndicadorRegistro" />
+          </Key>
+          <Property Name="IdIndicadorRegistro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdIndicador" Type="int" />
+          <Property Name="Fecha" Type="datetime" />
+          <Property Name="IdPadre" Type="int" />
+          <Property Name="Guid" Type="nvarchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="NewPandora_Opcion">
           <Key>
@@ -39,8 +67,6 @@
           <Property Name="Url" Type="varchar" MaxLength="200" />
           <Property Name="FlagEstado" Type="bit" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'panel.dbo.NewPandora_PropuestaExperimento' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="NewPandora_PropuestaExperimento">
           <Key>
             <PropertyRef Name="IdPropuestaExperimento" />
@@ -63,6 +89,7 @@ warning 6002: The table/view 'panel.dbo.NewPandora_PropuestaExperimento' does no
           <Property Name="NombreRol" Type="varchar" MaxLength="100" />
           <Property Name="Orden" Type="int" />
           <Property Name="FlagEstado" Type="bit" />
+          <Property Name="IdVp" Type="int" />
         </EntityType>
         <EntityType Name="NewPandora_RolOpcion">
           <Key>
@@ -93,11 +120,20 @@ warning 6002: The table/view 'panel.dbo.NewPandora_PropuestaExperimento' does no
           <Property Name="Correo" Type="varchar" MaxLength="100" />
           <Property Name="FlagEstado" Type="bit" />
         </EntityType>
+        <EntityType Name="NewPandora_VP">
+          <Key>
+            <PropertyRef Name="IdVp" />
+          </Key>
+          <Property Name="IdVp" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombeVp" Type="nvarchar" MaxLength="100" />
+          <Property Name="Estado" Type="bit" />
+        </EntityType>
         <EntityType Name="ReinventaDatosCampania">
           <Key>
             <PropertyRef Name="IdCampania" />
           </Key>
           <Property Name="IdCampania" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdExperimento" Type="int" />
           <Property Name="NombreCampania" Type="varchar" MaxLength="100" />
           <Property Name="FechaInicio" Type="date" />
           <Property Name="FechaFin" Type="date" />
@@ -117,7 +153,6 @@ warning 6002: The table/view 'panel.dbo.NewPandora_PropuestaExperimento' does no
           <Property Name="ImagenFinal" Type="varchar(max)" />
           <Property Name="UsuarioCreacion" Type="varchar" MaxLength="50" />
           <Property Name="Estado" Type="int" />
-          <Property Name="IdExperimento" Type="int" />
         </EntityType>
         <EntityType Name="ReinventaDatosCampaniaCarrusel">
           <Key>
@@ -178,6 +213,30 @@ warning 6002: The table/view 'panel.dbo.NewPandora_PropuestaExperimento' does no
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_NewPandora_Experimento_NewPandora_StatusExperimento_0">
+          <End Role="NewPandora_StatusExperimento" Type="Self.NewPandora_StatusExperimento" Multiplicity="0..1" />
+          <End Role="NewPandora_PropuestaExperimento" Type="Self.NewPandora_PropuestaExperimento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NewPandora_StatusExperimento">
+              <PropertyRef Name="IdStatusExperimento" />
+            </Principal>
+            <Dependent Role="NewPandora_PropuestaExperimento">
+              <PropertyRef Name="IdStatusExperimento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NewPandora_ExperimentoCorreo_NewPandora_Experimento">
+          <End Role="NewPandora_Experimento" Type="Self.NewPandora_Experimento" Multiplicity="0..1" />
+          <End Role="NewPandora_ExperimentoCorreo" Type="Self.NewPandora_ExperimentoCorreo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NewPandora_Experimento">
+              <PropertyRef Name="IdExperimento" />
+            </Principal>
+            <Dependent Role="NewPandora_ExperimentoCorreo">
+              <PropertyRef Name="IdExperimento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_NewPandora_ExperimentoOpcion_NewPandora_Experimento">
           <End Role="NewPandora_Experimento" Type="Self.NewPandora_Experimento" Multiplicity="0..1" />
           <End Role="NewPandora_ExperimentoOpcion" Type="Self.NewPandora_ExperimentoOpcion" Multiplicity="*" />
@@ -202,15 +261,39 @@ warning 6002: The table/view 'panel.dbo.NewPandora_PropuestaExperimento' does no
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_NewPandora_PropuestaExperimento_NewPandora_StatusExperimento">
-          <End Role="NewPandora_StatusExperimento" Type="Self.NewPandora_StatusExperimento" Multiplicity="0..1" />
-          <End Role="NewPandora_PropuestaExperimento" Type="Self.NewPandora_PropuestaExperimento" Multiplicity="*" />
+        <Association Name="FK_NewPandora_Indicador_NewPandora_Experimento">
+          <End Role="NewPandora_Experimento" Type="Self.NewPandora_Experimento" Multiplicity="0..1" />
+          <End Role="NewPandora_Indicador" Type="Self.NewPandora_Indicador" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="NewPandora_StatusExperimento">
-              <PropertyRef Name="IdStatusExperimento" />
+            <Principal Role="NewPandora_Experimento">
+              <PropertyRef Name="IdExperimento" />
             </Principal>
-            <Dependent Role="NewPandora_PropuestaExperimento">
-              <PropertyRef Name="IdStatusExperimento" />
+            <Dependent Role="NewPandora_Indicador">
+              <PropertyRef Name="IdExperimento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NewPandora_IndicadorRegistro_NewPandora_Indicador">
+          <End Role="NewPandora_Indicador" Type="Self.NewPandora_Indicador" Multiplicity="0..1" />
+          <End Role="NewPandora_IndicadorRegistro" Type="Self.NewPandora_IndicadorRegistro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NewPandora_Indicador">
+              <PropertyRef Name="IdIndicador" />
+            </Principal>
+            <Dependent Role="NewPandora_IndicadorRegistro">
+              <PropertyRef Name="IdIndicador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_NewPandora_Rol_NewPandora_VP">
+          <End Role="NewPandora_VP" Type="Self.NewPandora_VP" Multiplicity="0..1" />
+          <End Role="NewPandora_Rol" Type="Self.NewPandora_Rol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NewPandora_VP">
+              <PropertyRef Name="IdVp" />
+            </Principal>
+            <Dependent Role="NewPandora_Rol">
+              <PropertyRef Name="IdVp" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -238,7 +321,7 @@ warning 6002: The table/view 'panel.dbo.NewPandora_PropuestaExperimento' does no
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_NewPandora_Usuario_NewPandora_Rol">
+        <Association Name="FK_NewPandora_Usuario_NewPandora_Rol1">
           <End Role="NewPandora_Rol" Type="Self.NewPandora_Rol" Multiplicity="0..1" />
           <End Role="NewPandora_Usuario" Type="Self.NewPandora_Usuario" Multiplicity="*" />
           <ReferentialConstraint>
@@ -252,28 +335,20 @@ warning 6002: The table/view 'panel.dbo.NewPandora_PropuestaExperimento' does no
         </Association>
         <EntityContainer Name="panelModelStoreContainer">
           <EntitySet Name="NewPandora_Experimento" EntityType="Self.NewPandora_Experimento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NewPandora_ExperimentoCorreo" EntityType="Self.NewPandora_ExperimentoCorreo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NewPandora_ExperimentoOpcion" EntityType="Self.NewPandora_ExperimentoOpcion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NewPandora_Indicador" EntityType="Self.NewPandora_Indicador" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NewPandora_IndicadorRegistro" EntityType="Self.NewPandora_IndicadorRegistro" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NewPandora_Opcion" EntityType="Self.NewPandora_Opcion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NewPandora_PropuestaExperimento" EntityType="Self.NewPandora_PropuestaExperimento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NewPandora_Rol" EntityType="Self.NewPandora_Rol" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NewPandora_RolOpcion" EntityType="Self.NewPandora_RolOpcion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NewPandora_StatusExperimento" EntityType="Self.NewPandora_StatusExperimento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NewPandora_Usuario" EntityType="Self.NewPandora_Usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NewPandora_VP" EntityType="Self.NewPandora_VP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReinventaDatosCampania" EntityType="Self.ReinventaDatosCampania" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReinventaDatosCampaniaCarrusel" EntityType="Self.ReinventaDatosCampaniaCarrusel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReinventaDatosCampaniaRegistro" EntityType="Self.ReinventaDatosCampaniaRegistro" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="NewPandora_PropuestaExperimento" EntityType="Self.NewPandora_PropuestaExperimento" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [NewPandora_PropuestaExperimento].[IdPropuestaExperimento] AS [IdPropuestaExperimento], 
-    [NewPandora_PropuestaExperimento].[NombrePropuestaExperimento] AS [NombrePropuestaExperimento], 
-    [NewPandora_PropuestaExperimento].[Descripcion] AS [Descripcion], 
-    [NewPandora_PropuestaExperimento].[Tecnologia] AS [Tecnologia], 
-    [NewPandora_PropuestaExperimento].[Indicador] AS [Indicador], 
-    [NewPandora_PropuestaExperimento].[FechaSolicitud] AS [FechaSolicitud], 
-    [NewPandora_PropuestaExperimento].[IdUsuarioContacto] AS [IdUsuarioContacto], 
-    [NewPandora_PropuestaExperimento].[FlagPublico] AS [FlagPublico], 
-    [NewPandora_PropuestaExperimento].[IdStatusExperimento] AS [IdStatusExperimento]
-    FROM [dbo].[NewPandora_PropuestaExperimento] AS [NewPandora_PropuestaExperimento]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_DatosCampaniaCarrusel_DatosCampania" Association="Self.FK_DatosCampaniaCarrusel_DatosCampania">
             <End Role="ReinventaDatosCampania" EntitySet="ReinventaDatosCampania" />
             <End Role="ReinventaDatosCampaniaCarrusel" EntitySet="ReinventaDatosCampaniaCarrusel" />
@@ -286,6 +361,14 @@ warning 6002: The table/view 'panel.dbo.NewPandora_PropuestaExperimento' does no
             <End Role="NewPandora_StatusExperimento" EntitySet="NewPandora_StatusExperimento" />
             <End Role="NewPandora_Experimento" EntitySet="NewPandora_Experimento" />
           </AssociationSet>
+          <AssociationSet Name="FK_NewPandora_Experimento_NewPandora_StatusExperimento_0" Association="Self.FK_NewPandora_Experimento_NewPandora_StatusExperimento_0">
+            <End Role="NewPandora_StatusExperimento" EntitySet="NewPandora_StatusExperimento" />
+            <End Role="NewPandora_PropuestaExperimento" EntitySet="NewPandora_PropuestaExperimento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NewPandora_ExperimentoCorreo_NewPandora_Experimento" Association="Self.FK_NewPandora_ExperimentoCorreo_NewPandora_Experimento">
+            <End Role="NewPandora_Experimento" EntitySet="NewPandora_Experimento" />
+            <End Role="NewPandora_ExperimentoCorreo" EntitySet="NewPandora_ExperimentoCorreo" />
+          </AssociationSet>
           <AssociationSet Name="FK_NewPandora_ExperimentoOpcion_NewPandora_Experimento" Association="Self.FK_NewPandora_ExperimentoOpcion_NewPandora_Experimento">
             <End Role="NewPandora_Experimento" EntitySet="NewPandora_Experimento" />
             <End Role="NewPandora_ExperimentoOpcion" EntitySet="NewPandora_ExperimentoOpcion" />
@@ -294,9 +377,17 @@ warning 6002: The table/view 'panel.dbo.NewPandora_PropuestaExperimento' does no
             <End Role="NewPandora_Opcion" EntitySet="NewPandora_Opcion" />
             <End Role="NewPandora_ExperimentoOpcion" EntitySet="NewPandora_ExperimentoOpcion" />
           </AssociationSet>
-          <AssociationSet Name="FK_NewPandora_PropuestaExperimento_NewPandora_StatusExperimento" Association="Self.FK_NewPandora_PropuestaExperimento_NewPandora_StatusExperimento">
-            <End Role="NewPandora_StatusExperimento" EntitySet="NewPandora_StatusExperimento" />
-            <End Role="NewPandora_PropuestaExperimento" EntitySet="NewPandora_PropuestaExperimento" />
+          <AssociationSet Name="FK_NewPandora_Indicador_NewPandora_Experimento" Association="Self.FK_NewPandora_Indicador_NewPandora_Experimento">
+            <End Role="NewPandora_Experimento" EntitySet="NewPandora_Experimento" />
+            <End Role="NewPandora_Indicador" EntitySet="NewPandora_Indicador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NewPandora_IndicadorRegistro_NewPandora_Indicador" Association="Self.FK_NewPandora_IndicadorRegistro_NewPandora_Indicador">
+            <End Role="NewPandora_Indicador" EntitySet="NewPandora_Indicador" />
+            <End Role="NewPandora_IndicadorRegistro" EntitySet="NewPandora_IndicadorRegistro" />
+          </AssociationSet>
+          <AssociationSet Name="fk_NewPandora_Rol_NewPandora_VP" Association="Self.fk_NewPandora_Rol_NewPandora_VP">
+            <End Role="NewPandora_VP" EntitySet="NewPandora_VP" />
+            <End Role="NewPandora_Rol" EntitySet="NewPandora_Rol" />
           </AssociationSet>
           <AssociationSet Name="FK_NewPandora_RolOpcion_NewPandora_Opcion" Association="Self.FK_NewPandora_RolOpcion_NewPandora_Opcion">
             <End Role="NewPandora_Opcion" EntitySet="NewPandora_Opcion" />
@@ -306,7 +397,7 @@ warning 6002: The table/view 'panel.dbo.NewPandora_PropuestaExperimento' does no
             <End Role="NewPandora_Rol" EntitySet="NewPandora_Rol" />
             <End Role="NewPandora_RolOpcion" EntitySet="NewPandora_RolOpcion" />
           </AssociationSet>
-          <AssociationSet Name="FK_NewPandora_Usuario_NewPandora_Rol" Association="Self.FK_NewPandora_Usuario_NewPandora_Rol">
+          <AssociationSet Name="FK_NewPandora_Usuario_NewPandora_Rol1" Association="Self.FK_NewPandora_Usuario_NewPandora_Rol1">
             <End Role="NewPandora_Rol" EntitySet="NewPandora_Rol" />
             <End Role="NewPandora_Usuario" EntitySet="NewPandora_Usuario" />
           </AssociationSet>
@@ -317,33 +408,58 @@ warning 6002: The table/view 'panel.dbo.NewPandora_PropuestaExperimento' does no
       <Schema Namespace="panelModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="panelEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="NewPandora_Experimento" EntityType="panelModel.NewPandora_Experimento" />
+          <EntitySet Name="NewPandora_ExperimentoCorreo" EntityType="panelModel.NewPandora_ExperimentoCorreo" />
           <EntitySet Name="NewPandora_ExperimentoOpcion" EntityType="panelModel.NewPandora_ExperimentoOpcion" />
+          <EntitySet Name="NewPandora_Indicador" EntityType="panelModel.NewPandora_Indicador" />
+          <EntitySet Name="NewPandora_IndicadorRegistro" EntityType="panelModel.NewPandora_IndicadorRegistro" />
           <EntitySet Name="NewPandora_Opcion" EntityType="panelModel.NewPandora_Opcion" />
+          <EntitySet Name="NewPandora_PropuestaExperimento" EntityType="panelModel.NewPandora_PropuestaExperimento" />
           <EntitySet Name="NewPandora_Rol" EntityType="panelModel.NewPandora_Rol" />
           <EntitySet Name="NewPandora_RolOpcion" EntityType="panelModel.NewPandora_RolOpcion" />
           <EntitySet Name="NewPandora_StatusExperimento" EntityType="panelModel.NewPandora_StatusExperimento" />
           <EntitySet Name="NewPandora_Usuario" EntityType="panelModel.NewPandora_Usuario" />
+          <EntitySet Name="NewPandora_VP" EntityType="panelModel.NewPandora_VP" />
           <AssociationSet Name="FK_NewPandora_Experimento_NewPandora_StatusExperimento" Association="panelModel.FK_NewPandora_Experimento_NewPandora_StatusExperimento">
             <End Role="NewPandora_StatusExperimento" EntitySet="NewPandora_StatusExperimento" />
             <End Role="NewPandora_Experimento" EntitySet="NewPandora_Experimento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NewPandora_ExperimentoCorreo_NewPandora_Experimento" Association="panelModel.FK_NewPandora_ExperimentoCorreo_NewPandora_Experimento">
+            <End Role="NewPandora_Experimento" EntitySet="NewPandora_Experimento" />
+            <End Role="NewPandora_ExperimentoCorreo" EntitySet="NewPandora_ExperimentoCorreo" />
           </AssociationSet>
           <AssociationSet Name="FK_NewPandora_ExperimentoOpcion_NewPandora_Experimento" Association="panelModel.FK_NewPandora_ExperimentoOpcion_NewPandora_Experimento">
             <End Role="NewPandora_Experimento" EntitySet="NewPandora_Experimento" />
             <End Role="NewPandora_ExperimentoOpcion" EntitySet="NewPandora_ExperimentoOpcion" />
           </AssociationSet>
+          <AssociationSet Name="FK_NewPandora_Indicador_NewPandora_Experimento" Association="panelModel.FK_NewPandora_Indicador_NewPandora_Experimento">
+            <End Role="NewPandora_Experimento" EntitySet="NewPandora_Experimento" />
+            <End Role="NewPandora_Indicador" EntitySet="NewPandora_Indicador" />
+          </AssociationSet>
           <AssociationSet Name="FK_NewPandora_ExperimentoOpcion_NewPandora_Opcion" Association="panelModel.FK_NewPandora_ExperimentoOpcion_NewPandora_Opcion">
             <End Role="NewPandora_Opcion" EntitySet="NewPandora_Opcion" />
             <End Role="NewPandora_ExperimentoOpcion" EntitySet="NewPandora_ExperimentoOpcion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NewPandora_IndicadorRegistro_NewPandora_Indicador" Association="panelModel.FK_NewPandora_IndicadorRegistro_NewPandora_Indicador">
+            <End Role="NewPandora_Indicador" EntitySet="NewPandora_Indicador" />
+            <End Role="NewPandora_IndicadorRegistro" EntitySet="NewPandora_IndicadorRegistro" />
           </AssociationSet>
           <AssociationSet Name="FK_NewPandora_RolOpcion_NewPandora_Opcion" Association="panelModel.FK_NewPandora_RolOpcion_NewPandora_Opcion">
             <End Role="NewPandora_Opcion" EntitySet="NewPandora_Opcion" />
             <End Role="NewPandora_RolOpcion" EntitySet="NewPandora_RolOpcion" />
           </AssociationSet>
+          <AssociationSet Name="FK_NewPandora_Experimento_NewPandora_StatusExperimento_0" Association="panelModel.FK_NewPandora_Experimento_NewPandora_StatusExperimento_0">
+            <End Role="NewPandora_StatusExperimento" EntitySet="NewPandora_StatusExperimento" />
+            <End Role="NewPandora_PropuestaExperimento" EntitySet="NewPandora_PropuestaExperimento" />
+          </AssociationSet>
+          <AssociationSet Name="fk_NewPandora_Rol_NewPandora_VP" Association="panelModel.fk_NewPandora_Rol_NewPandora_VP">
+            <End Role="NewPandora_VP" EntitySet="NewPandora_VP" />
+            <End Role="NewPandora_Rol" EntitySet="NewPandora_Rol" />
+          </AssociationSet>
           <AssociationSet Name="FK_NewPandora_RolOpcion_NewPandora_Rol" Association="panelModel.FK_NewPandora_RolOpcion_NewPandora_Rol">
             <End Role="NewPandora_Rol" EntitySet="NewPandora_Rol" />
             <End Role="NewPandora_RolOpcion" EntitySet="NewPandora_RolOpcion" />
           </AssociationSet>
-          <AssociationSet Name="FK_NewPandora_Usuario_NewPandora_Rol" Association="panelModel.FK_NewPandora_Usuario_NewPandora_Rol">
+          <AssociationSet Name="FK_NewPandora_Usuario_NewPandora_Rol1" Association="panelModel.FK_NewPandora_Usuario_NewPandora_Rol1">
             <End Role="NewPandora_Rol" EntitySet="NewPandora_Rol" />
             <End Role="NewPandora_Usuario" EntitySet="NewPandora_Usuario" />
           </AssociationSet>
@@ -358,22 +474,16 @@ warning 6002: The table/view 'panel.dbo.NewPandora_PropuestaExperimento' does no
             <End Role="ReinventaDatosCampania" EntitySet="ReinventaDatosCampania" />
             <End Role="ReinventaDatosCampaniaRegistro" EntitySet="ReinventaDatosCampaniaRegistro" />
           </AssociationSet>
-          <EntitySet Name="NewPandora_PropuestaExperimento" EntityType="panelModel.NewPandora_PropuestaExperimento" />
-          <AssociationSet Name="FK_NewPandora_PropuestaExperimento_NewPandora_StatusExperimento" Association="panelModel.FK_NewPandora_PropuestaExperimento_NewPandora_StatusExperimento">
-            <End Role="NewPandora_StatusExperimento" EntitySet="NewPandora_StatusExperimento" />
-            <End Role="NewPandora_PropuestaExperimento" EntitySet="NewPandora_PropuestaExperimento" />
-          </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="NewPandora_Experimento">
           <Key>
             <PropertyRef Name="IdExperimento" />
           </Key>
           <Property Name="IdExperimento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NombreExperimento" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="NombreExperimento" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="2500" FixedLength="false" Unicode="false" />
           <Property Name="Tecnologia" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="DesarrolladoPor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Indicador" Type="Int32" />
+          <Property Name="DesarrolladoPor" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="FechaSolicitud" Type="DateTime" Precision="3" />
           <Property Name="FechaPublicacion" Type="DateTime" Precision="3" />
           <Property Name="Url" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
@@ -381,7 +491,19 @@ warning 6002: The table/view 'panel.dbo.NewPandora_PropuestaExperimento' does no
           <Property Name="FlagPublico" Type="Boolean" />
           <Property Name="IdStatusExperimento" Type="Int32" />
           <NavigationProperty Name="NewPandora_StatusExperimento" Relationship="panelModel.FK_NewPandora_Experimento_NewPandora_StatusExperimento" FromRole="NewPandora_Experimento" ToRole="NewPandora_StatusExperimento" />
+          <NavigationProperty Name="NewPandora_ExperimentoCorreo" Relationship="panelModel.FK_NewPandora_ExperimentoCorreo_NewPandora_Experimento" FromRole="NewPandora_Experimento" ToRole="NewPandora_ExperimentoCorreo" />
           <NavigationProperty Name="NewPandora_ExperimentoOpcion" Relationship="panelModel.FK_NewPandora_ExperimentoOpcion_NewPandora_Experimento" FromRole="NewPandora_Experimento" ToRole="NewPandora_ExperimentoOpcion" />
+          <NavigationProperty Name="NewPandora_Indicador" Relationship="panelModel.FK_NewPandora_Indicador_NewPandora_Experimento" FromRole="NewPandora_Experimento" ToRole="NewPandora_Indicador" />
+        </EntityType>
+        <EntityType Name="NewPandora_ExperimentoCorreo">
+          <Key>
+            <PropertyRef Name="IdExperimentoCorreo" />
+          </Key>
+          <Property Name="IdExperimentoCorreo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdExperimento" Type="Int32" />
+          <Property Name="AsuntoCorreo" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="Boolean" />
+          <NavigationProperty Name="NewPandora_Experimento" Relationship="panelModel.FK_NewPandora_ExperimentoCorreo_NewPandora_Experimento" FromRole="NewPandora_ExperimentoCorreo" ToRole="NewPandora_Experimento" />
         </EntityType>
         <EntityType Name="NewPandora_ExperimentoOpcion">
           <Key>
@@ -392,6 +514,29 @@ warning 6002: The table/view 'panel.dbo.NewPandora_PropuestaExperimento' does no
           <Property Name="IdExperimento" Type="Int32" />
           <NavigationProperty Name="NewPandora_Experimento" Relationship="panelModel.FK_NewPandora_ExperimentoOpcion_NewPandora_Experimento" FromRole="NewPandora_ExperimentoOpcion" ToRole="NewPandora_Experimento" />
           <NavigationProperty Name="NewPandora_Opcion" Relationship="panelModel.FK_NewPandora_ExperimentoOpcion_NewPandora_Opcion" FromRole="NewPandora_ExperimentoOpcion" ToRole="NewPandora_Opcion" />
+        </EntityType>
+        <EntityType Name="NewPandora_Indicador">
+          <Key>
+            <PropertyRef Name="IdIndicador" />
+          </Key>
+          <Property Name="IdIndicador" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdExperimento" Type="Int32" />
+          <Property Name="Indicador" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="Boolean" />
+          <Property Name="FlagMostrar" Type="Boolean" />
+          <NavigationProperty Name="NewPandora_Experimento" Relationship="panelModel.FK_NewPandora_Indicador_NewPandora_Experimento" FromRole="NewPandora_Indicador" ToRole="NewPandora_Experimento" />
+          <NavigationProperty Name="NewPandora_IndicadorRegistro" Relationship="panelModel.FK_NewPandora_IndicadorRegistro_NewPandora_Indicador" FromRole="NewPandora_Indicador" ToRole="NewPandora_IndicadorRegistro" />
+        </EntityType>
+        <EntityType Name="NewPandora_IndicadorRegistro">
+          <Key>
+            <PropertyRef Name="IdIndicadorRegistro" />
+          </Key>
+          <Property Name="IdIndicadorRegistro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdIndicador" Type="Int32" />
+          <Property Name="Fecha" Type="DateTime" Precision="3" />
+          <Property Name="IdPadre" Type="Int32" />
+          <Property Name="Guid" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="NewPandora_Indicador" Relationship="panelModel.FK_NewPandora_IndicadorRegistro_NewPandora_Indicador" FromRole="NewPandora_IndicadorRegistro" ToRole="NewPandora_Indicador" />
         </EntityType>
         <EntityType Name="NewPandora_Opcion">
           <Key>
@@ -404,6 +549,21 @@ warning 6002: The table/view 'panel.dbo.NewPandora_PropuestaExperimento' does no
           <NavigationProperty Name="NewPandora_ExperimentoOpcion" Relationship="panelModel.FK_NewPandora_ExperimentoOpcion_NewPandora_Opcion" FromRole="NewPandora_Opcion" ToRole="NewPandora_ExperimentoOpcion" />
           <NavigationProperty Name="NewPandora_RolOpcion" Relationship="panelModel.FK_NewPandora_RolOpcion_NewPandora_Opcion" FromRole="NewPandora_Opcion" ToRole="NewPandora_RolOpcion" />
         </EntityType>
+        <EntityType Name="NewPandora_PropuestaExperimento">
+          <Key>
+            <PropertyRef Name="IdPropuestaExperimento" />
+          </Key>
+          <Property Name="IdPropuestaExperimento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombrePropuestaExperimento" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Tecnologia" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Indicador" Type="Int32" />
+          <Property Name="FechaSolicitud" Type="DateTime" Precision="3" />
+          <Property Name="IdUsuarioContacto" Type="Int32" />
+          <Property Name="FlagPublico" Type="Boolean" />
+          <Property Name="IdStatusExperimento" Type="Int32" />
+          <NavigationProperty Name="NewPandora_StatusExperimento" Relationship="panelModel.FK_NewPandora_Experimento_NewPandora_StatusExperimento_0" FromRole="NewPandora_PropuestaExperimento" ToRole="NewPandora_StatusExperimento" />
+        </EntityType>
         <EntityType Name="NewPandora_Rol">
           <Key>
             <PropertyRef Name="IdRol" />
@@ -412,8 +572,10 @@ warning 6002: The table/view 'panel.dbo.NewPandora_PropuestaExperimento' does no
           <Property Name="NombreRol" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Orden" Type="Int32" />
           <Property Name="FlagEstado" Type="Boolean" />
+          <Property Name="IdVp" Type="Int32" />
+          <NavigationProperty Name="NewPandora_VP" Relationship="panelModel.fk_NewPandora_Rol_NewPandora_VP" FromRole="NewPandora_Rol" ToRole="NewPandora_VP" />
           <NavigationProperty Name="NewPandora_RolOpcion" Relationship="panelModel.FK_NewPandora_RolOpcion_NewPandora_Rol" FromRole="NewPandora_Rol" ToRole="NewPandora_RolOpcion" />
-          <NavigationProperty Name="NewPandora_Usuario" Relationship="panelModel.FK_NewPandora_Usuario_NewPandora_Rol" FromRole="NewPandora_Rol" ToRole="NewPandora_Usuario" />
+          <NavigationProperty Name="NewPandora_Usuario" Relationship="panelModel.FK_NewPandora_Usuario_NewPandora_Rol1" FromRole="NewPandora_Rol" ToRole="NewPandora_Usuario" />
         </EntityType>
         <EntityType Name="NewPandora_RolOpcion">
           <Key>
@@ -431,10 +593,10 @@ warning 6002: The table/view 'panel.dbo.NewPandora_PropuestaExperimento' does no
           </Key>
           <Property Name="IdStatusExperimento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Status" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="NewPandora_Experimento" Relationship="panelModel.FK_NewPandora_Experimento_NewPandora_StatusExperimento" FromRole="NewPandora_StatusExperimento" ToRole="NewPandora_Experimento" />
           <Property Name="FlagExperimento" Type="Boolean" />
           <Property Name="Orden" Type="Int32" />
-          <NavigationProperty Name="NewPandora_PropuestaExperimento" Relationship="panelModel.FK_NewPandora_PropuestaExperimento_NewPandora_StatusExperimento" FromRole="NewPandora_StatusExperimento" ToRole="NewPandora_PropuestaExperimento" />
+          <NavigationProperty Name="NewPandora_Experimento" Relationship="panelModel.FK_NewPandora_Experimento_NewPandora_StatusExperimento" FromRole="NewPandora_StatusExperimento" ToRole="NewPandora_Experimento" />
+          <NavigationProperty Name="NewPandora_PropuestaExperimento" Relationship="panelModel.FK_NewPandora_Experimento_NewPandora_StatusExperimento_0" FromRole="NewPandora_StatusExperimento" ToRole="NewPandora_PropuestaExperimento" />
         </EntityType>
         <EntityType Name="NewPandora_Usuario">
           <Key>
@@ -447,7 +609,16 @@ warning 6002: The table/view 'panel.dbo.NewPandora_PropuestaExperimento' does no
           <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Correo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="FlagEstado" Type="Boolean" />
-          <NavigationProperty Name="NewPandora_Rol" Relationship="panelModel.FK_NewPandora_Usuario_NewPandora_Rol" FromRole="NewPandora_Usuario" ToRole="NewPandora_Rol" />
+          <NavigationProperty Name="NewPandora_Rol" Relationship="panelModel.FK_NewPandora_Usuario_NewPandora_Rol1" FromRole="NewPandora_Usuario" ToRole="NewPandora_Rol" />
+        </EntityType>
+        <EntityType Name="NewPandora_VP">
+          <Key>
+            <PropertyRef Name="IdVp" />
+          </Key>
+          <Property Name="IdVp" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombeVp" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="Boolean" />
+          <NavigationProperty Name="NewPandora_Rol" Relationship="panelModel.fk_NewPandora_Rol_NewPandora_VP" FromRole="NewPandora_VP" ToRole="NewPandora_Rol" />
         </EntityType>
         <Association Name="FK_NewPandora_Experimento_NewPandora_StatusExperimento">
           <End Type="panelModel.NewPandora_StatusExperimento" Role="NewPandora_StatusExperimento" Multiplicity="0..1" />
@@ -461,6 +632,18 @@ warning 6002: The table/view 'panel.dbo.NewPandora_PropuestaExperimento' does no
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_NewPandora_ExperimentoCorreo_NewPandora_Experimento">
+          <End Type="panelModel.NewPandora_Experimento" Role="NewPandora_Experimento" Multiplicity="0..1" />
+          <End Type="panelModel.NewPandora_ExperimentoCorreo" Role="NewPandora_ExperimentoCorreo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NewPandora_Experimento">
+              <PropertyRef Name="IdExperimento" />
+            </Principal>
+            <Dependent Role="NewPandora_ExperimentoCorreo">
+              <PropertyRef Name="IdExperimento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_NewPandora_ExperimentoOpcion_NewPandora_Experimento">
           <End Type="panelModel.NewPandora_Experimento" Role="NewPandora_Experimento" Multiplicity="0..1" />
           <End Type="panelModel.NewPandora_ExperimentoOpcion" Role="NewPandora_ExperimentoOpcion" Multiplicity="*" />
@@ -469,6 +652,18 @@ warning 6002: The table/view 'panel.dbo.NewPandora_PropuestaExperimento' does no
               <PropertyRef Name="IdExperimento" />
             </Principal>
             <Dependent Role="NewPandora_ExperimentoOpcion">
+              <PropertyRef Name="IdExperimento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NewPandora_Indicador_NewPandora_Experimento">
+          <End Type="panelModel.NewPandora_Experimento" Role="NewPandora_Experimento" Multiplicity="0..1" />
+          <End Type="panelModel.NewPandora_Indicador" Role="NewPandora_Indicador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NewPandora_Experimento">
+              <PropertyRef Name="IdExperimento" />
+            </Principal>
+            <Dependent Role="NewPandora_Indicador">
               <PropertyRef Name="IdExperimento" />
             </Dependent>
           </ReferentialConstraint>
@@ -485,6 +680,18 @@ warning 6002: The table/view 'panel.dbo.NewPandora_PropuestaExperimento' does no
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_NewPandora_IndicadorRegistro_NewPandora_Indicador">
+          <End Type="panelModel.NewPandora_Indicador" Role="NewPandora_Indicador" Multiplicity="0..1" />
+          <End Type="panelModel.NewPandora_IndicadorRegistro" Role="NewPandora_IndicadorRegistro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NewPandora_Indicador">
+              <PropertyRef Name="IdIndicador" />
+            </Principal>
+            <Dependent Role="NewPandora_IndicadorRegistro">
+              <PropertyRef Name="IdIndicador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_NewPandora_RolOpcion_NewPandora_Opcion">
           <End Type="panelModel.NewPandora_Opcion" Role="NewPandora_Opcion" Multiplicity="0..1" />
           <End Type="panelModel.NewPandora_RolOpcion" Role="NewPandora_RolOpcion" Multiplicity="*" />
@@ -494,6 +701,30 @@ warning 6002: The table/view 'panel.dbo.NewPandora_PropuestaExperimento' does no
             </Principal>
             <Dependent Role="NewPandora_RolOpcion">
               <PropertyRef Name="IdOpcion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NewPandora_Experimento_NewPandora_StatusExperimento_0">
+          <End Type="panelModel.NewPandora_StatusExperimento" Role="NewPandora_StatusExperimento" Multiplicity="0..1" />
+          <End Type="panelModel.NewPandora_PropuestaExperimento" Role="NewPandora_PropuestaExperimento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NewPandora_StatusExperimento">
+              <PropertyRef Name="IdStatusExperimento" />
+            </Principal>
+            <Dependent Role="NewPandora_PropuestaExperimento">
+              <PropertyRef Name="IdStatusExperimento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_NewPandora_Rol_NewPandora_VP">
+          <End Type="panelModel.NewPandora_VP" Role="NewPandora_VP" Multiplicity="0..1" />
+          <End Type="panelModel.NewPandora_Rol" Role="NewPandora_Rol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NewPandora_VP">
+              <PropertyRef Name="IdVp" />
+            </Principal>
+            <Dependent Role="NewPandora_Rol">
+              <PropertyRef Name="IdVp" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -509,7 +740,7 @@ warning 6002: The table/view 'panel.dbo.NewPandora_PropuestaExperimento' does no
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_NewPandora_Usuario_NewPandora_Rol">
+        <Association Name="FK_NewPandora_Usuario_NewPandora_Rol1">
           <End Type="panelModel.NewPandora_Rol" Role="NewPandora_Rol" Multiplicity="0..1" />
           <End Type="panelModel.NewPandora_Usuario" Role="NewPandora_Usuario" Multiplicity="*" />
           <ReferentialConstraint>
@@ -526,6 +757,7 @@ warning 6002: The table/view 'panel.dbo.NewPandora_PropuestaExperimento' does no
             <PropertyRef Name="IdCampania" />
           </Key>
           <Property Name="IdCampania" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdExperimento" Type="Int32" />
           <Property Name="NombreCampania" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="FechaInicio" Type="DateTime" Precision="0" />
           <Property Name="FechaFin" Type="DateTime" Precision="0" />
@@ -547,7 +779,6 @@ warning 6002: The table/view 'panel.dbo.NewPandora_PropuestaExperimento' does no
           <Property Name="Estado" Type="Int32" />
           <NavigationProperty Name="ReinventaDatosCampaniaCarrusel" Relationship="panelModel.FK_DatosCampaniaCarrusel_DatosCampania" FromRole="ReinventaDatosCampania" ToRole="ReinventaDatosCampaniaCarrusel" />
           <NavigationProperty Name="ReinventaDatosCampaniaRegistro" Relationship="panelModel.FK_DatosCampaniaRegistro_DatosCampania" FromRole="ReinventaDatosCampania" ToRole="ReinventaDatosCampaniaRegistro" />
-          <Property Name="IdExperimento" Type="Int32" />
         </EntityType>
         <EntityType Name="ReinventaDatosCampaniaCarrusel">
           <Key>
@@ -598,33 +829,6 @@ warning 6002: The table/view 'panel.dbo.NewPandora_PropuestaExperimento' does no
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="NewPandora_PropuestaExperimento">
-          <Key>
-            <PropertyRef Name="IdPropuestaExperimento" />
-          </Key>
-          <Property Name="IdPropuestaExperimento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NombrePropuestaExperimento" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Tecnologia" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Indicador" Type="Int32" />
-          <Property Name="FechaSolicitud" Type="DateTime" Precision="3" />
-          <Property Name="IdUsuarioContacto" Type="Int32" />
-          <Property Name="FlagPublico" Type="Boolean" />
-          <Property Name="IdStatusExperimento" Type="Int32" />
-          <NavigationProperty Name="NewPandora_StatusExperimento" Relationship="panelModel.FK_NewPandora_PropuestaExperimento_NewPandora_StatusExperimento" FromRole="NewPandora_PropuestaExperimento" ToRole="NewPandora_StatusExperimento" />
-        </EntityType>
-        <Association Name="FK_NewPandora_PropuestaExperimento_NewPandora_StatusExperimento">
-          <End Type="panelModel.NewPandora_StatusExperimento" Role="NewPandora_StatusExperimento" Multiplicity="0..1" />
-          <End Type="panelModel.NewPandora_PropuestaExperimento" Role="NewPandora_PropuestaExperimento" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="NewPandora_StatusExperimento">
-              <PropertyRef Name="IdStatusExperimento" />
-            </Principal>
-            <Dependent Role="NewPandora_PropuestaExperimento">
-              <PropertyRef Name="IdStatusExperimento" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -640,12 +844,21 @@ warning 6002: The table/view 'panel.dbo.NewPandora_PropuestaExperimento' does no
                 <ScalarProperty Name="Url" ColumnName="Url" />
                 <ScalarProperty Name="FechaPublicacion" ColumnName="FechaPublicacion" />
                 <ScalarProperty Name="FechaSolicitud" ColumnName="FechaSolicitud" />
-                <ScalarProperty Name="Indicador" ColumnName="Indicador" />
                 <ScalarProperty Name="DesarrolladoPor" ColumnName="DesarrolladoPor" />
                 <ScalarProperty Name="Tecnologia" ColumnName="Tecnologia" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="NombreExperimento" ColumnName="NombreExperimento" />
                 <ScalarProperty Name="IdExperimento" ColumnName="IdExperimento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NewPandora_ExperimentoCorreo">
+            <EntityTypeMapping TypeName="panelModel.NewPandora_ExperimentoCorreo">
+              <MappingFragment StoreEntitySet="NewPandora_ExperimentoCorreo">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="AsuntoCorreo" ColumnName="AsuntoCorreo" />
+                <ScalarProperty Name="IdExperimento" ColumnName="IdExperimento" />
+                <ScalarProperty Name="IdExperimentoCorreo" ColumnName="IdExperimentoCorreo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -655,6 +868,28 @@ warning 6002: The table/view 'panel.dbo.NewPandora_PropuestaExperimento' does no
                 <ScalarProperty Name="IdExperimento" ColumnName="IdExperimento" />
                 <ScalarProperty Name="IdOpcion" ColumnName="IdOpcion" />
                 <ScalarProperty Name="IdExperimentoOpcion" ColumnName="IdExperimentoOpcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NewPandora_Indicador">
+            <EntityTypeMapping TypeName="panelModel.NewPandora_Indicador">
+              <MappingFragment StoreEntitySet="NewPandora_Indicador">
+                <ScalarProperty Name="FlagMostrar" ColumnName="FlagMostrar" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Indicador" ColumnName="Indicador" />
+                <ScalarProperty Name="IdExperimento" ColumnName="IdExperimento" />
+                <ScalarProperty Name="IdIndicador" ColumnName="IdIndicador" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NewPandora_IndicadorRegistro">
+            <EntityTypeMapping TypeName="panelModel.NewPandora_IndicadorRegistro">
+              <MappingFragment StoreEntitySet="NewPandora_IndicadorRegistro">
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+                <ScalarProperty Name="IdPadre" ColumnName="IdPadre" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="IdIndicador" ColumnName="IdIndicador" />
+                <ScalarProperty Name="IdIndicadorRegistro" ColumnName="IdIndicadorRegistro" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -668,9 +903,25 @@ warning 6002: The table/view 'panel.dbo.NewPandora_PropuestaExperimento' does no
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="NewPandora_PropuestaExperimento">
+            <EntityTypeMapping TypeName="panelModel.NewPandora_PropuestaExperimento">
+              <MappingFragment StoreEntitySet="NewPandora_PropuestaExperimento">
+                <ScalarProperty Name="IdStatusExperimento" ColumnName="IdStatusExperimento" />
+                <ScalarProperty Name="FlagPublico" ColumnName="FlagPublico" />
+                <ScalarProperty Name="IdUsuarioContacto" ColumnName="IdUsuarioContacto" />
+                <ScalarProperty Name="FechaSolicitud" ColumnName="FechaSolicitud" />
+                <ScalarProperty Name="Indicador" ColumnName="Indicador" />
+                <ScalarProperty Name="Tecnologia" ColumnName="Tecnologia" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="NombrePropuestaExperimento" ColumnName="NombrePropuestaExperimento" />
+                <ScalarProperty Name="IdPropuestaExperimento" ColumnName="IdPropuestaExperimento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="NewPandora_Rol">
             <EntityTypeMapping TypeName="panelModel.NewPandora_Rol">
               <MappingFragment StoreEntitySet="NewPandora_Rol">
+                <ScalarProperty Name="IdVp" ColumnName="IdVp" />
                 <ScalarProperty Name="FlagEstado" ColumnName="FlagEstado" />
                 <ScalarProperty Name="Orden" ColumnName="Orden" />
                 <ScalarProperty Name="NombreRol" ColumnName="NombreRol" />
@@ -710,10 +961,18 @@ warning 6002: The table/view 'panel.dbo.NewPandora_PropuestaExperimento' does no
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="NewPandora_VP">
+            <EntityTypeMapping TypeName="panelModel.NewPandora_VP">
+              <MappingFragment StoreEntitySet="NewPandora_VP">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="NombeVp" ColumnName="NombeVp" />
+                <ScalarProperty Name="IdVp" ColumnName="IdVp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ReinventaDatosCampania">
             <EntityTypeMapping TypeName="panelModel.ReinventaDatosCampania">
               <MappingFragment StoreEntitySet="ReinventaDatosCampania">
-                <ScalarProperty Name="IdExperimento" ColumnName="IdExperimento" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
                 <ScalarProperty Name="ImagenFinal" ColumnName="ImagenFinal" />
@@ -733,6 +992,7 @@ warning 6002: The table/view 'panel.dbo.NewPandora_PropuestaExperimento' does no
                 <ScalarProperty Name="FechaFin" ColumnName="FechaFin" />
                 <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
                 <ScalarProperty Name="NombreCampania" ColumnName="NombreCampania" />
+                <ScalarProperty Name="IdExperimento" ColumnName="IdExperimento" />
                 <ScalarProperty Name="IdCampania" ColumnName="IdCampania" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -762,22 +1022,7 @@ warning 6002: The table/view 'panel.dbo.NewPandora_PropuestaExperimento' does no
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="NewPandora_PropuestaExperimento">
-            <EntityTypeMapping TypeName="panelModel.NewPandora_PropuestaExperimento">
-              <MappingFragment StoreEntitySet="NewPandora_PropuestaExperimento">
-                <ScalarProperty Name="IdStatusExperimento" ColumnName="IdStatusExperimento" />
-                <ScalarProperty Name="FlagPublico" ColumnName="FlagPublico" />
-                <ScalarProperty Name="IdUsuarioContacto" ColumnName="IdUsuarioContacto" />
-                <ScalarProperty Name="FechaSolicitud" ColumnName="FechaSolicitud" />
-                <ScalarProperty Name="Indicador" ColumnName="Indicador" />
-                <ScalarProperty Name="Tecnologia" ColumnName="Tecnologia" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="NombrePropuestaExperimento" ColumnName="NombrePropuestaExperimento" />
-                <ScalarProperty Name="IdPropuestaExperimento" ColumnName="IdPropuestaExperimento" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

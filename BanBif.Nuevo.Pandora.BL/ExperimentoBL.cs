@@ -89,5 +89,20 @@ namespace BanBif.Nuevo.Pandora.BL
             }
             return response;
         }
+
+        public NewPandoraIndicadorResponse<List<NewPandoraIndicadorGraficaBE>> Listar(NewPandoraIndicadorRequest request)
+        {
+            NewPandoraIndicadorResponse<List<NewPandoraIndicadorGraficaBE>> response = new NewPandoraIndicadorResponse<List<NewPandoraIndicadorGraficaBE>>();
+            try
+            {
+                var ExperimentoDA = new ExperimentoDA();
+                response = ExperimentoDA.Listar(request);
+            }
+            catch (Exception ex)
+            {
+                response.Mensaje = ex.InnerException.ToString();
+            }
+            return response;
+        }
     }
 }

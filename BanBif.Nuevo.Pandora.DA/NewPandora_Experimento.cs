@@ -17,7 +17,9 @@ namespace BanBif.Nuevo.Pandora.DA
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public NewPandora_Experimento()
         {
+            this.NewPandora_ExperimentoCorreo = new HashSet<NewPandora_ExperimentoCorreo>();
             this.NewPandora_ExperimentoOpcion = new HashSet<NewPandora_ExperimentoOpcion>();
+            this.NewPandora_Indicador = new HashSet<NewPandora_Indicador>();
         }
     
         public int IdExperimento { get; set; }
@@ -25,7 +27,6 @@ namespace BanBif.Nuevo.Pandora.DA
         public string Descripcion { get; set; }
         public string Tecnologia { get; set; }
         public string DesarrolladoPor { get; set; }
-        public Nullable<int> Indicador { get; set; }
         public Nullable<System.DateTime> FechaSolicitud { get; set; }
         public Nullable<System.DateTime> FechaPublicacion { get; set; }
         public string Url { get; set; }
@@ -35,6 +36,10 @@ namespace BanBif.Nuevo.Pandora.DA
     
         public virtual NewPandora_StatusExperimento NewPandora_StatusExperimento { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NewPandora_ExperimentoCorreo> NewPandora_ExperimentoCorreo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<NewPandora_ExperimentoOpcion> NewPandora_ExperimentoOpcion { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NewPandora_Indicador> NewPandora_Indicador { get; set; }
     }
 }

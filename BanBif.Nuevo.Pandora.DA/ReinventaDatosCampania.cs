@@ -22,6 +22,7 @@ namespace BanBif.Nuevo.Pandora.DA
         }
     
         public int IdCampania { get; set; }
+        public Nullable<int> IdExperimento { get; set; }
         public string NombreCampania { get; set; }
         public Nullable<System.DateTime> FechaInicio { get; set; }
         public Nullable<System.DateTime> FechaFin { get; set; }
@@ -41,7 +42,6 @@ namespace BanBif.Nuevo.Pandora.DA
         public string ImagenFinal { get; set; }
         public string UsuarioCreacion { get; set; }
         public Nullable<int> Estado { get; set; }
-        public Nullable<int> IdExperimento { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ReinventaDatosCampaniaCarrusel> ReinventaDatosCampaniaCarrusel { get; set; }

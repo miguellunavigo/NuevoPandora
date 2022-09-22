@@ -1,19 +1,13 @@
-/**
- * Page User List
- */
-
 'use strict';
 var dt_user;
-// Datatable (jquery)
 $(function () {
     // Variable declaration for table
     var dt_user_table = $('.datatables-users'),
         select2 = $('.select2'),
         userView = 'app-user-view-account.html',
         statusObj = {
-            0: { title: 'Inactive', class: 'bg-label-secondary' },
-            1: { title: 'Active', class: 'bg-label-success' }
-
+            0: { title: 'Inactivo', class: 'bg-label-secondary' },
+            1: { title: 'Activo', class: 'bg-label-success' }
         };
 
     if (select2.length) {
@@ -28,26 +22,20 @@ $(function () {
     // Users datatable
     if (dt_user_table.length) {
          dt_user = dt_user_table.DataTable({
-            //ajax: assetsPath + 'json/user-list.json', // JSON file to add data
             "ajax": {
                 "url": $("#hdn_Listar_Usuario").val(),
                 "type": "POST",
-                "contentType": "application/json"//,
-                //"data": JSON.stringify({ "applications": ["sca", "www"] })
+                "contentType": "application/json"
             },
             columns: [
-                // columns according to JSON
                 { data: '' },
                 { data: 'Nombre' },
                 { data: 'Rol' },
-                //{ data: 'current_plan' },
-                /*{ data: 'billing' },*/
                 { data: 'FlagEstado' },
                 { data: 'action' }
             ],
             columnDefs: [
                 {
-                    // For Responsive
                     className: 'control',
                     searchable: false,
                     orderable: false,
@@ -58,7 +46,6 @@ $(function () {
                     }
                 },
                 {
-                    // User full name and email
                     targets: 1,
                     responsivePriority: 4,
                     render: function (data, type, full, meta) {
@@ -89,11 +76,11 @@ $(function () {
                             '</div>' +
                             '</div>' +
                             '<div class="d-flex flex-column">' +
-                            '<a href="' +
-                            userView +
-                            '" class="text-body text-truncate"><span class="fw-semibold">' +
+                            /*'<a href="' + userView + '" class="text-body text-truncate">' +*/
+                            '<span class="fw-semibold">' +
                             $name +
-                            '</span></a>' +
+                            '</span>' +
+                            /*'</a>' +*/
                             '<small class="text-muted">' +
                             $email +
                             '</small>' +
@@ -102,35 +89,6 @@ $(function () {
                         return $row_output;
                     }
                 },
-                //{
-                //    // User Role
-                //    targets: 2,
-                //    render: function (data, type, full, meta) {
-                //var $role = full['role'];
-                //var roleBadgeObj = {
-                //    Subscriber:
-                //        '<span class="badge badge-center rounded-pill bg-label-warning w-px-30 h-px-30 me-2"><i class="bx bx-user bx-xs"></i></span>',
-                //    Author:
-                //        '<span class="badge badge-center rounded-pill bg-label-success w-px-30 h-px-30 me-2"><i class="bx bx-cog bx-xs"></i></span>',
-                //    Maintainer:
-                //        '<span class="badge badge-center rounded-pill bg-label-primary w-px-30 h-px-30 me-2"><i class="bx bx-pie-chart-alt bx-xs"></i></span>',
-                //    Editor:
-                //        '<span class="badge badge-center rounded-pill bg-label-info w-px-30 h-px-30 me-2"><i class="bx bx-edit bx-xs"></i></span>',
-                //    Admin:
-                //        '<span class="badge badge-center rounded-pill bg-label-secondary w-px-30 h-px-30 me-2"><i class="bx bx-mobile-alt bx-xs"></i></span>'
-                //};
-                //return "<span class='text-truncate d-flex align-items-center'>" + roleBadgeObj[$role] + $role + '</span>';
-                //    }
-                //},
-                //{
-                //    // Plans
-                //    targets: 3,
-                //    render: function (data, type, full, meta) {
-                //var $plan = full['current_plan'];
-
-                //return '<span class="fw-semibold">' + $plan + '</span>';
-                //    }
-                //},
                 {
                     // User Status
                     targets: 3,
@@ -179,157 +137,157 @@ $(function () {
                 searchPlaceholder: 'Search..'
             },
             // Buttons with Dropdown
-            buttons: [
-                {
-                    extend: 'collection',
-                    className: 'btn btn-label-secondary dropdown-toggle mx-3',
-                    text: '<i class="bx bx-upload me-2"></i>Export',
-                    buttons: [
-                        {
-                            extend: 'print',
-                            text: '<i class="bx bx-printer me-2" ></i>Print',
-                            className: 'dropdown-item',
-                            exportOptions: {
-                                columns: [1, 2, 3, 4, 5],
-                                // prevent avatar to be print
-                                format: {
-                                    body: function (inner, coldex, rowdex) {
-                                        if (inner.length <= 0) return inner;
-                                        var el = $.parseHTML(inner);
-                                        var result = '';
-                                        $.each(el, function (index, item) {
-                                            if (item.classList !== undefined && item.classList.contains('user-name')) {
-                                                result = result + item.lastChild.firstChild.textContent;
-                                            } else if (item.innerText === undefined) {
-                                                result = result + item.textContent;
-                                            } else result = result + item.innerText;
-                                        });
-                                        return result;
-                                    }
-                                }
-                            },
-                            customize: function (win) {
-                                //customize print view for dark
-                                $(win.document.body)
-                                    .css('color', config.colors.headingColor)
-                                    .css('border-color', config.colors.borderColor)
-                                    .css('background-color', config.colors.body);
-                                $(win.document.body)
-                                    .find('table')
-                                    .addClass('compact')
-                                    .css('color', 'inherit')
-                                    .css('border-color', 'inherit')
-                                    .css('background-color', 'inherit');
-                            }
-                        },
-                        {
-                            extend: 'csv',
-                            text: '<i class="bx bx-file me-2" ></i>Csv',
-                            className: 'dropdown-item',
-                            exportOptions: {
-                                columns: [1, 2, 3, 4, 5],
-                                // prevent avatar to be display
-                                format: {
-                                    body: function (inner, coldex, rowdex) {
-                                        if (inner.length <= 0) return inner;
-                                        var el = $.parseHTML(inner);
-                                        var result = '';
-                                        $.each(el, function (index, item) {
-                                            if (item.classList !== undefined && item.classList.contains('user-name')) {
-                                                result = result + item.lastChild.firstChild.textContent;
-                                            } else if (item.innerText === undefined) {
-                                                result = result + item.textContent;
-                                            } else result = result + item.innerText;
-                                        });
-                                        return result;
-                                    }
-                                }
-                            }
-                        },
-                        {
-                            extend: 'excel',
-                            text: 'Excel',
-                            className: 'dropdown-item',
-                            exportOptions: {
-                                columns: [1, 2, 3, 4, 5],
-                                // prevent avatar to be display
-                                format: {
-                                    body: function (inner, coldex, rowdex) {
-                                        if (inner.length <= 0) return inner;
-                                        var el = $.parseHTML(inner);
-                                        var result = '';
-                                        $.each(el, function (index, item) {
-                                            if (item.classList !== undefined && item.classList.contains('user-name')) {
-                                                result = result + item.lastChild.firstChild.textContent;
-                                            } else if (item.innerText === undefined) {
-                                                result = result + item.textContent;
-                                            } else result = result + item.innerText;
-                                        });
-                                        return result;
-                                    }
-                                }
-                            }
-                        },
-                        {
-                            extend: 'pdf',
-                            text: '<i class="bx bxs-file-pdf me-2"></i>Pdf',
-                            className: 'dropdown-item',
-                            exportOptions: {
-                                columns: [1, 2, 3, 4, 5],
-                                // prevent avatar to be display
-                                format: {
-                                    body: function (inner, coldex, rowdex) {
-                                        if (inner.length <= 0) return inner;
-                                        var el = $.parseHTML(inner);
-                                        var result = '';
-                                        $.each(el, function (index, item) {
-                                            if (item.classList !== undefined && item.classList.contains('user-name')) {
-                                                result = result + item.lastChild.firstChild.textContent;
-                                            } else if (item.innerText === undefined) {
-                                                result = result + item.textContent;
-                                            } else result = result + item.innerText;
-                                        });
-                                        return result;
-                                    }
-                                }
-                            }
-                        },
-                        {
-                            extend: 'copy',
-                            text: '<i class="bx bx-copy me-2" ></i>Copy',
-                            className: 'dropdown-item',
-                            exportOptions: {
-                                columns: [1, 2, 3, 4, 5],
-                                // prevent avatar to be display
-                                format: {
-                                    body: function (inner, coldex, rowdex) {
-                                        if (inner.length <= 0) return inner;
-                                        var el = $.parseHTML(inner);
-                                        var result = '';
-                                        $.each(el, function (index, item) {
-                                            if (item.classList !== undefined && item.classList.contains('user-name')) {
-                                                result = result + item.lastChild.firstChild.textContent;
-                                            } else if (item.innerText === undefined) {
-                                                result = result + item.textContent;
-                                            } else result = result + item.innerText;
-                                        });
-                                        return result;
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    text: '<i class="bx bx-plus me-0 me-sm-2"></i><span class="d-none d-lg-inline-block">Nuevo Usuario</span>',
-                    className: 'add-new btn btn-primary',
-                    attr: {
-                        'onclick': 'NuevoUsuario()',
-                        'data-bs-toggle': 'offcanvas',
-                        'data-bs-target': '#offcanvasAddUser'
-                    }
-                }
-            ],
+            //buttons: [
+            //    {
+            //        extend: 'collection',
+            //        className: 'btn btn-label-secondary dropdown-toggle mx-3',
+            //        text: '<i class="bx bx-upload me-2"></i>Export',
+            //        buttons: [
+            //            {
+            //                extend: 'print',
+            //                text: '<i class="bx bx-printer me-2" ></i>Print',
+            //                className: 'dropdown-item',
+            //                exportOptions: {
+            //                    columns: [1, 2, 3, 4, 5],
+            //                    // prevent avatar to be print
+            //                    format: {
+            //                        body: function (inner, coldex, rowdex) {
+            //                            if (inner.length <= 0) return inner;
+            //                            var el = $.parseHTML(inner);
+            //                            var result = '';
+            //                            $.each(el, function (index, item) {
+            //                                if (item.classList !== undefined && item.classList.contains('user-name')) {
+            //                                    result = result + item.lastChild.firstChild.textContent;
+            //                                } else if (item.innerText === undefined) {
+            //                                    result = result + item.textContent;
+            //                                } else result = result + item.innerText;
+            //                            });
+            //                            return result;
+            //                        }
+            //                    }
+            //                },
+            //                customize: function (win) {
+            //                    //customize print view for dark
+            //                    $(win.document.body)
+            //                        .css('color', config.colors.headingColor)
+            //                        .css('border-color', config.colors.borderColor)
+            //                        .css('background-color', config.colors.body);
+            //                    $(win.document.body)
+            //                        .find('table')
+            //                        .addClass('compact')
+            //                        .css('color', 'inherit')
+            //                        .css('border-color', 'inherit')
+            //                        .css('background-color', 'inherit');
+            //                }
+            //            },
+            //            {
+            //                extend: 'csv',
+            //                text: '<i class="bx bx-file me-2" ></i>Csv',
+            //                className: 'dropdown-item',
+            //                exportOptions: {
+            //                    columns: [1, 2, 3, 4, 5],
+            //                    // prevent avatar to be display
+            //                    format: {
+            //                        body: function (inner, coldex, rowdex) {
+            //                            if (inner.length <= 0) return inner;
+            //                            var el = $.parseHTML(inner);
+            //                            var result = '';
+            //                            $.each(el, function (index, item) {
+            //                                if (item.classList !== undefined && item.classList.contains('user-name')) {
+            //                                    result = result + item.lastChild.firstChild.textContent;
+            //                                } else if (item.innerText === undefined) {
+            //                                    result = result + item.textContent;
+            //                                } else result = result + item.innerText;
+            //                            });
+            //                            return result;
+            //                        }
+            //                    }
+            //                }
+            //            },
+            //            {
+            //                extend: 'excel',
+            //                text: 'Excel',
+            //                className: 'dropdown-item',
+            //                exportOptions: {
+            //                    columns: [1, 2, 3, 4, 5],
+            //                    // prevent avatar to be display
+            //                    format: {
+            //                        body: function (inner, coldex, rowdex) {
+            //                            if (inner.length <= 0) return inner;
+            //                            var el = $.parseHTML(inner);
+            //                            var result = '';
+            //                            $.each(el, function (index, item) {
+            //                                if (item.classList !== undefined && item.classList.contains('user-name')) {
+            //                                    result = result + item.lastChild.firstChild.textContent;
+            //                                } else if (item.innerText === undefined) {
+            //                                    result = result + item.textContent;
+            //                                } else result = result + item.innerText;
+            //                            });
+            //                            return result;
+            //                        }
+            //                    }
+            //                }
+            //            },
+            //            {
+            //                extend: 'pdf',
+            //                text: '<i class="bx bxs-file-pdf me-2"></i>Pdf',
+            //                className: 'dropdown-item',
+            //                exportOptions: {
+            //                    columns: [1, 2, 3, 4, 5],
+            //                    // prevent avatar to be display
+            //                    format: {
+            //                        body: function (inner, coldex, rowdex) {
+            //                            if (inner.length <= 0) return inner;
+            //                            var el = $.parseHTML(inner);
+            //                            var result = '';
+            //                            $.each(el, function (index, item) {
+            //                                if (item.classList !== undefined && item.classList.contains('user-name')) {
+            //                                    result = result + item.lastChild.firstChild.textContent;
+            //                                } else if (item.innerText === undefined) {
+            //                                    result = result + item.textContent;
+            //                                } else result = result + item.innerText;
+            //                            });
+            //                            return result;
+            //                        }
+            //                    }
+            //                }
+            //            },
+            //            {
+            //                extend: 'copy',
+            //                text: '<i class="bx bx-copy me-2" ></i>Copy',
+            //                className: 'dropdown-item',
+            //                exportOptions: {
+            //                    columns: [1, 2, 3, 4, 5],
+            //                    // prevent avatar to be display
+            //                    format: {
+            //                        body: function (inner, coldex, rowdex) {
+            //                            if (inner.length <= 0) return inner;
+            //                            var el = $.parseHTML(inner);
+            //                            var result = '';
+            //                            $.each(el, function (index, item) {
+            //                                if (item.classList !== undefined && item.classList.contains('user-name')) {
+            //                                    result = result + item.lastChild.firstChild.textContent;
+            //                                } else if (item.innerText === undefined) {
+            //                                    result = result + item.textContent;
+            //                                } else result = result + item.innerText;
+            //                            });
+            //                            return result;
+            //                        }
+            //                    }
+            //                }
+            //            }
+            //        ]
+            //    },
+            //    {
+            //        text: '<i class="bx bx-plus me-0 me-sm-2"></i><span class="d-none d-lg-inline-block">Nuevo Usuario</span>',
+            //        className: 'add-new btn btn-primary',
+            //        attr: {
+            //            'onclick': 'NuevoUsuario()',
+            //            'data-bs-toggle': 'offcanvas',
+            //            'data-bs-target': '#offcanvasAddUser'
+            //        }
+            //    }
+            //],
             // For responsive popup
             responsive: {
                 details: {

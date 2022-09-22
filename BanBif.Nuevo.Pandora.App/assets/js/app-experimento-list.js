@@ -1,16 +1,21 @@
-/**
- * Page User List
- */
 
 'use strict';
 var dt_experimento;
 var myModaleditExperimento;
+var modalExperimentoIndicador;
+var statusObj;
+var IdStatusExperimento = null;
 $(function () {
 
     myModaleditExperimento = new bootstrap.Modal(document.getElementById('editExperimento'), {
         keyboard: false,
         backdrop: 'static'
     })
+    modalExperimentoIndicador = new bootstrap.Modal(document.getElementById('modalExperimentoIndicador'), {
+        keyboard: false,
+        backdrop: 'static'
+    })
+    
     const flatpickrDate = document.querySelector('#modaltxtfechasolicitud')
     const flatpickrDate2 = document.querySelector('#modaltxtfechapublicacion')
     if (flatpickrDate) {
@@ -26,29 +31,26 @@ $(function () {
         });
     }
     var dt_experimento_table = $('.datatables-users');
-
+    statusObj = {
+        0: { title: 'No', class: 'bg-label-secondary' },
+        1: { title: 'Si', class: 'bg-label-success' }
+    };
     // Users datatable
     if (dt_experimento_table.length) {
-        debugger
+        //var obj = {};
+        //obj.IdStatusExperimento = 10;
         dt_experimento = dt_experimento_table.DataTable({
             "ajax": {
                 "url": $("#hdn_Listar_Experimento").val(),
                 "type": "POST",
-                "contentType": "application/json"//,
-                //"data": JSON.stringify({ "applications": ["sca", "www"] })
+                "dataType": "json",
+                "contentType": "application/json",
+                "data": function (d) {
+                    d.IdStatusExperimento = IdStatusExperimento;
+                    return JSON.stringify(d);
+
+                }
             },
-
-
-            //reponsive: true,
-            //scrollY: "300px",
-            //scrollX: true,
-            //scrollCollapse: true,
-            //paging: false,
-            //fixedColumns: {
-            //    left: 1,
-            //    right: 1
-            //},
-
             columns: [
                 // columns according to JSON
                 /*{ data: '' },*/
@@ -56,79 +58,31 @@ $(function () {
                 { data: 'Descripcion' },
                 { data: 'Tecnologia' },
                 { data: 'DesarrolladoPor' },
-               /* { data: 'Indicador' },*/
                 { data: 'FechaSolicitudString' },
                 { data: 'FechaPublicacionString' },
                 { data: 'Url' },
                 { data: 'FlagPublico' },
-               /* { data: 'FlagEstado' },*/
                 { data: 'action' }
             ],
             columnDefs: [
-                //{
-                //    // For Responsive
-                //    className: 'control',
-                //    searchable: false,
-                //    orderable: false,
-                //    responsivePriority: 2,
-                //    targets: 0,
-                //    render: function (data, type, full, meta) {
-                //        return '+';
-                //    }
-                //},
-                //{
-                //    // User full name and email
-                //    targets: 1,
-                //    responsivePriority: 4,
-                //    render: function (data, type, full, meta) {
+                {
+                    // User Status
+                    targets: 0,
+                    render: function (data, type, full, meta) {
+                        var $nombreExperimento = full['NombreExperimento'];
 
-                //        var $name = full['Nombre'],
-                //            $email = full['Correo'],
-                //            $image = full['avatar'];
-                //        if ($image) {
-                //            // For Avatar image
-                //            var $output =
-                //                '<img src="' + assetsPath + '/img/avatars/' + $image + '" alt="Avatar" class="rounded-circle">';
-                //        } else {
-                //            // For Avatar badge
-                //            var stateNum = Math.floor(Math.random() * 6);
-                //            var states = ['success', 'danger', 'warning', 'info', 'dark', 'primary', 'secondary'];
-                //            var $state = states[stateNum],
-                //                $name = full['Nombre'],
-                //                $initials = $name.match(/\b\w/g) || [];
-                //            $initials = (($initials.shift() || '') + ($initials.pop() || '')).toUpperCase();
-                //            $output = '<span class="avatar-initial rounded-circle bg-label-' + $state + '">' + $initials + '</span>';
-                //        }
-                //        // Creates full output for row
-                //        var $row_output =
-                //            '<div class="d-flex justify-content-start align-items-center user-name">' +
-                //            '<div class="avatar-wrapper">' +
-                //            '<div class="avatar avatar-sm me-3">' +
-                //            $output +
-                //            '</div>' +
-                //            '</div>' +
-                //            '<div class="d-flex flex-column">' +
-                //            '<a href="' +
-                //            userView +
-                //            '" class="text-body text-truncate"><span class="fw-semibold">' +
-                //            $name +
-                //            '</span></a>' +
-                //            '<small class="text-muted">' +
-                //            $email +
-                //            '</small>' +
-                //            '</div>' +
-                //            '</div>';
-                //        return $row_output;
-                //    }
-                //},        
-                //{
-                //    // User Status
-                //    targets: 3,
-                //    render: function (data, type, full, meta) {
-                //        var $status = full['FlagEstado'];
-                //        return '<span class="badge ' + statusObj[$status === true ? 1 : 0].class + '">' + statusObj[$status === true ? 1 : 0].title + '</span>';
-                //    }
-                //},
+                        return '<a onclick="ObtenerIndicadores(event,' + full.IdExperimento + ')">' + $nombreExperimento + '</a>';
+                    }
+                },
+                {
+                    // User Status
+                    targets: 7,
+                    render: function (data, type, full, meta) {
+                        var $status = full['FlagPublico'];
+
+                        return '<span class="badge ' + statusObj[$status === true ? 1 : 0].class + '">' + statusObj[$status === true ? 1 : 0].title + '</span>';
+                    }
+                },
                 {
                     // Actions
                     targets: -1,
@@ -516,12 +470,12 @@ $(function () {
             autoFocus: new FormValidation.plugins.AutoFocus()
         }
     }).on('core.form.valid', function () {
-
+        debugger
         var Experimento = {};
         var UrlEjecutar = $("#hdn_Crear_Experimento").val();
         Experimento.IdExperimento = 0;
-       
-        if ($('#hdn_user_id').val() != "0") {
+
+        if ($('#modalhdnIdExperimento').val() != "0") {
             Experimento.IdExperimento = $('#modalhdnIdExperimento').val();
             UrlEjecutar = $("#hdn_Modificar_Experimento").val();
         }
@@ -549,7 +503,7 @@ $(function () {
             data: JSON.stringify(Experimento),
             success: function (response) {
                 alert("exitoso")
-                dt_experimento.ajax.reload();                
+                dt_experimento.ajax.reload();
                 myModaleditExperimento.hide();
             },
             failure: function (msg) {

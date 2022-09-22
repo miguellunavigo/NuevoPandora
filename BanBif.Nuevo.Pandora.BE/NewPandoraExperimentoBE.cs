@@ -13,7 +13,6 @@ namespace BanBif.Nuevo.Pandora.BE
         public string Descripcion { get; set; }
         public string Tecnologia { get; set; }
         public string DesarrolladoPor { get; set; }
-        public Nullable<int> Indicador { get; set; }
         public Nullable<System.DateTime> FechaSolicitud { get; set; }
         public Nullable<System.DateTime> FechaPublicacion { get; set; }
         public string FechaSolicitudString { get { return FechaSolicitud.HasValue ? FechaSolicitud.Value.ToString("dd/MM/yyyy") : ""; } }
@@ -22,6 +21,7 @@ namespace BanBif.Nuevo.Pandora.BE
         public Nullable<int> IdUsuarioContacto { get; set; }
         public Nullable<bool> FlagPublico { get; set; }
         public Nullable<int> IdStatusExperimento { get; set; }
+        public string StatusExperimento { get; set; }
     }
     public class NewPandoraExperimentoResponse<T>
     {
