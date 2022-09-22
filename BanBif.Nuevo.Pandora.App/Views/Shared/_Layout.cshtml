@@ -2,7 +2,7 @@
 @{
     var login = (BanBif.Nuevo.Pandora.BE.NewPandoraLoginBE)Session["UsuarioAutentificado"];
  }
-<html lang="en"
+<html lang="es"
       class="light-style"
       dir="ltr"
       data-theme="theme-default"
@@ -139,12 +139,18 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     <li>
+                                        <a class="dropdown-item" href="javascript:void(0);" data-language="es">
+                                            <i class="fi fi-pt fis rounded-circle fs-4 me-1"></i>
+                                            <span class="align-middle">Español</span>
+                                        </a>
+                                    </li>
+                                    <li>
                                         <a class="dropdown-item" href="javascript:void(0);" data-language="en">
                                             <i class="fi fi-us fis rounded-circle fs-4 me-1"></i>
                                             <span class="align-middle">English</span>
                                         </a>
                                     </li>
-                                    <li>
+                                    @*<li>
                                         <a class="dropdown-item" href="javascript:void(0);" data-language="fr">
                                             <i class="fi fi-fr fis rounded-circle fs-4 me-1"></i>
                                             <span class="align-middle">France</span>
@@ -161,13 +167,8 @@
                                             <i class="fi fi-pt fis rounded-circle fs-4 me-1"></i>
                                             <span class="align-middle">Portuguese</span>
                                         </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="javascript:void(0);" data-language="es">
-                                            <i class="fi fi-pt fis rounded-circle fs-4 me-1"></i>
-                                            <span class="align-middle">Español</span>
-                                        </a>
-                                    </li>
+                                    </li>*@
+
                                 </ul>
                             </li>
                             <!--/ Language -->

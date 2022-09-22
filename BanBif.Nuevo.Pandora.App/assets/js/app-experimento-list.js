@@ -86,7 +86,7 @@ $(function () {
                 {
                     // Actions
                     targets: -1,
-                    title: 'Actions',
+                    title: '<div data-i18n="Acciones">Acciones<div>',
                     searchable: false,
                     orderable: false,
                     render: function (data, type, full, meta) {

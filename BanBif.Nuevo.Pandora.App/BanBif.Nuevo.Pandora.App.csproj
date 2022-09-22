@@ -1393,6 +1393,7 @@
     <Content Include="assets\vendor\fonts\fontawesome\fa-solid-900.woff2" />
     <Content Include="assets\vendor\fonts\fontawesome\fa-v4compatibility.ttf" />
     <Content Include="assets\vendor\fonts\fontawesome\fa-v4compatibility.woff2" />
+    <Content Include="assets\json\locales\es.json" />
     <None Include="packages.config" />
     <Content Include="Views\Experimento\Index.cshtml" />
     <Content Include="Views\Usuario\Index.cshtml" />

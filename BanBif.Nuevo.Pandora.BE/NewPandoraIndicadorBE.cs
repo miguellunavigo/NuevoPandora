@@ -13,7 +13,7 @@ namespace BanBif.Nuevo.Pandora.BE
         public int Contador { get; set; }
         public int Anio { get; set; }
         public int Mes { get; set; }
-        public int AnioMes { get { return int.Parse(Anio.ToString() + Mes.ToString("D2")); } }
+        public string AnioMes { get { return Mes.ToString("D2") + "/" + Anio.ToString(); } }
     }
 
 

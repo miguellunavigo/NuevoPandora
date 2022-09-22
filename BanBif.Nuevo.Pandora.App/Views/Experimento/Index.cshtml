@@ -10,7 +10,7 @@
 @Html.Hidden("hdn_Modificar_Experimento", Url.Action("Modificar", "Experimento"))
 @Html.Hidden("hdn_Listar_Indicador", Url.Action("ListarIndicador", "Experimento"))
 <div class="row g-4 mb-4">
-    <div class="col-sm-6 col-xl-2" onclick="IdStatusExperimento=0;dt_experimento.ajax.reload();" style="cursor: pointer">
+    <div class="col-sm-6 col-xl-2" onclick="IdStatusExperimento=null;dt_experimento.ajax.reload();" style="cursor: pointer">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex align-items-start justify-content-between">

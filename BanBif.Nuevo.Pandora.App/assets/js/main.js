@@ -159,9 +159,9 @@ if (document.getElementById('layout-menu')) {
     i18next
       .use(i18nextXHRBackend)
       .init({
-        lng: 'en',
+        lng: 'es',
         debug: false,
-        fallbackLng: 'en',
+        fallbackLng: 'es',
         backend: {
           loadPath: assetsPath + 'json/locales/{{lng}}.json'
         },
@@ -203,7 +203,8 @@ if (document.getElementById('layout-menu')) {
   }
 
   function localize() {
-    let i18nList = document.querySelectorAll('[data-i18n]');
+      let i18nList = document.querySelectorAll('[data-i18n]');
+      debugger
     // Set the current language in dd
     let currentLanguageEle = document.querySelector('.dropdown-item[data-language="' + i18next.language + '"]');
 
