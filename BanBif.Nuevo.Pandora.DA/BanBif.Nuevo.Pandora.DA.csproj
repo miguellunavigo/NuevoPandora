@@ -53,6 +53,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppsDA\AgendaComercialPJ\acClientesDA.cs" />
+	<Compile Include="ModelApp\AgendaComercialPjModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AgendaComercialPjModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelApp\AgendaComercialPjModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AgendaComercialPjModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelApp\AgendaComercialPjModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AgendaComercialPjModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="ModelApp\TBL_mAGENDACOMERCIAL_CLIENTE.cs">
+      <DependentUpon>AgendaComercialPjModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ExperimentoIndicadorDA.cs" />
     <Compile Include="NewPandora_ExperimentoCorreo.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -134,6 +153,13 @@
     <None Include="Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </None>
+    <EntityDeploy Include="ModelApp\AgendaComercialPjModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>AgendaComercialPjModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ModelApp\AgendaComercialPjModel.edmx.diagram">
+      <DependentUpon>AgendaComercialPjModel.edmx</DependentUpon>
+    </None>	
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -147,6 +173,16 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Content Include="ModelApp\AgendaComercialPjModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>AgendaComercialPjModel.edmx</DependentUpon>
+      <LastGenOutput>AgendaComercialPjModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="ModelApp\AgendaComercialPjModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>AgendaComercialPjModel.edmx</DependentUpon>
+      <LastGenOutput>AgendaComercialPjModel.cs</LastGenOutput>
+    </Content>	
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

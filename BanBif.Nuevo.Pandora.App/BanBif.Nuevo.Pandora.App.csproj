@@ -120,6 +120,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AgendaComercialPJController.cs" />
     <Compile Include="Controllers\CampaniaController.cs" />
     <Compile Include="Controllers\PropuestaController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -374,6 +375,7 @@
     <Content Include="assets\img\pages\profile-banner.png" />
     <Content Include="assets\img\products\1.png" />
     <Content Include="assets\img\products\2.png" />
+    <Content Include="assets\js\AgendaComercialPJ\app-clientes-list.js" />
     <Content Include="assets\js\app-access-permission.js" />
     <Content Include="assets\js\app-access-roles.js" />
     <Content Include="assets\js\app-calendar-events.js" />
@@ -1399,6 +1401,7 @@
     <Content Include="Views\Usuario\Index.cshtml" />
     <Content Include="Views\Campania\Index.cshtml" />
     <Content Include="Views\Propuesta\Index.cshtml" />
+    <Content Include="Views\AgendaComercialPJ\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BanBif.Comunes\BanBif.Comunes.csproj">

@@ -41,6 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppsBE\AgendaComercialPJ\acClienteBE.cs" />
+    <Compile Include="AppsBE\AgendaComercialPJ\acListaClienteRequest.cs" />
+    <Compile Include="AppsBE\AgendaComercialPJ\acListaClienteResponse.cs" />
+    <Compile Include="AppsBE\AgendaComercialPJ\acListaClientesBE.cs" />
     <Compile Include="Correo\CorreoDataCliente.cs" />
     <Compile Include="Correo\CorreoRequest.cs" />
     <Compile Include="Correo\CorreoResponse.cs" />

@@ -1,0 +1,290 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.Hidden("hdn_Listar_acClientes", Url.Action("ListarClientes", "AgendaComercialPJ"))
+
+<h2>Agenda Comercial PJ / Clientes</h2>
+
+<div class="card">
+    <div class="card-datatable table-responsive">
+        <table class="datatables-users table border-top">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Razon Social</th>
+                    <th>RUC</th>
+                    <th>Giro de Negocio</th>
+                    <th>Segmento</th>
+                    <th>Score</th>
+                    <th>Cross</th>
+                    <th>Facturación</th>
+                    @*<th>ROE</th>
+                        <th>SOW</th>
+                        <th>Rentabilidad</th>
+                        <th>Volumen USD</th>
+                        <th>Deuda RCC</th>*@
+                    <th></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+    <div class="modal fade" id="editProspecto" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-simple modal-edit-user">
+            <div class="modal-content p-3 p-md-5">
+                <div class="modal-body">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="text-center mb-4">
+                        <h3 id="offcanvasProspectoLabel">Nuevo Prospecto</h3>
+                    </div>
+
+                    <div class="text-lg-start mb-4">
+                        <h4>Datos Iniciales</h4>
+                    </div>
+
+                    <form id="experimentoForm" class="row g-3" onsubmit="return false">
+                        @Html.Hidden("modalhdnIdProspecto", "0")
+                        <div class="validate col-12 col-md-6">
+                            <label class="form-label" for="modaltxtRuc">RUC</label>
+                            <input type="text"
+                                   id="modaltxtRuc"
+                                   name="modaltxtRuc"
+                                   class="form-control"
+                                   placeholder="RUC*" />
+                        </div>
+                        <div class="validate col-12 col-md-6">
+                            <label class="form-label" for="modaltxtRazonSocial">Razón Social</label>
+                            <input type="text"
+                                   id="modaltxtRazonSocial"
+                                   name="modaltxtRazonSocial"
+                                   class="form-control"
+                                   placeholder="Razón Social*" />
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label class="form-label" for="user-role">Giro de Negocio</label>
+                            <select id="modalSelectGiroNegocio" class="form-select">
+                                <option value="">Seleccionar</option>
+                                <option value="1">Restaurantes</option>
+                            </select>
+                        </div>
+
+                        <div class="validate col-12 col-md-6">
+                            <label class="form-label" for="modaltxtGrupoEconomico">Grupo Económico</label>
+                            <input type="text"
+                                   id="modaltxtGrupoEconomico"
+                                   name="modaltxtGrupoEconomico"
+                                   class="form-control"
+                                   placeholder="Grupo Económico" />
+                        </div>
+
+                        <div class="validate col-12 col-md-6">
+                            <label class="form-label" for="modaltxtTelefono">Teléfono de Empresa</label>
+                            <input type="text"
+                                   id="modaltxtTelefono"
+                                   name="modaltxtTelefono"
+                                   class="form-control"
+                                   placeholder="Teléfono de Empresa" />
+                        </div>
+
+                        <div class="validate col-12 col-md-6">
+                            <label class="form-label" for="modaltxtDireccion">Dirección de Empresa</label>
+                            <input type="text"
+                                   id="modaltxtDireccion"
+                                   name="modaltxtDireccion"
+                                   class="form-control"
+                                   placeholder="Dirección de Empresa*" />
+                        </div>
+
+                        <div class="validate col-12 col-md-6">
+                            <label class="form-label" for="modaltxtFacturacion">Facturación</label>
+                            <input type="text"
+                                   id="modaltxtFacturacion"
+                                   name="modaltxtFacturacion"
+                                   class="form-control"
+                                   placeholder="Facturación" />
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label class="form-label" for="user-role">Moneda (Facturación)</label>
+                            <select id="modalSelectGiroNegocio" class="form-select">
+                                <option value="">Seleccionar</option>
+                                <option value="1">SOL</option>
+                                <option value="2">USD</option>
+                            </select>
+                        </div>
+
+                        <div class="validate col-12 col-md-12">
+                            <br />
+                            <h4>Datos de Contacto</h4>
+                        </div>
+
+
+                        <div class="validate col-12 col-md-6">
+                            <label class="form-label" for="modaltxtNombre">Nombre y Apellido</label>
+                            <input type="text"
+                                   id="modaltxtNombre"
+                                   name="modaltxtNombre"
+                                   class="form-control"
+                                   placeholder="Nombre y Apellido*" />
+                        </div>
+
+
+                        <div class="validate col-12 col-md-6">
+                            <label class="form-label" for="modaltxtCargo">Cargo en la Empresa</label>
+                            <input type="text"
+                                   id="modaltxtCargo"
+                                   name="modaltxtCargo"
+                                   class="form-control"
+                                   placeholder="Cargo en la Empresa" />
+                        </div>
+
+
+                        <div class="validate col-12 col-md-6">
+                            <label class="form-label" for="modaltxtTelefonoContacto">Teléfono</label>
+                            <input type="text"
+                                   id="modaltxtTelefonoContacto"
+                                   name="modaltxtTelefonoContacto"
+                                   class="form-control"
+                                   placeholder="Teléfono*" />
+                        </div>
+
+
+                        <div class="validate col-12 col-md-6">
+                            <label class="form-label" for="modaltxtCorreo">Correo Electrónico</label>
+                            <input type="text"
+                                   id="modaltxtCorreo"
+                                   name="modaltxtCorreo"
+                                   class="form-control"
+                                   placeholder="Correo Electrónico" />
+                        </div>
+
+                        <div class="col-12 text-center">
+                            <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit" id="btn_Experimento">Guardar</button>
+                            <button type="reset"
+                                    class="btn btn-label-secondary"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close">
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<!-- Page JS -->
+@section Scripts
+{
+    <!-- Vendors JS -->
+    <script src="../../assets/vendor/libs/moment/moment.js"></script>
+    <script src="../../assets/vendor/libs/datatables/jquery.dataTables.js"></script>
+    <script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
+    <script src="../../assets/vendor/libs/datatables-responsive/datatables.responsive.js"></script>
+    <script src="../../assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.js"></script>
+    <script src="../../assets/vendor/libs/datatables-buttons/datatables-buttons.js"></script>
+    <script src="../../assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.js"></script>
+    <script src="../../assets/vendor/libs/jszip/jszip.js"></script>
+    <script src="../../assets/vendor/libs/pdfmake/pdfmake.js"></script>
+    <script src="../../assets/vendor/libs/datatables-buttons/buttons.html5.js"></script>
+    <script src="../../assets/vendor/libs/datatables-buttons/buttons.print.js"></script>
+    <script src="../../assets/vendor/libs/select2/select2.js"></script>
+    <script src="../../assets/vendor/libs/formvalidation/dist/js/FormValidation.min.js"></script>
+    <script src="../../assets/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js"></script>
+    <script src="../../assets/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js"></script>
+    <script src="../../assets/vendor/libs/cleavejs/cleave.js"></script>
+    <script src="../../assets/vendor/libs/cleavejs/cleave-phone.js"></script>
+
+    <!-- Vendors JS -->
+
+    <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
+    <script src="../../assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+    <script src="../../assets/vendor/libs/bootstrap-daterangepicker/bootstrap-daterangepicker.js"></script>
+    <script src="../../assets/vendor/libs/jquery-timepicker/jquery-timepicker.js"></script>
+    <script src="../../assets/vendor/libs/pickr/pickr.js"></script>
+
+    <script src="~/assets/js/AgendaComercialPJ/app-clientes-list.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            //$("#btn_usuario").click(function () {
+            //    //if (!$("form#addNewUserForm").valid()) {
+            //    //    alert("ddasda");
+            //    //    return false;
+            //    //} else {
+            //        alert("Grabacion");
+            //    //s}
+            //})
+        })
+        function NuevoProspecto() {
+
+            $("#offcanvasProspectoLabel").html("Nuevo Prospecto");
+            $("#btn_Experimento").html("Guardar")
+            $('#modalhdnIdProspecto').val("0");
+            $('#modaltxtNombre').val("");
+            $('#modaltxtDescripcion').val("");
+            $('#modaltxtTecnologia').val("");
+            $('#modaltxtDesarrolladoPor').val("");
+            $('#modaltxtfechasolicitud').val("");
+            $('#modaltxtfechapublicacion').val("");
+            $('#modaltxtUrl').val("");
+           
+
+        }
+        function ObtenerClientes(event, ruc) {
+            event.stopPropagation()
+            var Cliente = {};
+            Cliente.RUC = ruc;
+
+            alert(Cliente.RUC);
+            //$.ajax({
+            //    url: $("#hdn_Obtener_Usuario").val(),
+            //    type: "POST",
+            //    dataType: "json",
+            //    contentType: "application/json; charset=utf-8",
+            //    processData: true,
+            //    data: JSON.stringify(Usuario),
+            //    success: function (response) {
+            //        $("#btn_usuario").html("Modificar")
+            //        $("#offcanvasAddUserLabel").html("Modificar Usuario");
+
+            //        $('#hdn_user_id').val(response.data.IdUsuario);
+            //        $('#add-user-windows').val(response.data.UsuarioWindows);
+            //        $('#add-user-fullname').val(response.data.Nombre);
+            //        $('#add-user-email').val(response.data.Correo);
+            //        $('#user-role').val(response.data.IdRol);
+
+            //        var myOffcanvas = document.getElementById('offcanvasAddUser')
+            //        var bsOffcanvas = new bootstrap.Offcanvas(myOffcanvas)
+            //        bsOffcanvas.show()
+            //    },
+            //    failure: function (msg) {
+            //        debugger
+            //        console.log(msg);
+            //        // $.unblockUI();
+            //    },
+            //    error: function (xhr, status, error) {
+            //        debugger
+            //        console.log(error);
+            //        //$.unblockUI();
+            //    },
+            //    complete: function () {
+            //        debugger
+            //        //$.unblockUI();
+            //        //$("#prueba").dialog("close")
+            //    }
+            //});
+
+        }
+
+
+
+
+    </script>
+}

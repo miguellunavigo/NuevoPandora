@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppsBL\AgendaComercialPJ\acClienteBL.cs" />
     <Compile Include="ComunBL.cs" />
     <Compile Include="PropuestaBL.cs" />
     <Compile Include="ReinventaDatosCampaniaBL.cs" />

@@ -91,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AgendaComercialPJ\acClienteController.cs" />
     <Compile Include="Controllers\PropuestaApiController.cs" />
     <Compile Include="Controllers\ReinventaDatosCampaniaApiController.cs" />
     <Compile Include="Controllers\ExperimentoApiController.cs" />

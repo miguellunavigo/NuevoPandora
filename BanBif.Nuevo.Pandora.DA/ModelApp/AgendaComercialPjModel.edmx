@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="panelAgendaPjModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TBL_mAGENDACOMERCIAL_CLIENTE">
+          <Key>
+            <PropertyRef Name="CODIGOCLIENTE" />
+          </Key>
+          <Property Name="CODIGOCLIENTE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RUC" Type="varchar" MaxLength="1000" />
+          <Property Name="RAZON_SOCIAL" Type="varchar" MaxLength="1000" />
+          <Property Name="DIRECCION" Type="varchar" MaxLength="1000" />
+          <Property Name="DEPARTAMENTO" Type="varchar" MaxLength="1000" />
+          <Property Name="PROVINCIA" Type="varchar" MaxLength="1000" />
+          <Property Name="DISTRITO" Type="varchar" MaxLength="1000" />
+          <Property Name="CORREO" Type="varchar" MaxLength="1000" />
+          <Property Name="TELEFONO" Type="varchar" MaxLength="1000" />
+          <Property Name="ZONA" Type="varchar" MaxLength="1000" />
+          <Property Name="GIRO_NEGOCIO" Type="varchar" MaxLength="1000" />
+          <Property Name="GRUPO_ECONOMICO" Type="varchar" MaxLength="1000" />
+          <Property Name="SEGMENTO" Type="varchar" MaxLength="1000" />
+          <Property Name="SCORE" Type="varchar" MaxLength="1000" />
+          <Property Name="CROSS_CLIENTE" Type="varchar" MaxLength="1000" />
+          <Property Name="FACTURACION" Type="varchar" MaxLength="1000" />
+          <Property Name="ROE" Type="varchar" MaxLength="1000" />
+          <Property Name="SOW" Type="varchar" MaxLength="1000" />
+          <Property Name="RENTABILIDAD" Type="varchar" MaxLength="1000" />
+          <Property Name="VOLUMEN_NEGOCIO" Type="varchar" MaxLength="1000" />
+          <Property Name="VOLUMEN_PASIVOS" Type="varchar" MaxLength="1000" />
+          <Property Name="VOLUMEN_ACTIVOS" Type="varchar" MaxLength="1000" />
+          <Property Name="VOLUMEN_CONTINGENTES" Type="varchar" MaxLength="1000" />
+          <Property Name="CALIFICACION_BANBIF" Type="varchar" MaxLength="1000" />
+          <Property Name="CALIFICACION_SSFF" Type="varchar" MaxLength="1000" />
+          <Property Name="SISTEMA_VIGILANCIA" Type="varchar" MaxLength="1000" />
+          <Property Name="LINEA_DISPONIBLE" Type="varchar" MaxLength="1000" />
+          <Property Name="DEUDA_RCC" Type="varchar" MaxLength="1000" />
+        </EntityType>
+        <EntityContainer Name="panelAgendaPjModelStoreContainer">
+          <EntitySet Name="TBL_mAGENDACOMERCIAL_CLIENTE" EntityType="Self.TBL_mAGENDACOMERCIAL_CLIENTE" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="panelAgendaPjModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TBL_mAGENDACOMERCIAL_CLIENTE">
+          <Key>
+            <PropertyRef Name="CODIGOCLIENTE" />
+          </Key>
+          <Property Name="CODIGOCLIENTE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RUC" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="RAZON_SOCIAL" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="DIRECCION" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="DEPARTAMENTO" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="PROVINCIA" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="DISTRITO" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="CORREO" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="TELEFONO" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="ZONA" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="GIRO_NEGOCIO" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="GRUPO_ECONOMICO" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="SEGMENTO" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="SCORE" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="CROSS_CLIENTE" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="FACTURACION" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="ROE" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="SOW" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="RENTABILIDAD" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="VOLUMEN_NEGOCIO" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="VOLUMEN_PASIVOS" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="VOLUMEN_ACTIVOS" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="VOLUMEN_CONTINGENTES" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="CALIFICACION_BANBIF" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="CALIFICACION_SSFF" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="SISTEMA_VIGILANCIA" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="LINEA_DISPONIBLE" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="DEUDA_RCC" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="agendapjEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TBL_mAGENDACOMERCIAL_CLIENTE" EntityType="Self.TBL_mAGENDACOMERCIAL_CLIENTE" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="panelAgendaPjModelStoreContainer" CdmEntityContainer="agendapjEntities">
+          <EntitySetMapping Name="TBL_mAGENDACOMERCIAL_CLIENTE">
+            <EntityTypeMapping TypeName="panelAgendaPjModel.TBL_mAGENDACOMERCIAL_CLIENTE">
+              <MappingFragment StoreEntitySet="TBL_mAGENDACOMERCIAL_CLIENTE">
+                <ScalarProperty Name="CODIGOCLIENTE" ColumnName="CODIGOCLIENTE" />
+                <ScalarProperty Name="RUC" ColumnName="RUC" />
+                <ScalarProperty Name="RAZON_SOCIAL" ColumnName="RAZON_SOCIAL" />
+                <ScalarProperty Name="DIRECCION" ColumnName="DIRECCION" />
+                <ScalarProperty Name="DEPARTAMENTO" ColumnName="DEPARTAMENTO" />
+                <ScalarProperty Name="PROVINCIA" ColumnName="PROVINCIA" />
+                <ScalarProperty Name="DISTRITO" ColumnName="DISTRITO" />
+                <ScalarProperty Name="CORREO" ColumnName="CORREO" />
+                <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
+                <ScalarProperty Name="ZONA" ColumnName="ZONA" />
+                <ScalarProperty Name="GIRO_NEGOCIO" ColumnName="GIRO_NEGOCIO" />
+                <ScalarProperty Name="GRUPO_ECONOMICO" ColumnName="GRUPO_ECONOMICO" />
+                <ScalarProperty Name="SEGMENTO" ColumnName="SEGMENTO" />
+                <ScalarProperty Name="SCORE" ColumnName="SCORE" />
+                <ScalarProperty Name="CROSS_CLIENTE" ColumnName="CROSS_CLIENTE" />
+                <ScalarProperty Name="FACTURACION" ColumnName="FACTURACION" />
+                <ScalarProperty Name="ROE" ColumnName="ROE" />
+                <ScalarProperty Name="SOW" ColumnName="SOW" />
+                <ScalarProperty Name="RENTABILIDAD" ColumnName="RENTABILIDAD" />
+                <ScalarProperty Name="VOLUMEN_NEGOCIO" ColumnName="VOLUMEN_NEGOCIO" />
+                <ScalarProperty Name="VOLUMEN_PASIVOS" ColumnName="VOLUMEN_PASIVOS" />
+                <ScalarProperty Name="VOLUMEN_ACTIVOS" ColumnName="VOLUMEN_ACTIVOS" />
+                <ScalarProperty Name="VOLUMEN_CONTINGENTES" ColumnName="VOLUMEN_CONTINGENTES" />
+                <ScalarProperty Name="CALIFICACION_BANBIF" ColumnName="CALIFICACION_BANBIF" />
+                <ScalarProperty Name="CALIFICACION_SSFF" ColumnName="CALIFICACION_SSFF" />
+                <ScalarProperty Name="SISTEMA_VIGILANCIA" ColumnName="SISTEMA_VIGILANCIA" />
+                <ScalarProperty Name="LINEA_DISPONIBLE" ColumnName="LINEA_DISPONIBLE" />
+                <ScalarProperty Name="DEUDA_RCC" ColumnName="DEUDA_RCC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
