@@ -204,7 +204,6 @@ if (document.getElementById('layout-menu')) {
 
   function localize() {
       let i18nList = document.querySelectorAll('[data-i18n]');
-      debugger
     // Set the current language in dd
     let currentLanguageEle = document.querySelector('.dropdown-item[data-language="' + i18next.language + '"]');
 

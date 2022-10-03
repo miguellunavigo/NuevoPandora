@@ -24,5 +24,23 @@ namespace BanBif.Nuevo.Pandora.BL.AppsBL.AgendaComercialPJ
 
             return response;
         }
+        public acListaClienteResponse<acClienteBE> ObtenerClientes(acListaClienteRequest request)
+        {
+            acListaClienteResponse<acClienteBE> response = new acListaClienteResponse<acClienteBE>();
+            try
+            {
+                var ExperimentoDA = new acClientesDA();
+                response.data = ExperimentoDA.ObtenerClientes(request).Obtener;
+                response.Result = true;
+
+            }
+            catch (Exception ex)
+            {
+                response.Result = false;
+                response.Mensaje = ex.InnerException.ToString();
+            }
+
+            return response;
+        }
     }
 }

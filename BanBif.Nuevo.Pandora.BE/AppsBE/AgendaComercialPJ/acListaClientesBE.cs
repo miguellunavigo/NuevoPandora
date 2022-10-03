@@ -5,5 +5,7 @@ namespace BanBif.Nuevo.Pandora.BE.AppsBE.AgendaComercialPJ
     public class acListaClientesBE
     {
         public List<acClienteBE> Lista { get; set; }
+
+        public acClienteBE Obtener { get; set; }
     }
 }

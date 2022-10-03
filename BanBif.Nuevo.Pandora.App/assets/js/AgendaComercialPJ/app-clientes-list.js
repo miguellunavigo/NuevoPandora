@@ -4,8 +4,14 @@
 
 'use strict';
 var dt_user;
+var modaldetalleProspecto;
 // Datatable (jquery)
 $(function () {
+    modaldetalleProspecto = new bootstrap.Modal(document.getElementById('verdetalleProspecto'), {
+        keyboard: false,
+        backdrop: 'static'
+    })
+
     // Variable declaration for table
     var dt_user_table = $('.datatables-users'),
         select2 = $('.select2'),
@@ -38,13 +44,15 @@ $(function () {
             columns: [
                 // columns according to JSON
                 { data: '' },
-                { data: 'RUC' },
-                { data: 'RAZONSOCIAL' },
-                { data: 'GIRONEGOCIO' },
-                { data: 'SEGMENTO' },
-                { data: 'SCORE' },
-                { data: 'CROSS' },
-                { data: 'FACTURACION' }
+                { data: 'RazonSocial' },
+                { data: 'RUC' },                
+                { data: 'GiroNegocio' },
+                { data: 'Segmento' },
+                { data: 'Score' },
+                { data: 'CrossCliente' },
+                { data: 'Facturacion' },
+                { data: 'action' }
+
             ],
             columnDefs: [
                 {
@@ -62,14 +70,13 @@ $(function () {
                 {
                     // Actions
                     targets: -1,
-                    title: 'Actions',
+                    title: 'Acciones',
                     searchable: false,
                     orderable: false,
                     render: function (data, type, full, meta) {
-
                         return (
                             '<div class="d-inline-block text-nowrap">' +
-                            '<button onclick="ObtenerClientes(event,' + full.RUC + ')" class="btn btn-sm btn-icon" id="btn_edit_user_' + full.RUC + '" ><i class="bx bx-edit"></i></button>' +
+                            '<button onclick="verDetalleProspecto(event,' + full.CodigoCliente + ')" class="btn btn-sm btn-icon" id="btn_edit_user_' + full.RUC + '" >Ver Detalle</button>' +
                             //'<button class="btn btn-sm btn-icon delete-record"><i class="bx bx-trash"></i></button>' +
                             //'<button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>' +
                             '<div class="dropdown-menu dropdown-menu-end m-0">' +
@@ -101,7 +108,7 @@ $(function () {
             // Buttons with Dropdown
             buttons: [
                 {
-                    text: '<i class="bx bx-plus me-0 me-sm-2"></i><span class="d-none d-lg-inline-block">Nuevo Prospecto</span>',
+                    text: '<i class="bx bx-plus me-0 me-sm-2"></i><span class="d-none d-lg-inline-block">Agregar Cita</span>',
                     className: 'add-new btn btn-primary',
                     attr: {
                         'onclick': 'NuevoProspecto()',

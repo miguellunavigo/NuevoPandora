@@ -13,5 +13,12 @@ namespace BanBif.Nuevo.Pandora.Api.Controllers.AgendaComercialPJ
             var oBL = new acClienteBL();
             return Json(oBL.ListarClientes(request));
         }
+        [Route("api/AgendaComercial/ObtenerClientes")]
+        [HttpPost]
+        public IHttpActionResult OBtener(acListaClienteRequest request)
+        {
+            var oBL = new acClienteBL();
+            return Json(oBL.ObtenerClientes(request));
+        }
     }
 }

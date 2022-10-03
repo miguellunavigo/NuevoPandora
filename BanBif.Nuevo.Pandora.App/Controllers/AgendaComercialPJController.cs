@@ -33,5 +33,23 @@ namespace BanBif.Nuevo.Pandora.App.Controllers
 
             return Json(response);
         }
+
+        public ActionResult ObtenerClientes(acListaClienteRequest request)
+        {
+            acListaClienteResponse<acClienteBE> response = new acListaClienteResponse<acClienteBE>();
+
+            try
+            {
+                string strURL = ConfigurationManager.AppSettings["BaseUrlService"] + "api/AgendaComercial/ObtenerClientes";
+                string result = WebApi<acListaClienteRequest>.RequestWebApi(request, strURL);
+                response = JsonConvert.DeserializeObject<acListaClienteResponse<acClienteBE>>(result);
+            }
+            catch (Exception ex)
+            {
+                response.Result = false;
+            }
+
+            return Json(response);
+        }
     }
 }
