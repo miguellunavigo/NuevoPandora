@@ -26,5 +26,7 @@ namespace BanBif.Nuevo.Pandora.DA.ModelApp
         }
     
         public virtual DbSet<TBL_mAGENDACOMERCIAL_CLIENTE> TBL_mAGENDACOMERCIAL_CLIENTE { get; set; }
+        public virtual DbSet<TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO> TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO { get; set; }
+        public virtual DbSet<TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO_COMENTARIOS> TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO_COMENTARIOS { get; set; }
     }
 }

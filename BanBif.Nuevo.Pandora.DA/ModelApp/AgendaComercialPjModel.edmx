@@ -38,8 +38,61 @@
           <Property Name="LINEA_DISPONIBLE" Type="varchar" MaxLength="1000" />
           <Property Name="DEUDA_RCC" Type="varchar" MaxLength="1000" />
         </EntityType>
+        <EntityType Name="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO">
+          <Key>
+            <PropertyRef Name="CODIGOCONTACTO" />
+          </Key>
+          <Property Name="CODIGOCONTACTO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CODIGOCLIENTE" Type="int" />
+          <Property Name="NOMBRE_APELLIDO" Type="varchar" MaxLength="150" />
+          <Property Name="CARGO" Type="varchar" MaxLength="100" />
+          <Property Name="CORREO" Type="varchar" MaxLength="60" />
+          <Property Name="TELEFONO" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO_COMENTARIOS">
+          <Key>
+            <PropertyRef Name="CODIGOCOMENTARIO" />
+          </Key>
+          <Property Name="CODIGOCOMENTARIO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CODIGOCONTACTO" Type="int" />
+          <Property Name="COMENTARIO" Type="varchar" MaxLength="800" />
+        </EntityType>
+        <Association Name="FK_mAGENDACOMERCIALCLIENTECONTACTOCODIGOCLIENTE">
+          <End Role="TBL_mAGENDACOMERCIAL_CLIENTE" Type="Self.TBL_mAGENDACOMERCIAL_CLIENTE" Multiplicity="0..1" />
+          <End Role="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO" Type="Self.TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_mAGENDACOMERCIAL_CLIENTE">
+              <PropertyRef Name="CODIGOCLIENTE" />
+            </Principal>
+            <Dependent Role="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO">
+              <PropertyRef Name="CODIGOCLIENTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mAGENDACOMERCIALCLIENTECONTACTOCODIGOCONTACTO">
+          <End Role="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO" Type="Self.TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO" Multiplicity="0..1" />
+          <End Role="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO_COMENTARIOS" Type="Self.TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO_COMENTARIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO">
+              <PropertyRef Name="CODIGOCONTACTO" />
+            </Principal>
+            <Dependent Role="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO_COMENTARIOS">
+              <PropertyRef Name="CODIGOCONTACTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="panelAgendaPjModelStoreContainer">
           <EntitySet Name="TBL_mAGENDACOMERCIAL_CLIENTE" EntityType="Self.TBL_mAGENDACOMERCIAL_CLIENTE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO" EntityType="Self.TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO_COMENTARIOS" EntityType="Self.TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO_COMENTARIOS" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_mAGENDACOMERCIALCLIENTECONTACTOCODIGOCLIENTE" Association="Self.FK_mAGENDACOMERCIALCLIENTECONTACTOCODIGOCLIENTE">
+            <End Role="TBL_mAGENDACOMERCIAL_CLIENTE" EntitySet="TBL_mAGENDACOMERCIAL_CLIENTE" />
+            <End Role="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO" EntitySet="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mAGENDACOMERCIALCLIENTECONTACTOCODIGOCONTACTO" Association="Self.FK_mAGENDACOMERCIALCLIENTECONTACTOCODIGOCONTACTO">
+            <End Role="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO" EntitySet="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO" />
+            <End Role="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO_COMENTARIOS" EntitySet="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO_COMENTARIOS" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -77,10 +130,67 @@
           <Property Name="SISTEMA_VIGILANCIA" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Name="LINEA_DISPONIBLE" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Name="DEUDA_RCC" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO" Relationship="panelAgendaPjModel.FK_mAGENDACOMERCIALCLIENTECONTACTOCODIGOCLIENTE" FromRole="TBL_mAGENDACOMERCIAL_CLIENTE" ToRole="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO" />
         </EntityType>
         <EntityContainer Name="agendapjEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="TBL_mAGENDACOMERCIAL_CLIENTE" EntityType="Self.TBL_mAGENDACOMERCIAL_CLIENTE" />
+          <EntitySet Name="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO" EntityType="panelAgendaPjModel.TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO" />
+          <EntitySet Name="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO_COMENTARIOS" EntityType="panelAgendaPjModel.TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO_COMENTARIOS" />
+          <AssociationSet Name="FK_mAGENDACOMERCIALCLIENTECONTACTOCODIGOCLIENTE" Association="panelAgendaPjModel.FK_mAGENDACOMERCIALCLIENTECONTACTOCODIGOCLIENTE">
+            <End Role="TBL_mAGENDACOMERCIAL_CLIENTE" EntitySet="TBL_mAGENDACOMERCIAL_CLIENTE" />
+            <End Role="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO" EntitySet="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mAGENDACOMERCIALCLIENTECONTACTOCODIGOCONTACTO" Association="panelAgendaPjModel.FK_mAGENDACOMERCIALCLIENTECONTACTOCODIGOCONTACTO">
+            <End Role="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO" EntitySet="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO" />
+            <End Role="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO_COMENTARIOS" EntitySet="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO_COMENTARIOS" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO">
+          <Key>
+            <PropertyRef Name="CODIGOCONTACTO" />
+          </Key>
+          <Property Name="CODIGOCONTACTO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CODIGOCLIENTE" Type="Int32" />
+          <Property Name="NOMBRE_APELLIDO" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="CARGO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CORREO" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="TELEFONO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_mAGENDACOMERCIAL_CLIENTE" Relationship="panelAgendaPjModel.FK_mAGENDACOMERCIALCLIENTECONTACTOCODIGOCLIENTE" FromRole="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO" ToRole="TBL_mAGENDACOMERCIAL_CLIENTE" />
+          <NavigationProperty Name="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO_COMENTARIOS" Relationship="panelAgendaPjModel.FK_mAGENDACOMERCIALCLIENTECONTACTOCODIGOCONTACTO" FromRole="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO" ToRole="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO_COMENTARIOS" />
+        </EntityType>
+        <EntityType Name="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO_COMENTARIOS">
+          <Key>
+            <PropertyRef Name="CODIGOCOMENTARIO" />
+          </Key>
+          <Property Name="CODIGOCOMENTARIO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CODIGOCONTACTO" Type="Int32" />
+          <Property Name="COMENTARIO" Type="String" MaxLength="800" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO" Relationship="panelAgendaPjModel.FK_mAGENDACOMERCIALCLIENTECONTACTOCODIGOCONTACTO" FromRole="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO_COMENTARIOS" ToRole="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO" />
+        </EntityType>
+        <Association Name="FK_mAGENDACOMERCIALCLIENTECONTACTOCODIGOCLIENTE">
+          <End Type="panelAgendaPjModel.TBL_mAGENDACOMERCIAL_CLIENTE" Role="TBL_mAGENDACOMERCIAL_CLIENTE" Multiplicity="0..1" />
+          <End Type="panelAgendaPjModel.TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO" Role="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_mAGENDACOMERCIAL_CLIENTE">
+              <PropertyRef Name="CODIGOCLIENTE" />
+            </Principal>
+            <Dependent Role="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO">
+              <PropertyRef Name="CODIGOCLIENTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mAGENDACOMERCIALCLIENTECONTACTOCODIGOCONTACTO">
+          <End Type="panelAgendaPjModel.TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO" Role="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO" Multiplicity="0..1" />
+          <End Type="panelAgendaPjModel.TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO_COMENTARIOS" Role="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO_COMENTARIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO">
+              <PropertyRef Name="CODIGOCONTACTO" />
+            </Principal>
+            <Dependent Role="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO_COMENTARIOS">
+              <PropertyRef Name="CODIGOCONTACTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -118,6 +228,27 @@
                 <ScalarProperty Name="SISTEMA_VIGILANCIA" ColumnName="SISTEMA_VIGILANCIA" />
                 <ScalarProperty Name="LINEA_DISPONIBLE" ColumnName="LINEA_DISPONIBLE" />
                 <ScalarProperty Name="DEUDA_RCC" ColumnName="DEUDA_RCC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO">
+            <EntityTypeMapping TypeName="panelAgendaPjModel.TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO">
+              <MappingFragment StoreEntitySet="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO">
+                <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
+                <ScalarProperty Name="CORREO" ColumnName="CORREO" />
+                <ScalarProperty Name="CARGO" ColumnName="CARGO" />
+                <ScalarProperty Name="NOMBRE_APELLIDO" ColumnName="NOMBRE_APELLIDO" />
+                <ScalarProperty Name="CODIGOCLIENTE" ColumnName="CODIGOCLIENTE" />
+                <ScalarProperty Name="CODIGOCONTACTO" ColumnName="CODIGOCONTACTO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO_COMENTARIOS">
+            <EntityTypeMapping TypeName="panelAgendaPjModel.TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO_COMENTARIOS">
+              <MappingFragment StoreEntitySet="TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO_COMENTARIOS">
+                <ScalarProperty Name="COMENTARIO" ColumnName="COMENTARIO" />
+                <ScalarProperty Name="CODIGOCONTACTO" ColumnName="CODIGOCONTACTO" />
+                <ScalarProperty Name="CODIGOCOMENTARIO" ColumnName="CODIGOCOMENTARIO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

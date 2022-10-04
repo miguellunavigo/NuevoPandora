@@ -14,6 +14,12 @@ namespace BanBif.Nuevo.Pandora.DA.ModelApp
     
     public partial class TBL_mAGENDACOMERCIAL_CLIENTE
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TBL_mAGENDACOMERCIAL_CLIENTE()
+        {
+            this.TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO = new HashSet<TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO>();
+        }
+    
         public int CODIGOCLIENTE { get; set; }
         public string RUC { get; set; }
         public string RAZON_SOCIAL { get; set; }
@@ -42,5 +48,8 @@ namespace BanBif.Nuevo.Pandora.DA.ModelApp
         public string SISTEMA_VIGILANCIA { get; set; }
         public string LINEA_DISPONIBLE { get; set; }
         public string DEUDA_RCC { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO> TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO { get; set; }
     }
 }

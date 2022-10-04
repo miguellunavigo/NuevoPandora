@@ -6,6 +6,10 @@
     <edmx:Diagrams>
       <Diagram DiagramId="ec19fa16645542ff9a9901a38bc10ee7" Name="Diagram1" ZoomLevel="63">
         <EntityTypeShape EntityType="panelAgendaPjModel.TBL_mAGENDACOMERCIAL_CLIENTE" Width="3.625" PointX="0.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="panelAgendaPjModel.TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO" Width="1.5" PointX="5.125" PointY="4" />
+        <EntityTypeShape EntityType="panelAgendaPjModel.TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO_COMENTARIOS" Width="1.5" PointX="7.375" PointY="4.375" />
+        <AssociationConnector Association="panelAgendaPjModel.FK_mAGENDACOMERCIALCLIENTECONTACTOCODIGOCLIENTE" />
+        <AssociationConnector Association="panelAgendaPjModel.FK_mAGENDACOMERCIALCLIENTECONTACTOCODIGOCONTACTO" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

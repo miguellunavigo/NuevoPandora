@@ -32,4 +32,21 @@
         public string DeudaRCC { get; set; }
 
     }
+    public class acClienteContactoBE
+    {
+        public int CodigoContacto { get; set; }
+        public int CodigoCliente { get; set; }
+        public string NombreApellido { get; set; }
+        public string Cargo { get; set; }
+        public string Correo { get; set; }
+        public string Telefono { get; set; }
+
+    }
+    public class acClienteContactoComentarioBE
+    {
+        public int CodigoComentario { get; set; }
+        public int CodigoContacto { get; set; }
+        public string Comentario { get; set; }
+
+    }
 }

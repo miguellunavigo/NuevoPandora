@@ -5,6 +5,7 @@
 }
 @Html.Hidden("hdn_Listar_acClientes", Url.Action("ListarClientes", "AgendaComercialPJ"))
 @Html.Hidden("hdn_Obtener_acClientes", Url.Action("ObtenerClientes", "AgendaComercialPJ"))
+@Html.Hidden("hdn_ListarClientesContacto", Url.Action("ListarClientesContacto", "AgendaComercialPJ"))
 <style>
     html:not([dir=rtl]) .modal-simple .btn-close {
         right: 0rem;
@@ -44,7 +45,7 @@
 
 <div class="card">
     <div class="card-datatable table-responsive">
-        <table class="datatables-users table border-top">
+        <table id="dtListaCliente" class="table border-top">
             <thead>
                 <tr>
                     <th></th>
@@ -335,9 +336,25 @@
                                     One of three columns
                                 </div>
                             </div>
+                            <br />
                             <div class="row">
                                 <div class="col-md-9">
-                                    Personas de Contacto
+                                    <div class="card">
+                                        <div class="card-datatable table-responsive">
+                                            <table id="dtListaClienteContactos" class="table border-top">
+                                                <thead>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th>Nombre y Apellido</th>
+                                                        <th>Cargo</th>
+                                                        <th>Correo</th>
+                                                        <th>Telefono</th>
+                                                        <th>Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -346,179 +363,381 @@
             </div>
         </div>
     </div>
-</div>
 
-<!-- Page JS -->
-@section Scripts
+    <div class="modal fade" id="verdetalleContacto" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-simple" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="text-center mb-4">
+                        <h5 id="offcanvasProspectoLabel">Ingresar Nueva Persona Contacto </h5>
+                    </div>
+                    <form id="clienteContactoForm" class="row g-3" onsubmit="return false">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <span>Nombre y Apellido</span>
+                                    <input id="txtNombreApellidoContacto" class="form-control" />
+                                    <span>Cargo en la Empresa</span>
+                                    <input id="txtCargoContacto" class="form-control" />
+                                    <span>Correo electrónico</span>
+                                    <input id="txtCorreoContacto" class="form-control" />
+                                    <span>Teléfono Celular</span>
+                                    <input id="txtTelefonoContacto" class="form-control" />
+                                </div>
+                                <div class="col-md-4">
+                                    <span>Comentario</span>
+                                    <textarea id="txtComentarioContacto" class="form-control"></textarea>
+                                    <br />
+                                    <div class="col-12 text-center">
+                                        <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit" id="btnGuardarContacto">Guardar</button>
+                                        @*<button type="reset"
+                                                    class="btn btn-label-secondary"
+                                                    data-bs-dismiss="modal"
+                                                    aria-label="Close">
+                                                Cancel
+                                            </button>*@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page JS -->
+    @section Scripts
 {
-    <!-- Vendors JS -->
-    <script src="../../assets/vendor/libs/moment/moment.js"></script>
-    <script src="../../assets/vendor/libs/datatables/jquery.dataTables.js"></script>
-    <script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
-    <script src="../../assets/vendor/libs/datatables-responsive/datatables.responsive.js"></script>
-    <script src="../../assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.js"></script>
-    <script src="../../assets/vendor/libs/datatables-buttons/datatables-buttons.js"></script>
-    <script src="../../assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.js"></script>
-    <script src="../../assets/vendor/libs/jszip/jszip.js"></script>
-    <script src="../../assets/vendor/libs/pdfmake/pdfmake.js"></script>
-    <script src="../../assets/vendor/libs/datatables-buttons/buttons.html5.js"></script>
-    <script src="../../assets/vendor/libs/datatables-buttons/buttons.print.js"></script>
-    <script src="../../assets/vendor/libs/select2/select2.js"></script>
-    <script src="../../assets/vendor/libs/formvalidation/dist/js/FormValidation.min.js"></script>
-    <script src="../../assets/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js"></script>
-    <script src="../../assets/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js"></script>
-    <script src="../../assets/vendor/libs/cleavejs/cleave.js"></script>
-    <script src="../../assets/vendor/libs/cleavejs/cleave-phone.js"></script>
+        <!-- Vendors JS -->
+        <script src="../../assets/vendor/libs/moment/moment.js"></script>
+        <script src="../../assets/vendor/libs/datatables/jquery.dataTables.js"></script>
+        <script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
+        <script src="../../assets/vendor/libs/datatables-responsive/datatables.responsive.js"></script>
+        <script src="../../assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.js"></script>
+        <script src="../../assets/vendor/libs/datatables-buttons/datatables-buttons.js"></script>
+        <script src="../../assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.js"></script>
+        <script src="../../assets/vendor/libs/jszip/jszip.js"></script>
+        <script src="../../assets/vendor/libs/pdfmake/pdfmake.js"></script>
+        <script src="../../assets/vendor/libs/datatables-buttons/buttons.html5.js"></script>
+        <script src="../../assets/vendor/libs/datatables-buttons/buttons.print.js"></script>
+        <script src="../../assets/vendor/libs/select2/select2.js"></script>
+        <script src="../../assets/vendor/libs/formvalidation/dist/js/FormValidation.min.js"></script>
+        <script src="../../assets/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js"></script>
+        <script src="../../assets/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js"></script>
+        <script src="../../assets/vendor/libs/cleavejs/cleave.js"></script>
+        <script src="../../assets/vendor/libs/cleavejs/cleave-phone.js"></script>
 
-    <!-- Vendors JS -->
+        <!-- Vendors JS -->
 
-    <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
-    <script src="../../assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
-    <script src="../../assets/vendor/libs/bootstrap-daterangepicker/bootstrap-daterangepicker.js"></script>
-    <script src="../../assets/vendor/libs/jquery-timepicker/jquery-timepicker.js"></script>
-    <script src="../../assets/vendor/libs/pickr/pickr.js"></script>
+        <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
+        <script src="../../assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+        <script src="../../assets/vendor/libs/bootstrap-daterangepicker/bootstrap-daterangepicker.js"></script>
+        <script src="../../assets/vendor/libs/jquery-timepicker/jquery-timepicker.js"></script>
+        <script src="../../assets/vendor/libs/pickr/pickr.js"></script>
 
-    <script src="~/assets/js/AgendaComercialPJ/app-clientes-list.js"></script>
-    <script>
-        $(document).ready(function () {
+        <script src="~/assets/js/AgendaComercialPJ/app-clientes-list.js"></script>
+        <script>
+            $(document).ready(function () {
+            })
 
-            //$("#btn_usuario").click(function () {
-            //    //if (!$("form#addNewUserForm").valid()) {
-            //    //    alert("ddasda");
-            //    //    return false;
-            //    //} else {
-            //        alert("Grabacion");
-            //    //s}
-            //})
-        })
-        function NuevoProspecto() {
+            function AgregarContacto() {
+                modaldetalleContacto.show()
+            }
 
-            $("#offcanvasProspectoLabel").html("Nuevo Prospecto");
-            $("#btn_Experimento").html("Guardar")
-            $('#modalhdnIdProspecto').val("0");
-            $('#modaltxtNombre').val("");
-            $('#modaltxtDescripcion').val("");
-            $('#modaltxtTecnologia').val("");
-            $('#modaltxtDesarrolladoPor').val("");
-            $('#modaltxtfechasolicitud').val("");
-            $('#modaltxtfechapublicacion').val("");
-            $('#modaltxtUrl').val("");
+            function NuevoProspecto() {
+
+                $("#offcanvasProspectoLabel").html("Nuevo Prospecto");
+                $("#btn_Experimento").html("Guardar")
+                $('#modalhdnIdProspecto').val("0");
+                $('#modaltxtNombre').val("");
+                $('#modaltxtDescripcion').val("");
+                $('#modaltxtTecnologia').val("");
+                $('#modaltxtDesarrolladoPor').val("");
+                $('#modaltxtfechasolicitud').val("");
+                $('#modaltxtfechapublicacion').val("");
+                $('#modaltxtUrl').val("");
 
 
-        }
-        function ObtenerClientes(event, CodigoCliente) {
-            event.stopPropagation()
-            var Cliente = {};
-            Cliente.RUC = ruc;
+            }
+            function ObtenerClientes(event, CodigoCliente) {
+                event.stopPropagation()
+                var Cliente = {};
+                Cliente.RUC = ruc;
 
-            //alert(Cliente.RUC);
-            $.ajax({
-                url: $().val(),
-                type: "POST",
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                processData: true,
-                data: JSON.stringify(Usuario),
-                success: function (response) {
-                    debugger
-                    $("#btn_usuario").html("Modificar")
-                    $("#offcanvasAddUserLabel").html("Modificar Usuario");
+                //alert(Cliente.RUC);
+                $.ajax({
+                    url: $().val(),
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    processData: true,
+                    data: JSON.stringify(Usuario),
+                    success: function (response) {
+                        debugger
+                        $("#btn_usuario").html("Modificar")
+                        $("#offcanvasAddUserLabel").html("Modificar Usuario");
 
-                    $('#hdn_user_id').val(response.data.IdUsuario);
-                    $('#add-user-windows').val(response.data.UsuarioWindows);
-                    $('#add-user-fullname').val(response.data.Nombre);
-                    $('#add-user-email').val(response.data.Correo);
-                    $('#user-role').val(response.data.IdRol);
+                        $('#hdn_user_id').val(response.data.IdUsuario);
+                        $('#add-user-windows').val(response.data.UsuarioWindows);
+                        $('#add-user-fullname').val(response.data.Nombre);
+                        $('#add-user-email').val(response.data.Correo);
+                        $('#user-role').val(response.data.IdRol);
 
-                    var myOffcanvas = document.getElementById('offcanvasAddUser')
-                    var bsOffcanvas = new bootstrap.Offcanvas(myOffcanvas)
-                    bsOffcanvas.show()
-                },
-                failure: function (msg) {
-                    debugger
-                    console.log(msg);
-                    // $.unblockUI();
-                },
-                error: function (xhr, status, error) {
-                    debugger
-                    console.log(error);
-                    //$.unblockUI();
-                },
-                complete: function () {
-                    debugger
-                    //$.unblockUI();
-                    //$("#prueba").dialog("close")
-                }
-            });
+                        var myOffcanvas = document.getElementById('offcanvasAddUser')
+                        var bsOffcanvas = new bootstrap.Offcanvas(myOffcanvas)
+                        bsOffcanvas.show()
+                    },
+                    failure: function (msg) {
+                        debugger
+                        console.log(msg);
+                        // $.unblockUI();
+                    },
+                    error: function (xhr, status, error) {
+                        debugger
+                        console.log(error);
+                        //$.unblockUI();
+                    },
+                    complete: function () {
+                        debugger
+                        //$.unblockUI();
+                        //$("#prueba").dialog("close")
+                    }
+                });
 
-        }
-        function verDetalleProspecto(event, CodigoCliente) {
-            event.stopPropagation()
-            var Request = {};
-            Request.CodigoCliente = CodigoCliente;
+            }
+            var dtListaClienteContactos;
+            function verDetalleProspecto(event, CodigoCliente) {
+                event.stopPropagation()
+                var Request = {};
+                Request.CodigoCliente = CodigoCliente;
 
-            $.ajax({
-                url: $("#hdn_Obtener_acClientes").val(),
-                type: "POST",
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                processData: true,
-                data: JSON.stringify(Request),
-                success: function (response) {
+                $.ajax({
+                    url: $("#hdn_Obtener_acClientes").val(),
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    processData: true,
+                    data: JSON.stringify(Request),
+                    success: function (response) {
+                        $("#spanRazonSocial").html(response.data.RazonSocial)
+                        $("#spanRUC").html(response.data.RUC)
+                        $("#spanDireccion").html(response.data.Direccion)
+                        $("#spanUbigeo").html(response.data.Departamento + "-" + response.data.Provincia + "-" + response.data.Distrito)
+                        $("#spanGiroNegocio").html(response.data.GiroNegocio)
+                        $("#spanGrupoEconomico").html(response.data.GrupoEconomico)
+                        $("#spanCorreo").html(response.data.Correo)
+                        $("#spanTelefono").html(response.data.Telefono)
+                        $("#spanSegmento").html(response.data.Segmento)
+                        $("#spanSOW").html(response.data.SOW)
+                        $("#spanVolumenNegocio").html(response.data.VolumenNegocio)
+                        $("#spanScore").html(response.data.Score)
+                        $("#spanVolumenPasivos").html(response.data.VolumenPasivos)
+                        $("#spanRentabilidad").html(response.data.Rentabilidad)
+                        $("#spanVolumenActivos").html(response.data.VolumenActivos)
+                        $("#spanCalificacionBanBif").html(response.data.CalificacionBanBif)
+                        $("#spanVolumenContingentes").html(response.data.VolumenContingentes)
+                        $("#spanROE").html(response.data.ROE)
+                        $("#spanCrossCliente").html(response.data.CrossCliente)
+                        $("#spanCalificacionSSFF").html(response.data.CalificacionSSFF)
+                        $("#spanSistemaVigilancia").html(response.data.SistemaVigilancia)
+                        $("#spanLineaDisponible").html(response.data.LineaDisponible)
+
+                        modaldetalleProspecto.show()
+
+                        if (dtListaClienteContactos != undefined)
+                            dtListaClienteContactos.ajax.reload();
+                        if (dtListaClienteContactos == undefined)
+                            dtListaClienteContactos = $('#dtListaClienteContactos').DataTable({
+                                "ajax": {
+                                    "url": $("#hdn_ListarClientesContacto").val(),
+                                    "type": "POST",
+                                    "contentType": "application/json",
+                                    "data": function (d) {
+                                        d.CodigoCliente = response.data.CodigoCliente;
+                                        return JSON.stringify(d);
+                                    }
+                                },
+                                columns: [
+                                    // columns according to JSON
+                                    { data: '' },
+                                    { data: 'NombreApellido' },
+                                    { data: 'Cargo' },
+                                    { data: 'Correo' },
+                                    { data: 'Telefono' },
+                                    { data: 'action' }
+
+                                ],
+                                columnDefs: [
+                                    {
+                                        // For Responsive
+                                        className: 'control',
+                                        searchable: false,
+                                        orderable: false,
+                                        responsivePriority: 2,
+                                        targets: 0,
+                                        render: function (data, type, full, meta) {
+                                            return '';
+                                        }
+                                    },
+                                    {
+                                        // Actions
+                                        targets: -1,
+                                        title: 'Acciones',
+                                        searchable: false,
+                                        orderable: false,
+                                        render: function (data, type, full, meta) {
+                                            return ""
+                                            //return (
+                                            //    '<div class="d-inline-block text-nowrap">' +
+                                            //    '<button onclick="verDetalleProspecto(event,' + full.CodigoCliente + ')" class="btn btn-sm btn-icon" id="btn_edit_user_' + full.RUC + '" >Ver Detalle</button>' +
+                                            //    //'<button class="btn btn-sm btn-icon delete-record"><i class="bx bx-trash"></i></button>' +
+                                            //    //'<button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>' +
+                                            //    '<div class="dropdown-menu dropdown-menu-end m-0">' +
+                                            //    '<a href="' +
+                                            //    userView +
+                                            //    '" class="dropdown-item">View</a>' +
+                                            //    '<a href="javascript:;" class="dropdown-item">Suspend</a>' +
+                                            //    '</div>' +
+                                            //    '</div>'
+                                            //);
+                                        }
+                                    }
+                                ],
+                                order: [[1, 'desc']],
+                                dom:
+                                    '<"row mx-2"' +
+                                    '<"col-md-2"<"me-3"l>>' +
+                                    '<"col-md-10"<"dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0"fB>>' +
+                                    '>t' +
+                                    '<"row mx-2"' +
+                                    '<"col-sm-12 col-md-6"i>' +
+                                    '<"col-sm-12 col-md-6"p>' +
+                                    '>',
+                                language: {
+                                    sLengthMenu: '_MENU_',
+                                    search: '',
+                                    searchPlaceholder: 'Buscar..'
+                                },
+                                // Buttons with Dropdown
+                                buttons: [
+                                    {
+                                        text: '<i class="bx bx-plus me-0 me-sm-2"></i><span class="d-none d-lg-inline-block">Agregar Contacto</span>',
+                                        className: 'add-new btn btn-primary',
+                                        attr: {
+                                            'onclick': 'NuevoContacto()'//,
+                                            //'data-bs-toggle': 'modal',
+                                            //'data-bs-target': '#editProspecto',
+                                            //'backdrop': 'static'
+                                        }
+                                    }
+                                ],
+                                // For responsive popup
+                                responsive: {
+                                    //details: {
+                                    //    display: $.fn.dataTable.Responsive.display.modal({
+                                    //        header: function (row) {
+                                    //            var data = row.data();
+                                    //            return 'Details of ' + data['full_name'];
+                                    //        }
+                                    //    }),
+                                    //    type: 'column',
+                                    //    renderer: function (api, rowIdx, columns) {
+                                    //        //var data = $.map(columns, function (col, i) {
+                                    //        //    return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
+                                    //        //        ? '<tr data-dt-row="' +
+                                    //        //        col.rowIndex +
+                                    //        //        '" data-dt-column="' +
+                                    //        //        col.columnIndex +
+                                    //        //        '">' +
+                                    //        //        '<td>' +
+                                    //        //        col.title +
+                                    //        //        ':' +
+                                    //        //        '</td> ' +
+                                    //        //        '<td>' +
+                                    //        //        col.data +
+                                    //        //        '</td>' +
+                                    //        //        '</tr>'
+                                    //        //        : '';
+                                    //        //}).join('');
+                                    //        //return data ? $('<table class="table"/><tbody />').append(data) : false;
+                                    //    }
+                                    //}
+                                },
+                                initComplete: function () {
+                                    // Adding role filter once table initialized
+                                    //this.api()
+                                    //    .columns(2)
+                                    //    .every(function () {
+                                    //        var column = this;
+                                    //        var select = $(
+                                    //            '<select id="UserRole" class="form-select text-capitalize"><option value=""> Select Role </option></select>'
+                                    //        )
+                                    //            .appendTo('.user_role')
+                                    //            .on('change', function () {
+                                    //                var val = $.fn.dataTable.util.escapeRegex($(this).val());
+                                    //                column.search(val ? '^' + val + '$' : '', true, false).draw();
+                                    //            });
+
+                                    //        column
+                                    //            .data()
+                                    //            .unique()
+                                    //            .sort()
+                                    //            .each(function (d, j) {
+                                    //                select.append('<option value="' + d + '">' + d + '</option>');
+                                    //            });
+                                    //    });
+                                    // Adding plan filter once table initialized
+                                    //this.api()
+                                    //    .columns(3)
+                                    //    .every(function () {
+                                    //        var column = this;
+                                    //        var select = $(
+                                    //            '<select id="UserPlan" class="form-select text-capitalize"><option value=""> Select Plan </option></select>'
+                                    //        )
+                                    //            .appendTo('.user_plan')
+                                    //            .on('change', function () {
+                                    //                var val = $.fn.dataTable.util.escapeRegex($(this).val());
+                                    //                column.search(val ? '^' + val + '$' : '', true, false).draw();
+                                    //            });
+
+                                    //        column
+                                    //            .data()
+                                    //            .unique()
+                                    //            .sort()
+                                    //            .each(function (d, j) {
+                                    //                select.append('<option value="' + d + '">' + d + '</option>');
+                                    //            });
+                                    //    })
+
+                                }
+                            });
 
 
-                    $("#spanRazonSocial").html(response.data.RazonSocial)
-                    $("#spanRUC").html(response.data.RUC)
-                    $("#spanDireccion").html(response.data.Direccion)
-                    $("#spanUbigeo").html(response.data.Departamento + "-" + response.data.Provincia + "-" + response.data.Distrito)
-                    $("#spanGiroNegocio").html(response.data.GiroNegocio)
-                    $("#spanGrupoEconomico").html(response.data.GrupoEconomico)
-                    $("#spanCorreo").html(response.data.Correo)
-                    $("#spanTelefono").html(response.data.Telefono)
 
-                    $("#spanSegmento").html(response.data.Segmento)
-                    $("#spanSOW").html(response.data.SOW)
-                    $("#spanVolumenNegocio").html(response.data.VolumenNegocio)
-                    $("#spanScore").html(response.data.Score)
-                    $("#spanVolumenPasivos").html(response.data.VolumenPasivos)
-                    $("#spanRentabilidad").html(response.data.Rentabilidad)
-                    $("#spanVolumenActivos").html(response.data.VolumenActivos)
-                    $("#spanCalificacionBanBif").html(response.data.CalificacionBanBif)
-                    $("#spanVolumenContingentes").html(response.data.VolumenContingentes)
-                    $("#spanROE").html(response.data.ROE)
-                    $("#spanCrossCliente").html(response.data.CrossCliente)
-                    $("#spanCalificacionSSFF").html(response.data.CalificacionSSFF)
-                    $("#spanSistemaVigilancia").html(response.data.SistemaVigilancia)
-                    $("#spanLineaDisponible").html(response.data.LineaDisponible)
+                    },
+                    failure: function (msg) {
+                        debugger
+                        console.log(msg);
+                        // $.unblockUI();
+                    },
+                    error: function (xhr, status, error) {
+                        debugger
+                        console.log(error);
+                        //$.unblockUI();
+                    },
+                    complete: function () {
+                        debugger
+                    }
+                });
 
-                    response.data.CodigoCliente;
-                    response.data.Zona;
-                    response.data.Facturacion;
-                    response.data.DeudaRCC;
+            }
 
-                    modaldetalleProspecto.show()
-                },
-                failure: function (msg) {
-                    debugger
-                    console.log(msg);
-                    // $.unblockUI();
-                },
-                error: function (xhr, status, error) {
-                    debugger
-                    console.log(error);
-                    //$.unblockUI();
-                },
-                complete: function () {
-                    debugger
-                    //$.unblockUI();
-                    //$("#prueba").dialog("close")
-                }
-            });
-
-        }
+            function NuevoContacto() {
+                modaldetalleContacto.show();
+            }
 
 
-
-
-    </script>
-}
+        </script>
+    }

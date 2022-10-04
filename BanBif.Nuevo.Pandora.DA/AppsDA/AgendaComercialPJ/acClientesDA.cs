@@ -2,6 +2,7 @@
 using BanBif.Nuevo.Pandora.BE.AppsBE.AgendaComercialPJ;
 using BanBif.Nuevo.Pandora.DA.ModelApp;
 using System.Collections.Generic;
+using System;
 
 namespace BanBif.Nuevo.Pandora.DA.AppsDA.AgendaComercialPJ
 {
@@ -42,7 +43,7 @@ namespace BanBif.Nuevo.Pandora.DA.AppsDA.AgendaComercialPJ
             {
 
                 var result = new acListaClientesBE();
-                var clientes = db.TBL_mAGENDACOMERCIAL_CLIENTE.Where(p => p.CODIGOCLIENTE == request.CodigoCliente).ToList();                
+                var clientes = db.TBL_mAGENDACOMERCIAL_CLIENTE.Where(p => p.CODIGOCLIENTE == request.CodigoCliente).ToList();
                 foreach (var item in clientes)
                 {
 
@@ -77,6 +78,104 @@ namespace BanBif.Nuevo.Pandora.DA.AppsDA.AgendaComercialPJ
                         LineaDisponible = item.LINEA_DISPONIBLE,
                         DeudaRCC = item.DEUDA_RCC
                     };
+                }
+
+                return result;
+            }
+        }
+
+
+        public NewPandoraResponse<int> CrearClientesContacto(acListaClienteContactoRequest request)
+        {
+            NewPandoraResponse<int> response = new NewPandoraResponse<int>();
+            try
+            {
+                using (agendapjEntities db = new agendapjEntities())
+                {
+                    var insert = new TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO();
+                    insert.CODIGOCONTACTO = request.CodigoContacto;
+                    insert.CODIGOCLIENTE = request.CodigoCliente;
+                    insert.NOMBRE_APELLIDO = request.NombreApellido;
+                    insert.CARGO = request.Cargo;
+                    insert.CORREO = request.Correo;
+                    insert.TELEFONO = request.Telefono;
+                    db.TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO.Add(insert);
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Mensaje = ex.Message;
+            }
+            return response;
+        }
+        public List<acClienteContactoBE> ListarClientesContacto(acListaClienteContactoRequest request)
+        {
+            using (var db = new agendapjEntities())
+            {
+                var result = new List<acClienteContactoBE>();
+                var clientes = db.TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO.Where(p => p.CODIGOCLIENTE == request.CodigoCliente).ToList();
+
+                foreach (var item in clientes)
+                {
+
+                    result.Add(new acClienteContactoBE
+                    {
+                        CodigoContacto = item.CODIGOCONTACTO,
+                        CodigoCliente = item.CODIGOCONTACTO,
+                        NombreApellido = item.NOMBRE_APELLIDO,
+                        Cargo = item.CARGO,
+                        Correo = item.CORREO,
+                        Telefono = item.TELEFONO,
+                    });
+                }
+
+                return result;
+            }
+        }
+        public acClienteContactoBE ObtenerClientesContacto(acListaClienteContactoRequest request)
+        {
+            using (var db = new agendapjEntities())
+            {
+
+                var result = new acClienteContactoBE();
+                var clientes = db.TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO.Where(p => p.CODIGOCONTACTO == request.CodigoContacto).ToList();
+                foreach (var item in clientes)
+                {
+
+                    result = new acClienteContactoBE
+                    {
+                        CodigoContacto = item.CODIGOCONTACTO,
+                        CodigoCliente = item.CODIGOCONTACTO,
+                        NombreApellido = item.NOMBRE_APELLIDO,
+                        Cargo = item.CARGO,
+                        Correo = item.CORREO,
+                        Telefono = item.TELEFONO,
+                    };
+                }
+
+                return result;
+            }
+        }
+
+        public List<acClienteContactoComentarioBE> ListarClienteContactoComentarios(acListaClienteContactoComentarioRequest request)
+        {
+            using (var db = new agendapjEntities())
+            {
+
+                var result = new List<acClienteContactoComentarioBE>();
+                var clientes = db.TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO_COMENTARIOS.Where(p => p.CODIGOCONTACTO == request.CodigoContacto).ToList();
+                result = new List<acClienteContactoComentarioBE>();
+
+                foreach (var item in clientes)
+                {
+
+                    result.Add(new acClienteContactoComentarioBE
+                    {
+                        CodigoComentario = item.CODIGOCOMENTARIO,
+                        CodigoContacto = item.CODIGOCONTACTO.Value,
+                        Comentario = item.COMENTARIO
+                    });
                 }
 
                 return result;

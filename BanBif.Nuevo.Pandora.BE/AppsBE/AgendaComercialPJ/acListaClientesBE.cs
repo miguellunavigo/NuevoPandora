@@ -8,4 +8,5 @@ namespace BanBif.Nuevo.Pandora.BE.AppsBE.AgendaComercialPJ
 
         public acClienteBE Obtener { get; set; }
     }
+
 }

@@ -37,7 +37,6 @@ namespace BanBif.Nuevo.Pandora.App.Controllers
         public ActionResult ObtenerClientes(acListaClienteRequest request)
         {
             acListaClienteResponse<acClienteBE> response = new acListaClienteResponse<acClienteBE>();
-
             try
             {
                 string strURL = ConfigurationManager.AppSettings["BaseUrlService"] + "api/AgendaComercial/ObtenerClientes";
@@ -48,7 +47,53 @@ namespace BanBif.Nuevo.Pandora.App.Controllers
             {
                 response.Result = false;
             }
+            return Json(response);
+        }
+        public ActionResult ListarClientesContacto(acListaClienteContactoRequest request)
+        {
+            acListaClienteResponse<List<acClienteContactoBE>> response = new acListaClienteResponse<List<acClienteContactoBE>>();
+            try
+            {
+                string strURL = ConfigurationManager.AppSettings["BaseUrlService"] + "api/AgendaComercial/ListarClientesContacto";
+                string result = WebApi<acListaClienteContactoRequest>.RequestWebApi(request, strURL);
+                response = JsonConvert.DeserializeObject<acListaClienteResponse<List<acClienteContactoBE>>>(result);
+            }
+            catch (Exception ex)
+            {
+                response.Result = false;
+            }
+            return Json(response);
+        }
 
+        public ActionResult ObtenerClientesContacto(acListaClienteContactoRequest request)
+        {
+            acListaClienteResponse<acClienteContactoBE> response = new acListaClienteResponse<acClienteContactoBE>();
+            try
+            {
+                string strURL = ConfigurationManager.AppSettings["BaseUrlService"] + "api/AgendaComercial/ObtenerClientesContacto";
+                string result = WebApi<acListaClienteContactoRequest>.RequestWebApi(request, strURL);
+                response = JsonConvert.DeserializeObject<acListaClienteResponse<acClienteContactoBE>>(result);
+            }
+            catch (Exception ex)
+            {
+                response.Result = false;
+            }
+
+            return Json(response);
+        }
+        public ActionResult ListarClienteContactoComentarios(acListaClienteContactoComentarioRequest request)
+        {
+            acListaClienteResponse<List<acClienteContactoComentarioBE>> response = new acListaClienteResponse<List<acClienteContactoComentarioBE>>();
+            try
+            {
+                string strURL = ConfigurationManager.AppSettings["BaseUrlService"] + "api/AgendaComercial/ListarClienteContactoComentarios";
+                string result = WebApi<acListaClienteContactoComentarioRequest>.RequestWebApi(request, strURL);
+                response = JsonConvert.DeserializeObject<acListaClienteResponse<List<acClienteContactoComentarioBE>>>(result);
+            }
+            catch (Exception ex)
+            {
+                response.Result = false;
+            }
             return Json(response);
         }
     }

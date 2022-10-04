@@ -54,7 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppsDA\AgendaComercialPJ\acClientesDA.cs" />
-	<Compile Include="ModelApp\AgendaComercialPjModel.Context.cs">
+    <Compile Include="ModelApp\AgendaComercialPjModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AgendaComercialPjModel.Context.tt</DependentUpon>
@@ -73,6 +73,12 @@
       <DependentUpon>AgendaComercialPjModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ExperimentoIndicadorDA.cs" />
+    <Compile Include="ModelApp\TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO.cs">
+      <DependentUpon>AgendaComercialPjModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelApp\TBL_mAGENDACOMERCIAL_CLIENTE_CONTACTO_COMENTARIOS.cs">
+      <DependentUpon>AgendaComercialPjModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="NewPandora_ExperimentoCorreo.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -159,7 +165,7 @@
     </EntityDeploy>
     <None Include="ModelApp\AgendaComercialPjModel.edmx.diagram">
       <DependentUpon>AgendaComercialPjModel.edmx</DependentUpon>
-    </None>	
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -182,7 +188,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>AgendaComercialPjModel.edmx</DependentUpon>
       <LastGenOutput>AgendaComercialPjModel.cs</LastGenOutput>
-    </Content>	
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

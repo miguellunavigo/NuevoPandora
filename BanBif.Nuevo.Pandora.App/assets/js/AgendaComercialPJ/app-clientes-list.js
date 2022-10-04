@@ -5,15 +5,21 @@
 'use strict';
 var dt_user;
 var modaldetalleProspecto;
-// Datatable (jquery)
+var modaldetalleContacto;
+var CodigoCliente = 0;
 $(function () {
     modaldetalleProspecto = new bootstrap.Modal(document.getElementById('verdetalleProspecto'), {
         keyboard: false,
         backdrop: 'static'
     })
 
+    modaldetalleContacto = new bootstrap.Modal(document.getElementById('verdetalleContacto'), {
+        keyboard: false,
+        backdrop: 'static'
+    })
+   
     // Variable declaration for table
-    var dt_user_table = $('.datatables-users'),
+    var dt_user_table = $('#dtListaCliente'),
         select2 = $('.select2'),
         userView = 'app-user-view-account.html',
         statusObj = {
@@ -29,11 +35,11 @@ $(function () {
             dropdownParent: $this.parent()
         });
     }
-    
+
 
     // Users datatable
     if (dt_user_table.length) {
-         dt_user = dt_user_table.DataTable({
+        dt_user = dt_user_table.DataTable({
             //ajax: assetsPath + 'json/user-list.json', // JSON file to add data
             "ajax": {
                 "url": $("#hdn_Listar_acClientes").val(),
@@ -45,7 +51,7 @@ $(function () {
                 // columns according to JSON
                 { data: '' },
                 { data: 'RazonSocial' },
-                { data: 'RUC' },                
+                { data: 'RUC' },
                 { data: 'GiroNegocio' },
                 { data: 'Segmento' },
                 { data: 'Score' },
@@ -66,7 +72,7 @@ $(function () {
                         return '';
                     }
                 },
-               
+
                 {
                     // Actions
                     targets: -1,
@@ -196,13 +202,13 @@ $(function () {
                                 select.append('<option value="' + d + '">' + d + '</option>');
                             });
                     })
-                
+
             }
         });
     }
 
     // Delete Record
-    $('.datatables-users tbody').on('click', '.delete-record', function () {
+    $('#dtListaCliente tbody').on('click', '.delete-record', function () {
         dt_user.row($(this).parents('tr')).remove().draw();
     });
 

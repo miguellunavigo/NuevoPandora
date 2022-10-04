@@ -20,5 +20,34 @@ namespace BanBif.Nuevo.Pandora.Api.Controllers.AgendaComercialPJ
             var oBL = new acClienteBL();
             return Json(oBL.ObtenerClientes(request));
         }
+
+        [Route("api/AgendaComercial/CrearClientesContacto")]
+        [HttpPost]
+        public IHttpActionResult Crear(acListaClienteContactoRequest request)
+        {
+            var oBL = new acClienteBL();
+            return Json(oBL.CrearClientesContacto(request));
+        }
+        [Route("api/AgendaComercial/ListarClientesContacto")]
+        [HttpPost]
+        public IHttpActionResult ListarClientesContacto(acListaClienteContactoRequest request)
+        {
+            var oBL = new acClienteBL();
+            return Json(oBL.ListarClientesContacto(request));
+        }
+        [Route("api/AgendaComercial/ObtenerClientesContacto")]
+        [HttpPost]
+        public IHttpActionResult ObtenerClientesContacto(acListaClienteContactoRequest request)
+        {
+            var oBL = new acClienteBL();
+            return Json(oBL.ObtenerClientesContacto(request));
+        }
+        [Route("api/AgendaComercial/ListarClienteContactoComentarios")]
+        [HttpPost]
+        public IHttpActionResult ListarClienteContactoComentarios(acListaClienteContactoComentarioRequest request)
+        {
+            var oBL = new acClienteBL();
+            return Json(oBL.ListarClienteContactoComentarios(request));
+        }
     }
 }
