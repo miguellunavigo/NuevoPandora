@@ -18,9 +18,9 @@ namespace BanBif.Nuevo.Pandora.BL
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public NewPandoraPropuestaExperimentoResponse<List<NewPandoraPropuestaExperimentoBE>> Listar(NewPandoraPropuestaExperimentoRequest request)
+        public NewPandoraResponse<List<NewPandoraPropuestaExperimentoBE>> Listar(NewPandoraPropuestaExperimentoRequest request)
         {
-            NewPandoraPropuestaExperimentoResponse<List<NewPandoraPropuestaExperimentoBE>> response = new NewPandoraPropuestaExperimentoResponse<List<NewPandoraPropuestaExperimentoBE>>();
+            NewPandoraResponse<List<NewPandoraPropuestaExperimentoBE>> response = new NewPandoraResponse<List<NewPandoraPropuestaExperimentoBE>>();
             try
             {
                 var PropuestaDA = new PropuestaDA();
@@ -37,9 +37,9 @@ namespace BanBif.Nuevo.Pandora.BL
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public NewPandoraPropuestaExperimentoResponse<NewPandoraPropuestaExperimentoBE> Obtener(NewPandoraPropuestaExperimentoRequest request)
+        public NewPandoraResponse<NewPandoraPropuestaExperimentoBE> Obtener(NewPandoraPropuestaExperimentoRequest request)
         {
-            NewPandoraPropuestaExperimentoResponse<NewPandoraPropuestaExperimentoBE> response = new NewPandoraPropuestaExperimentoResponse<NewPandoraPropuestaExperimentoBE>();
+            NewPandoraResponse<NewPandoraPropuestaExperimentoBE> response = new NewPandoraResponse<NewPandoraPropuestaExperimentoBE>();
             try
             {
                 var PropuestaDA = new PropuestaDA();
@@ -56,9 +56,9 @@ namespace BanBif.Nuevo.Pandora.BL
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public NewPandoraPropuestaExperimentoResponse<int> Crear(NewPandoraPropuestaExperimentoRequest request)
+        public NewPandoraResponse<int> Crear(NewPandoraPropuestaExperimentoRequest request)
         {
-            NewPandoraPropuestaExperimentoResponse<int> response = new NewPandoraPropuestaExperimentoResponse<int>();
+            NewPandoraResponse<int> response = new NewPandoraResponse<int>();
             try
             {
                 var PropuestaDA = new PropuestaDA();
@@ -75,9 +75,9 @@ namespace BanBif.Nuevo.Pandora.BL
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public NewPandoraPropuestaExperimentoResponse<int> Modificar(NewPandoraPropuestaExperimentoRequest request)
+        public NewPandoraResponse<int> Modificar(NewPandoraPropuestaExperimentoRequest request)
         {
-            NewPandoraPropuestaExperimentoResponse<int> response = new NewPandoraPropuestaExperimentoResponse<int>();
+            NewPandoraResponse<int> response = new NewPandoraResponse<int>();
             try
             {
                 var PropuestaDA = new PropuestaDA();

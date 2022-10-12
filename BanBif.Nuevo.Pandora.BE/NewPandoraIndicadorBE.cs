@@ -28,12 +28,7 @@ namespace BanBif.Nuevo.Pandora.BE
         public int Anio { get; set; }
         public int Mes { get; set; }
     }
-    public class NewPandoraIndicadorResponse<T>
-    {
-        public bool Result { get; set; }
-        public string Mensaje { get; set; }
-        public T data { get; set; }
-    }
+
     public class NewPandoraIndicadorRequest
     {
         public int IdIndicador { get; set; }
@@ -42,4 +37,17 @@ namespace BanBif.Nuevo.Pandora.BE
         public Nullable<bool> Estado { get; set; }
         public Nullable<bool> FlagMostrar { get; set; }
     }
+
+    public class Dashboard
+    {      
+        public List<Series> series { get; set; } = new List<Series>();
+        public List<string> categories { get; set; } = new List<string>();
+
+
+    }
+    public class Series {
+        public string name { get; set; }
+        public List<int> data { get; set; } = new List<int>();
+    }
+    
 }

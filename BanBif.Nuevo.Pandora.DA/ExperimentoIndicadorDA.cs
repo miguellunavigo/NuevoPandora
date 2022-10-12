@@ -1,5 +1,5 @@
 ﻿using BanBif.Nuevo.Pandora.BE;
-//using BanBif.Nuevo.Pandora.BE.Conyugues;
+using BanBif.Nuevo.Pandora.DA.ModelApp;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -16,9 +16,9 @@ namespace BanBif.Nuevo.Pandora.DA
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public NewPandoraIndicadorResponse<List<NewPandoraIndicadorBE>> Listar(NewPandoraIndicadorRequest request)
+        public NewPandoraResponse<List<NewPandoraIndicadorBE>> Listar(NewPandoraIndicadorRequest request)
         {
-            NewPandoraIndicadorResponse<List<NewPandoraIndicadorBE>> response = new NewPandoraIndicadorResponse<List<NewPandoraIndicadorBE>>();
+            NewPandoraResponse<List<NewPandoraIndicadorBE>> response = new NewPandoraResponse<List<NewPandoraIndicadorBE>>();
             try
             {
                 using (panelEntities db = new panelEntities())

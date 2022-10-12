@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BanBif.Nuevo.Pandora.DA
+namespace BanBif.Nuevo.Pandora.DA.ModelApp
 {
     using System;
     using System.Collections.Generic;
@@ -23,6 +23,8 @@ namespace BanBif.Nuevo.Pandora.DA
         public Nullable<int> IdUsuarioContacto { get; set; }
         public Nullable<bool> FlagPublico { get; set; }
         public Nullable<int> IdStatusExperimento { get; set; }
+        public string Plantilla { get; set; }
+        public string TipoUsuario { get; set; }
     
         public virtual NewPandora_StatusExperimento NewPandora_StatusExperimento { get; set; }
     }

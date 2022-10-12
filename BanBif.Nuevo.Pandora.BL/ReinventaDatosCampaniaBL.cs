@@ -18,9 +18,9 @@ namespace BanBif.Nuevo.Pandora.BL
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public ReinventaDatosCampaniaResponse<List<ReinventaDatosCampaniaBE>> Listar(ReinventaDatosCampaniaRequest request)
+        public NewPandoraResponse<List<ReinventaDatosCampaniaBE>> Listar(ReinventaDatosCampaniaRequest request)
         {
-            ReinventaDatosCampaniaResponse<List<ReinventaDatosCampaniaBE>> response = new ReinventaDatosCampaniaResponse<List<ReinventaDatosCampaniaBE>>();
+            NewPandoraResponse<List<ReinventaDatosCampaniaBE>> response = new NewPandoraResponse<List<ReinventaDatosCampaniaBE>>();
             try
             {
                 var ReinventaDatosCampaniaDA = new ReinventaDatosCampaniaDA();
@@ -37,9 +37,9 @@ namespace BanBif.Nuevo.Pandora.BL
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public ReinventaDatosCampaniaResponse<ReinventaDatosCampaniaBE> Obtener(ReinventaDatosCampaniaRequest request)
+        public NewPandoraResponse<ReinventaDatosCampaniaBE> Obtener(ReinventaDatosCampaniaRequest request)
         {
-            ReinventaDatosCampaniaResponse<ReinventaDatosCampaniaBE> response = new ReinventaDatosCampaniaResponse<ReinventaDatosCampaniaBE>();
+            NewPandoraResponse<ReinventaDatosCampaniaBE> response = new NewPandoraResponse<ReinventaDatosCampaniaBE>();
             try
             {
                 var ReinventaDatosCampaniaDA = new ReinventaDatosCampaniaDA();
@@ -56,9 +56,9 @@ namespace BanBif.Nuevo.Pandora.BL
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public ReinventaDatosCampaniaResponse<int> Crear(ReinventaDatosCampaniaRequest request)
+        public NewPandoraResponse<int> Crear(ReinventaDatosCampaniaRequest request)
         {
-            ReinventaDatosCampaniaResponse<int> response = new ReinventaDatosCampaniaResponse<int>();
+            NewPandoraResponse<int> response = new NewPandoraResponse<int>();
             try
             {
                 var ReinventaDatosCampaniaDA = new ReinventaDatosCampaniaDA();
@@ -75,9 +75,9 @@ namespace BanBif.Nuevo.Pandora.BL
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public ReinventaDatosCampaniaResponse<int> Modificar(ReinventaDatosCampaniaRequest request)
+        public NewPandoraResponse<int> Modificar(ReinventaDatosCampaniaRequest request)
         {
-            ReinventaDatosCampaniaResponse<int> response = new ReinventaDatosCampaniaResponse<int>();
+            NewPandoraResponse<int> response = new NewPandoraResponse<int>();
             try
             {
                 var ReinventaDatosCampaniaDA = new ReinventaDatosCampaniaDA();

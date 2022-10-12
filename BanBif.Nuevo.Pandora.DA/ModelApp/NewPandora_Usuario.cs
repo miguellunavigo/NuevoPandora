@@ -7,18 +7,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BanBif.Nuevo.Pandora.DA
+namespace BanBif.Nuevo.Pandora.DA.ModelApp
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class NewPandora_ExperimentoCorreo
+    public partial class NewPandora_Usuario
     {
-        public int IdExperimentoCorreo { get; set; }
-        public Nullable<int> IdExperimento { get; set; }
-        public string AsuntoCorreo { get; set; }
-        public Nullable<bool> Estado { get; set; }
+        public int IdUsuario { get; set; }
+        public Nullable<int> IdRol { get; set; }
+        public string UsuarioWindows { get; set; }
+        public string Contrasenia { get; set; }
+        public string Nombre { get; set; }
+        public string Correo { get; set; }
+        public Nullable<bool> FlagEstado { get; set; }
     
-        public virtual NewPandora_Experimento NewPandora_Experimento { get; set; }
+        public virtual NewPandora_Rol NewPandora_Rol { get; set; }
     }
 }

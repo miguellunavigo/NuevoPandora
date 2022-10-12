@@ -9,14 +9,14 @@ using System.Web.Http;
 
 namespace BanBif.Nuevo.Pandora.Api.Controllers
 {
-    public class ExperimentoStatusApiController : ApiController
+    public class ProductoApiController : ApiController
     {
-        [Route("api/ExperimentoStatus/Listar")]
+        [Route("api/Producto/Listar")]
         [HttpPost]
-        public IHttpActionResult Listar(NewPandoraExperimentoStatusRequest request)
+        public IHttpActionResult Listar(NewPandoraProductoRequest request)
         {
-            var oBL = new ExperimentoStatusBL();
-            return Json(oBL.Listar(request));
+            var oBL = new ProductoBL();
+            return Json(oBL.Listar());
         }        
     }
 }

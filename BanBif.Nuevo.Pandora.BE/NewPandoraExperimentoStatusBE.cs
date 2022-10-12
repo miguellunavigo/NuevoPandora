@@ -10,16 +10,13 @@ namespace BanBif.Nuevo.Pandora.BE
     {
         public int IdStatusExperimento { get; set; }
         public string Status { get; set; }
-    }
-    public class NewPandoraExperimentoStatusResponse
-    {
-        public bool Result { get; set; } = false;
-        public string Mensaje { get; set; } = String.Empty;
-        public List<NewPandoraExperimentoStatusBE> Data { get; set; }
-    }
+        public bool FlagExperimento { get; set; }
+        public int Orden { get; set; }
+}
+
     public class NewPandoraExperimentoStatusRequest
     {
-        public int IdStatusExperimento { get; set; }
+        public int? IdStatusExperimento { get; set; }
+        public bool FlagExperimento { get; set; }
     }
-
 }

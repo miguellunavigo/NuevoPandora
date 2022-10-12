@@ -8,12 +8,6 @@ namespace BanBif.Nuevo.Pandora.BE
 {
     public class ReinventaDatosCampaniaBE
     {
-        //public ReinventaDatosCampaniaBE()
-        //{
-        //    this.ReinventaDatosCampaniaCarrusel = new HashSet<ReinventaDatosCampaniaCarrusel>();
-        //    this.ReinventaDatosCampaniaRegistro = new HashSet<ReinventaDatosCampaniaRegistro>();
-        //}
-
         public int IdCampania { get; set; }
         public string NombreCampania { get; set; }
         public Nullable<System.DateTime> FechaInicio { get; set; }
@@ -37,17 +31,6 @@ namespace BanBif.Nuevo.Pandora.BE
         public string UsuarioCreacion { get; set; }
         public Nullable<int> Estado { get; set; }
         public Nullable<int> IdExperimento { get; set; }
-
-        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        //public virtual ICollection<ReinventaDatosCampaniaCarrusel> ReinventaDatosCampaniaCarrusel { get; set; }
-        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        //public virtual ICollection<ReinventaDatosCampaniaRegistro> ReinventaDatosCampaniaRegistro { get; set; }
-    }
-    public class ReinventaDatosCampaniaResponse<T>
-    {
-        public bool Result { get; set; }
-        public string Mensaje { get; set; }
-        public T data { get; set; }
     }
     public class ReinventaDatosCampaniaRequest
     {

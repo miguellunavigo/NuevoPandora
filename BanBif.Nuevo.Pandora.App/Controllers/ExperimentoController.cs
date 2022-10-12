@@ -15,29 +15,24 @@ namespace BanBif.Nuevo.Pandora.App.Controllers
         // GET: Experimento
         public ActionResult Index()
         {
-            var login = (NewPandoraLoginBE)Session["UsuarioAutentificado"];
-            NewPandoraExperimentoStatusResponse listExperimentoStatusResponse = new NewPandoraExperimentoStatusResponse();
-            NewPandoraExperimentoStatusRequest request = new NewPandoraExperimentoStatusRequest();
-            //request.IdRol = login.IdRol.Value;
             try
             {
+                string responseStatus = WebApi<NewPandoraExperimentoStatusRequest>.RequestWebApi(new NewPandoraExperimentoStatusRequest() { FlagExperimento = true }, ConfigurationManager.AppSettings["BaseUrlService"] + "api/ExperimentoStatus/Listar");
+                var listStatusResponse = JsonConvert.DeserializeObject<NewPandoraResponse<List<NewPandoraExperimentoStatusBE>>>(responseStatus);
+                ViewBag.ListaStatus = listStatusResponse.data;
 
-                string strURL = ConfigurationManager.AppSettings["BaseUrlService"] + "api/ExperimentoStatus/Listar";
-                string response = WebApi<NewPandoraExperimentoStatusRequest>.RequestWebApi(request, strURL);
-                listExperimentoStatusResponse = JsonConvert.DeserializeObject<NewPandoraExperimentoStatusResponse>(response);
-                ViewBag.ListaStatus = listExperimentoStatusResponse.Data;
+                string responseProducto = WebApi<NewPandoraProductoRequest>.RequestWebApi(new NewPandoraProductoRequest(), ConfigurationManager.AppSettings["BaseUrlService"] + "api/Producto/Listar");
+                var listProductoResponse = JsonConvert.DeserializeObject<NewPandoraResponse<List<NewPandoraProductoBE>>>(responseProducto);
+                ViewBag.ListaProducto = listProductoResponse.data;
 
-                NewPandoraExperimentoResponse<List<NewPandoraExperimentoBE>> usuarioResponse1 = new NewPandoraExperimentoResponse<List<NewPandoraExperimentoBE>>();
-                NewPandoraExperimentoRequest request1 = new NewPandoraExperimentoRequest();                
-                string strURL1 = ConfigurationManager.AppSettings["BaseUrlService"] + "api/Experimento/Listar";
-                string response1 = WebApi<NewPandoraExperimentoRequest>.RequestWebApi(request1, strURL1);
-                usuarioResponse1 = JsonConvert.DeserializeObject<NewPandoraExperimentoResponse<List<NewPandoraExperimentoBE>>>(response1);
-                ViewBag.ListaExperimento = usuarioResponse1.data;
+                string responseExperimento = WebApi<NewPandoraExperimentoRequest>.RequestWebApi(new NewPandoraExperimentoRequest(), ConfigurationManager.AppSettings["BaseUrlService"] + "api/Experimento/Listar");
+                var listExperimento = JsonConvert.DeserializeObject<NewPandoraResponse<List<NewPandoraExperimentoBE>>>(responseExperimento);
+                ViewBag.ListaExperimento = listExperimento.data;
 
             }
             catch (Exception ex)
             {
-                listExperimentoStatusResponse.Result = false;
+
             }
 
             return View();
@@ -45,7 +40,7 @@ namespace BanBif.Nuevo.Pandora.App.Controllers
 
         public ActionResult Listar(NewPandoraExperimentoRequest request)
         {
-            NewPandoraExperimentoResponse<List<NewPandoraExperimentoBE>> ExperimentoResponse = new NewPandoraExperimentoResponse<List<NewPandoraExperimentoBE>>();
+            NewPandoraResponse<List<NewPandoraExperimentoBE>> ExperimentoResponse = new NewPandoraResponse<List<NewPandoraExperimentoBE>>();
             //NewPandoraExperimentoRequest request = new NewPandoraExperimentoRequest();
             var login = (NewPandoraLoginBE)Session["UsuarioAutentificado"];
             //request.IdRol = login.IdRol.Value;
@@ -54,7 +49,7 @@ namespace BanBif.Nuevo.Pandora.App.Controllers
 
                 string strURL = ConfigurationManager.AppSettings["BaseUrlService"] + "api/Experimento/Listar";
                 string response = WebApi<NewPandoraExperimentoRequest>.RequestWebApi(request, strURL);
-                ExperimentoResponse = JsonConvert.DeserializeObject<NewPandoraExperimentoResponse<List<NewPandoraExperimentoBE>>>(response);
+                ExperimentoResponse = JsonConvert.DeserializeObject<NewPandoraResponse<List<NewPandoraExperimentoBE>>>(response);
             }
             catch (Exception ex)
             {
@@ -64,31 +59,15 @@ namespace BanBif.Nuevo.Pandora.App.Controllers
             return Json(ExperimentoResponse);
         }
 
-        public ActionResult ListarIndicador(NewPandoraIndicadorRequest request)
-        {
-            NewPandoraIndicadorResponse<List<NewPandoraIndicadorGraficaBE>> experimentoIndicador = new NewPandoraIndicadorResponse<List<NewPandoraIndicadorGraficaBE>>();            
-            try
-            {                
-                string strURL = ConfigurationManager.AppSettings["BaseUrlService"] + "api/Experimento/ListarIndicador";
-                string response = WebApi<NewPandoraIndicadorRequest>.RequestWebApi(request, strURL);
-                experimentoIndicador = JsonConvert.DeserializeObject<NewPandoraIndicadorResponse<List<NewPandoraIndicadorGraficaBE>>>(response);
-            }
-            catch (Exception ex)
-            {
-                experimentoIndicador.Result = false;
-            }
-
-            return Json(experimentoIndicador);
-        }
         public ActionResult Obtener(NewPandoraExperimentoRequest request)
         {
-            NewPandoraExperimentoResponse<NewPandoraExperimentoBE> ExperimentoResponse = new NewPandoraExperimentoResponse<NewPandoraExperimentoBE>();
+            NewPandoraResponse<NewPandoraExperimentoBE> ExperimentoResponse = new NewPandoraResponse<NewPandoraExperimentoBE>();
             try
             {
 
                 string strURL = ConfigurationManager.AppSettings["BaseUrlService"] + "api/Experimento/Obtener";
                 string response = WebApi<NewPandoraExperimentoRequest>.RequestWebApi(request, strURL);
-                ExperimentoResponse = JsonConvert.DeserializeObject<NewPandoraExperimentoResponse<NewPandoraExperimentoBE>>(response);
+                ExperimentoResponse = JsonConvert.DeserializeObject<NewPandoraResponse<NewPandoraExperimentoBE>>(response);
             }
             catch (Exception ex)
             {
@@ -99,13 +78,13 @@ namespace BanBif.Nuevo.Pandora.App.Controllers
         }
         public ActionResult Crear(NewPandoraExperimentoRequest request)
         {
-            NewPandoraExperimentoResponse<int> ExperimentoResponse = new NewPandoraExperimentoResponse<int>();
+            NewPandoraResponse<int> ExperimentoResponse = new NewPandoraResponse<int>();
             try
             {
 
                 string strURL = ConfigurationManager.AppSettings["BaseUrlService"] + "api/Experimento/Crear";
                 string response = WebApi<NewPandoraExperimentoRequest>.RequestWebApi(request, strURL);
-                ExperimentoResponse = JsonConvert.DeserializeObject<NewPandoraExperimentoResponse<int>>(response);
+                ExperimentoResponse = JsonConvert.DeserializeObject<NewPandoraResponse<int>>(response);
             }
             catch (Exception ex)
             {
@@ -116,13 +95,13 @@ namespace BanBif.Nuevo.Pandora.App.Controllers
         }
         public ActionResult Modificar(NewPandoraExperimentoRequest request)
         {
-            NewPandoraExperimentoResponse<int> ExperimentoResponse = new NewPandoraExperimentoResponse<int>();
+            NewPandoraResponse<int> ExperimentoResponse = new NewPandoraResponse<int>();
             try
             {
 
                 string strURL = ConfigurationManager.AppSettings["BaseUrlService"] + "api/Experimento/Modificar";
                 string response = WebApi<NewPandoraExperimentoRequest>.RequestWebApi(request, strURL);
-                ExperimentoResponse = JsonConvert.DeserializeObject<NewPandoraExperimentoResponse<int>>(response);
+                ExperimentoResponse = JsonConvert.DeserializeObject<NewPandoraResponse<int>>(response);
             }
             catch (Exception ex)
             {

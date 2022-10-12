@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BanBif.Nuevo.Pandora.DA
+namespace BanBif.Nuevo.Pandora.DA.ModelApp
 {
     using System;
     using System.Collections.Generic;
@@ -33,7 +33,15 @@ namespace BanBif.Nuevo.Pandora.DA
         public Nullable<int> IdUsuarioContacto { get; set; }
         public Nullable<bool> FlagPublico { get; set; }
         public Nullable<int> IdStatusExperimento { get; set; }
+        public Nullable<System.DateTime> FechaLanzamiento { get; set; }
+        public Nullable<int> IdProducto { get; set; }
+        public Nullable<System.DateTime> FechaInicioCronograma { get; set; }
+        public Nullable<System.DateTime> FechaFinCronograma { get; set; }
+        public Nullable<bool> FlagExitosRapidos { get; set; }
+        public string Plantilla { get; set; }
+        public string TipoUsuario { get; set; }
     
+        public virtual NewPandora_Productos NewPandora_Productos { get; set; }
         public virtual NewPandora_StatusExperimento NewPandora_StatusExperimento { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<NewPandora_ExperimentoCorreo> NewPandora_ExperimentoCorreo { get; set; }

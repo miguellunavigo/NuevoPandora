@@ -22,13 +22,20 @@ namespace BanBif.Nuevo.Pandora.BE
         public Nullable<bool> FlagPublico { get; set; }
         public Nullable<int> IdStatusExperimento { get; set; }
         public string StatusExperimento { get; set; }
+        public int StatusOrden { get; set; }
+        public Nullable<System.DateTime> FechaLanzamiento { get; set; }
+        public string FechaLanzamientoString { get { return FechaLanzamiento.HasValue ? FechaLanzamiento.Value.ToString("dd/MM/yyyy") : ""; } }
+        public Nullable<int> IdProducto { get; set; }
+        public Nullable<System.DateTime> FechaInicioCronograma { get; set; }
+        public Nullable<System.DateTime> FechaFinCronograma { get; set; }
+        public string FechaInicioCronogramaString { get { return FechaInicioCronograma.HasValue ? FechaInicioCronograma.Value.ToString("dd/MM/yyyy") : ""; } }
+        public string FechaFinCronogramaString { get { return FechaFinCronograma.HasValue ? FechaFinCronograma.Value.ToString("dd/MM/yyyy") : ""; } }
+        public Nullable<bool> FlagExitosRapidos { get; set; }
+        public string Plantilla { get; set; }
+        public string TipoUsuario { get; set; }
+
     }
-    public class NewPandoraExperimentoResponse<T>
-    {
-        public bool Result { get; set; }
-        public string Mensaje { get; set; }
-        public T data { get; set; }
-    }
+
     public class NewPandoraExperimentoRequest
     {
         public int IdExperimento { get; set; }
@@ -44,5 +51,12 @@ namespace BanBif.Nuevo.Pandora.BE
         public Nullable<bool> FlagPublico { get; set; }
         public Nullable<bool> FlagEstado { get; set; }
         public Nullable<int> IdStatusExperimento { get; set; }
+        public Nullable<System.DateTime> FechaLanzamiento { get; set; }
+        public Nullable<int> IdProducto { get; set; }
+        public Nullable<System.DateTime> FechaInicioCronograma { get; set; }
+        public Nullable<System.DateTime> FechaFinCronograma { get; set; }
+        public Nullable<bool> FlagExitosRapidos { get; set; }
+        public string Plantilla { get; set; }
+        public string TipoUsuario { get; set; }
     }
 }

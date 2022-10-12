@@ -7,19 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BanBif.Nuevo.Pandora.DA
+namespace BanBif.Nuevo.Pandora.DA.ModelApp
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class NewPandora_IndicadorRegistro
+    public partial class NewPandora_ExperimentoCorreo
     {
-        public int IdIndicadorRegistro { get; set; }
-        public Nullable<int> IdIndicador { get; set; }
-        public Nullable<System.DateTime> Fecha { get; set; }
-        public Nullable<int> IdPadre { get; set; }
-        public string Guid { get; set; }
+        public int IdExperimentoCorreo { get; set; }
+        public Nullable<int> IdExperimento { get; set; }
+        public string AsuntoCorreo { get; set; }
+        public Nullable<bool> Estado { get; set; }
     
-        public virtual NewPandora_Indicador NewPandora_Indicador { get; set; }
+        public virtual NewPandora_Experimento NewPandora_Experimento { get; set; }
     }
 }

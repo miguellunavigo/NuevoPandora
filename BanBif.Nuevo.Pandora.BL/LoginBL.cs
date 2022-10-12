@@ -11,9 +11,9 @@ namespace BanBif.Nuevo.Pandora.BL
     public class LoginBL
     {
 
-        public NewPandoraLoginResponse Autenticacion(string usUsuarioWindows, string password)
+        public NewPandoraResponse<NewPandoraLoginBE> Autenticacion(string usUsuarioWindows, string password)
         {
-            NewPandoraLoginResponse response = new NewPandoraLoginResponse();
+            NewPandoraResponse<NewPandoraLoginBE> response = new NewPandoraResponse<NewPandoraLoginBE>();
             try
             {
                 var loginDA = new LoginDA();

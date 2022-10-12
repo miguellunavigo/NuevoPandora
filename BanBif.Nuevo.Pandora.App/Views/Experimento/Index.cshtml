@@ -1,6 +1,7 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
     var listaStatus = (List<BanBif.Nuevo.Pandora.BE.NewPandoraExperimentoStatusBE>)ViewBag.ListaStatus;
+    var listaProducto = (List<BanBif.Nuevo.Pandora.BE.NewPandoraProductoBE>)ViewBag.ListaProducto;
     var listaExperimento = (List<BanBif.Nuevo.Pandora.BE.NewPandoraExperimentoBE>)ViewBag.ListaExperimento;
 }
 
@@ -8,7 +9,7 @@
 @Html.Hidden("hdn_Obtener_Experimento", Url.Action("Obtener", "Experimento"))
 @Html.Hidden("hdn_Crear_Experimento", Url.Action("Crear", "Experimento"))
 @Html.Hidden("hdn_Modificar_Experimento", Url.Action("Modificar", "Experimento"))
-@Html.Hidden("hdn_Listar_Indicador", Url.Action("ListarIndicador", "Experimento"))
+@Html.Hidden("hdn_Listar_Indicador", Url.Action("ListarIndicador", "Dashboard"))
 <div class="row g-4 mb-4">
     <div class="col-sm-6 col-xl-2" onclick="IdStatusExperimento=null;dt_experimento.ajax.reload();" style="cursor: pointer">
         <div class="card">
@@ -18,9 +19,7 @@
                         <span>Total Experimentos</span>
                         <div class="d-flex align-items-end mt-2">
                             <h4 class="mb-0 me-2">@listaExperimento.Count</h4>
-                            @*<small class="text-success">(+29%)</small>*@
                         </div>
-                        @*<small>Total Usuario</small>*@
                     </div>
                     <span class="badge bg-label-primary rounded p-2">
                         <i class="bx bx-user bx-sm"></i>
@@ -29,7 +28,7 @@
             </div>
         </div>
     </div>
-    @foreach (var item in listaExperimento.GroupBy(p => new { p.StatusExperimento, p.IdStatusExperimento }))
+    @foreach (var item in listaExperimento.OrderBy(p => p.StatusOrden).GroupBy(p => new { p.StatusExperimento, p.IdStatusExperimento }))
     {
 
         <div class="col-sm-6 col-xl-2" onclick="IdStatusExperimento=@(item.Key.IdStatusExperimento) ;dt_experimento.ajax.reload();" style="cursor: pointer">
@@ -40,9 +39,7 @@
                             <span>@item.Key.StatusExperimento</span>
                             <div class="d-flex align-items-end mt-2">
                                 <h4 class="mb-0 me-2">@(listaExperimento.Where(p => p.StatusExperimento == item.Key.StatusExperimento).Count())</h4>
-                                @*<small class="text-success">(+29%)</small>*@
                             </div>
-                            @*<small>Total Users</small>*@
                         </div>
                         <span class="badge bg-label-primary rounded p-2">
                             <i class="bx bx-user bx-sm"></i>
@@ -122,22 +119,23 @@
                         </div>
 
                         <div class="validate col-12 col-md-6">
-                            <label class="form-label" for="modaltxtfechasolicitud">Fecha Solicitud</label>
+                            <label class="form-label" for="modaltxtFechaSolicitud">Fecha Solicitud</label>
                             <input type="text"
-                                   id="modaltxtfechasolicitud"
-                                   name="modaltxtfechasolicitud"
+                                   id="modaltxtFechaSolicitud"
+                                   name="modaltxtFechaSolicitud"
                                    class="form-control"
                                    placeholder="DD/MM/YYYY" />
                         </div>
 
                         <div class="validate col-12 col-md-6">
-                            <label class="form-label" for="modaltxtfechapublicacion">Fecha Publicación</label>
+                            <label class="form-label" for="modaltxtFechapublicacion">Fecha Publicación</label>
                             <input type="text"
-                                   id="modaltxtfechapublicacion"
-                                   name="modaltxtfechapublicacion"
+                                   id="modaltxtFechapublicacion"
+                                   name="modaltxtFechapublicacion"
                                    class="form-control"
                                    placeholder="DD/MM/YYYY" />
                         </div>
+
                         <div class="validate col-12">
                             <label class="form-label" for="modaltxtUrl">Url</label>
                             <input type="text"
@@ -147,7 +145,62 @@
                                    placeholder="www.url.com" />
                         </div>
 
+                        <div class="validate col-12 col-md-6">
+                            <label class="form-label" for="modaltxtFechaLanzamiento">Fecha Lanzamiento</label>
+                            <input type="text"
+                                   id="modaltxtFechaLanzamiento"
+                                   name="modaltxtFechaLanzamiento"
+                                   class="form-control"
+                                   placeholder="DD/MM/YYYY" />
+                        </div>
+
                         <div class="col-12 col-md-6">
+                            <label class="form-label" for="user-role">Producto</label>
+                            <select id="modalSelectIdProducto" class="form-select">
+                                @foreach (var item in listaProducto)
+                                {
+                                    <option value="@item.IdProducto">@item.Nombre</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="validate col-12 col-md-6">
+                            <label class="form-label" for="modaltxtFechaInicioCronograma">Fecha Inicio Cronograma</label>
+                            <input type="text"
+                                   id="modaltxtFechaInicioCronograma"
+                                   name="modaltxtFechaInicioCronograma"
+                                   class="form-control"
+                                   placeholder="DD/MM/YYYY" />
+                        </div>
+
+                        <div class="validate col-12 col-md-6">
+                            <label class="form-label" for="modaltxtFechaFinCronograma">Fecha Fin Cronograma</label>
+                            <input type="text"
+                                   id="modaltxtFechaFinCronograma"
+                                   name="modaltxtFechaFinCronograma"
+                                   class="form-control"
+                                   placeholder="DD/MM/YYYY" />
+                        </div>
+
+                        <div class="validate col-12 col-md-6">
+                            <label class="form-label" for="modaltxtPlantilla">Plantilla</label>
+                            <select id="modalSelectPlantilla" class="form-select">
+                                <option value="Plantilla1">Plantilla 1</option>
+                                <option value="Plantilla2">Plantilla 2</option>
+                                <option value="Plantilla3">Plantilla 3</option>
+                            </select>
+                        </div>
+
+                        <div class="validate col-12 col-md-6">
+                            <label class="form-label" for="modaltxtTipoUsuario">Tipo Usuario</label>
+                            <select id="modalSelectTipoUsuario" class="form-select">
+                                <option value="Interno">Interno</option>
+                                <option value="Externo">Externo</option>
+                                <option value="Ambos">Ambos</option>
+                            </select>
+                        </div>
+
+                        <div class="col-12 col-md-6" style="padding-top:35px">
                             <label class="switch">
                                 <input type="checkbox" id="modalchkPublicado" class="switch-input" />
                                 <span class="switch-toggle-slider">
@@ -155,6 +208,15 @@
                                     <span class="switch-off"></span>
                                 </span>
                                 <span class="switch-label">Publico</span>
+                            </label>
+
+                            <label class="switch">
+                                <input type="checkbox" id="modalchkFlagExitosRapidos" class="switch-input" />
+                                <span class="switch-toggle-slider">
+                                    <span class="switch-on"></span>
+                                    <span class="switch-off"></span>
+                                </span>
+                                <span class="switch-label">Exitos Rapidos</span>
                             </label>
                         </div>
 
@@ -166,15 +228,8 @@
                                     <option value="@item.IdStatusExperimento">@item.Status</option>
                                 }
                             </select>
-                            @*<label class="switch">
-                                    <input type="checkbox" id="modalchkEstado" class="switch-input" />
-                                    <span class="switch-toggle-slider">
-                                        <span class="switch-on"></span>
-                                        <span class="switch-off"></span>
-                                    </span>
-                                    <span class="switch-label">Estado</span>
-                                </label>*@
                         </div>
+
                         <div class="col-12 text-center">
                             <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit" id="btn_Experimento">Registrar</button>
                             <button type="reset"
@@ -245,46 +300,11 @@
 <!-- Page JS -->
 @section Scripts
 {
-    <!-- Vendors JS -->
-    <script src="../../assets/vendor/libs/moment/moment.js"></script>
-    <script src="../../assets/vendor/libs/datatables/jquery.dataTables.js"></script>
-    <script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
-    <script src="../../assets/vendor/libs/datatables-responsive/datatables.responsive.js"></script>
-    <script src="../../assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.js"></script>
-    <script src="../../assets/vendor/libs/datatables-buttons/datatables-buttons.js"></script>
-    <script src="../../assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.js"></script>
-    <script src="../../assets/vendor/libs/jszip/jszip.js"></script>
-    <script src="../../assets/vendor/libs/pdfmake/pdfmake.js"></script>
-    <script src="../../assets/vendor/libs/datatables-buttons/buttons.html5.js"></script>
-    <script src="../../assets/vendor/libs/datatables-buttons/buttons.print.js"></script>
-    <script src="../../assets/vendor/libs/select2/select2.js"></script>
-    <script src="../../assets/vendor/libs/formvalidation/dist/js/FormValidation.min.js"></script>
-    <script src="../../assets/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js"></script>
-    <script src="../../assets/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js"></script>
-    <script src="../../assets/vendor/libs/cleavejs/cleave.js"></script>
-    <script src="../../assets/vendor/libs/cleavejs/cleave-phone.js"></script>
-
-    <!-- Vendors JS -->
-
-    <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
-    <script src="../../assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
-    <script src="../../assets/vendor/libs/bootstrap-daterangepicker/bootstrap-daterangepicker.js"></script>
-    <script src="../../assets/vendor/libs/jquery-timepicker/jquery-timepicker.js"></script>
-    <script src="../../assets/vendor/libs/pickr/pickr.js"></script>
-    <!-- Vendors JS -->
-    <script src="../../assets/vendor/libs/apex-charts/apexcharts.js"></script>
+  
     <script src="~/assets/js/app-experimento-list.js"></script>
     <script>
         $(document).ready(function () {
 
-            //$("#btn_Experimento").click(function () {
-            //    //if (!$("form#addNewUserForm").valid()) {
-            //    //    alert("ddasda");
-            //    //    return false;
-            //    //} else {
-            //        alert("Grabacion");
-            //    //s}
-            //})
         })
         function NuevoExperimento() {
             $("#offcanvasExperimentLabel").html("Agregar Experimento");
@@ -294,8 +314,8 @@
             $('#modaltxtDescripcion').val("");
             $('#modaltxtTecnologia').val("");
             $('#modaltxtDesarrolladoPor').val("");
-            $('#modaltxtfechasolicitud').val("");
-            $('#modaltxtfechapublicacion').val("");
+            $('#modaltxtFechaSolicitud').val("");
+            $('#modaltxtFechapublicacion').val("");
             $('#modaltxtUrl').val("");
             $('#modalchkPublicado').prop('checked', false);
             //$('#modalchkEstado').prop('checked', true);
@@ -322,33 +342,30 @@
                     $('#modaltxtDescripcion').val(response.data.Descripcion);
                     $('#modaltxtTecnologia').val(response.data.Tecnologia);
                     $('#modaltxtDesarrolladoPor').val(response.data.DesarrolladoPor);
-                    $('#modaltxtfechasolicitud').val(moment(response.data.FechaSolicitudString, 'DD/MM/YYYY').format("DD/MM/YYYY"));
-                    $('#modaltxtfechapublicacion').val(moment(response.data.FechaPublicacionString, 'DD/MM/YYYY').format("DD/MM/YYYY"));
+                    $('#modaltxtFechaSolicitud').val(moment(response.data.FechaSolicitudString, 'DD/MM/YYYY').format("DD/MM/YYYY"));
+                    $('#modaltxtFechapublicacion').val(moment(response.data.FechaPublicacionString, 'DD/MM/YYYY').format("DD/MM/YYYY"));
                     $('#modaltxtUrl').val(response.data.Url);
                     $('#modalchkPublicado').prop('checked', response.data.FlagPublico);
-                    //$('#modalchkEstado').prop('checked', response.data.FlagEstado);
                     $('#modalSelectIdEstado').val(response.data.IdStatusExperimento);
-
+                    $('#modaltxtFechaLanzamiento').val(moment(response.data.FechaLanzamientoString, 'DD/MM/YYYY').format("DD/MM/YYYY"));
+                    $('#modalSelectIdProducto').val(response.data.IdProducto);
+                    $('#modaltxtFechaInicioCronograma').val(moment(response.data.FechaInicioCronogramaString, 'DD/MM/YYYY').format("DD/MM/YYYY"));
+                    $('#modaltxtFechaFinCronograma').val(moment(response.data.FechaFinCronogramaString, 'DD/MM/YYYY').format("DD/MM/YYYY"));
+                    $('#modalchkFlagExitosRapidos').prop('checked', response.data.FlagExitosRapidos);
+                    $('#modalSelectPlantilla').val(response.data.Plantilla);
+                    $('#modalSelectTipoUsuario').val(response.data.TipoUsuario);
 
                     myModaleditExperimento.show()
                 },
                 failure: function (msg) {
-
                     console.log(msg);
-                    // $.unblockUI();
                 },
                 error: function (xhr, status, error) {
-
                     console.log(error);
-                    //$.unblockUI();
                 },
                 complete: function () {
-
-                    //$.unblockUI();
-                    //$("#prueba").dialog("close")
                 }
             });
-
         }
 
         function ObtenerIndicadores(event, id) {
@@ -544,8 +561,8 @@
                     //$('#modaltxtDescripcion').val(response.data.Descripcion);
                     //$('#modaltxtTecnologia').val(response.data.Tecnologia);
                     //$('#modaltxtDesarrolladoPor').val(response.data.DesarrolladoPor);
-                    //$('#modaltxtfechasolicitud').val(moment(response.data.FechaSolicitudString, 'DD/MM/YYYY').format("DD/MM/YYYY"));
-                    //$('#modaltxtfechapublicacion').val(moment(response.data.FechaPublicacionString, 'DD/MM/YYYY').format("DD/MM/YYYY"));
+                    //$('#modaltxtFechaSolicitud').val(moment(response.data.FechaSolicitudString, 'DD/MM/YYYY').format("DD/MM/YYYY"));
+                    //$('#modaltxtFechapublicacion').val(moment(response.data.FechaPublicacionString, 'DD/MM/YYYY').format("DD/MM/YYYY"));
                     //$('#modaltxtUrl').val(response.data.Url);
                     //$('#modalchkPublicado').prop('checked', response.data.FlagPublico);
                     ////$('#modalchkEstado').prop('checked', response.data.FlagEstado);

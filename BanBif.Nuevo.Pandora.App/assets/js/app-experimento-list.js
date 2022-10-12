@@ -16,16 +16,38 @@ $(function () {
         backdrop: 'static'
     })
     
-    const flatpickrDate = document.querySelector('#modaltxtfechasolicitud')
-    const flatpickrDate2 = document.querySelector('#modaltxtfechapublicacion')
+    const flatpickrDate = document.querySelector('#modaltxtFechaSolicitud')
+    
     if (flatpickrDate) {
         flatpickrDate.flatpickr({
             monthSelectorType: 'static',
             dateFormat: 'd/m/Y'
         });
     }
+    const flatpickrDate2 = document.querySelector('#modaltxtFechapublicacion')
     if (flatpickrDate2) {
         flatpickrDate2.flatpickr({
+            monthSelectorType: 'static',
+            dateFormat: 'd/m/Y'
+        });
+    }
+    const flatpickrDate3 = document.querySelector('#modaltxtFechaLanzamiento')
+    if (flatpickrDate3) {
+        flatpickrDate3.flatpickr({
+            monthSelectorType: 'static',
+            dateFormat: 'd/m/Y'
+        });
+    }
+    const flatpickrDate4 = document.querySelector('#modaltxtFechaInicioCronograma')
+    if (flatpickrDate4) {
+        flatpickrDate4.flatpickr({
+            monthSelectorType: 'static',
+            dateFormat: 'd/m/Y'
+        });
+    }
+    const flatpickrDate5 = document.querySelector('#modaltxtFechaFinCronograma')
+    if (flatpickrDate5) {
+        flatpickrDate5.flatpickr({
             monthSelectorType: 'static',
             dateFormat: 'd/m/Y'
         });
@@ -71,7 +93,7 @@ $(function () {
                     render: function (data, type, full, meta) {
                         var $nombreExperimento = full['NombreExperimento'];
 
-                        return '<a onclick="ObtenerIndicadores(event,' + full.IdExperimento + ')">' + $nombreExperimento + '</a>';
+                        return '<a title="Ver Indicadores" style="cursor:pointer" onclick="ObtenerIndicadores(event,' + full.IdExperimento + ')">' + $nombreExperimento + '</a>';
                     }
                 },
                 {
@@ -439,14 +461,14 @@ $(function () {
                     }
                 }
             },
-            modaltxtfechasolicitud: {
+            modaltxtFechaSolicitud: {
                 validators: {
                     notEmpty: {
                         message: 'Ingrese la fecha de la solicitud'
                     }
                 }
             },
-            //modaltxtfechapublicacion: {
+            //modaltxtFechapublicacion: {
             //    validators: {
             //        notEmpty: {
             //            message: 'Ingrese Nombre Completo'
@@ -470,7 +492,7 @@ $(function () {
             autoFocus: new FormValidation.plugins.AutoFocus()
         }
     }).on('core.form.valid', function () {
-        debugger
+        
         var Experimento = {};
         var UrlEjecutar = $("#hdn_Crear_Experimento").val();
         Experimento.IdExperimento = 0;
@@ -485,15 +507,22 @@ $(function () {
         Experimento.Tecnologia = $('#modaltxtTecnologia').val();
         Experimento.DesarrolladoPor = $('#modaltxtDesarrolladoPor').val();
         Experimento.Indicador = $('#modaltxtNombre').val();
-        Experimento.FechaSolicitud = $('#modaltxtfechasolicitud').val();
-        Experimento.FechaPublicacion = $('#modaltxtfechapublicacion').val();
+        Experimento.FechaSolicitud = $('#modaltxtFechaSolicitud').val();
+        Experimento.FechaPublicacion = $('#modaltxtFechapublicacion').val();
         Experimento.Url = $('#modaltxtUrl').val();
         Experimento.IdUsuarioContacto = $('#modaltxtNombre').val();
         Experimento.FlagPublico = $('#modalchkPublicado').is(":checked");
         Experimento.FlagEstado = true//$('#modalchkEstado').is(":checked");
         Experimento.IdStatusExperimento = $('#modalSelectIdEstado').val();
 
-
+        Experimento.FechaLanzamiento = $('#modaltxtFechaLanzamiento').val();
+        Experimento.IdProducto = $('#modalSelectIdProducto').val();
+        Experimento.FechaInicioCronograma = $('#modaltxtFechaInicioCronograma').val();
+        Experimento.FechaFinCronograma = $('#modaltxtFechaFinCronograma').val();
+        Experimento.FlagExitosRapidos = $('#modalchkFlagExitosRapidos').is(":checked");
+        Experimento.Plantilla = $('#modalSelectPlantilla').val();
+        Experimento.TipoUsuario = $('#modalSelectTipoUsuario').val();
+        
         $.ajax({
             url: UrlEjecutar,
             type: "POST",
@@ -502,24 +531,26 @@ $(function () {
             processData: true,
             data: JSON.stringify(Experimento),
             success: function (response) {
-                alert("exitoso")
                 dt_experimento.ajax.reload();
                 myModaleditExperimento.hide();
+                Swal.fire({
+                    title: $('#modalhdnIdExperimento').val() == '0' ? 'Se registro correctamente!' :'Se modifico correctamente',
+                    //text: 'You clicked the button!',
+                    icon: 'success',
+                    customClass: {
+                        confirmButton: 'btn btn-primary'
+                    },
+                    buttonsStyling: false
+                });
             },
-            failure: function (msg) {
-                debugger
-                console.log(msg);
-                // $.unblockUI();
+            failure: function (msg) {        
+                console.log(msg);       
             },
             error: function (xhr, status, error) {
-                debugger
                 console.log(error);
-                //$.unblockUI();
             },
             complete: function () {
-                debugger
-                //$.unblockUI();
-                //$("#prueba").dialog("close")
+
             }
         });
     });

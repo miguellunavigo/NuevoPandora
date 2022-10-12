@@ -1,5 +1,5 @@
 ﻿using BanBif.Nuevo.Pandora.BE;
-//using BanBif.Nuevo.Pandora.BE.Conyugues;
+using BanBif.Nuevo.Pandora.DA.ModelApp;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -16,9 +16,9 @@ namespace BanBif.Nuevo.Pandora.DA
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public ReinventaDatosCampaniaResponse<List<ReinventaDatosCampaniaBE>> Listar(ReinventaDatosCampaniaRequest request)
+        public NewPandoraResponse<List<ReinventaDatosCampaniaBE>> Listar(ReinventaDatosCampaniaRequest request)
         {
-            ReinventaDatosCampaniaResponse<List<ReinventaDatosCampaniaBE>> response = new ReinventaDatosCampaniaResponse<List<ReinventaDatosCampaniaBE>>();
+            NewPandoraResponse<List<ReinventaDatosCampaniaBE>> response = new NewPandoraResponse<List<ReinventaDatosCampaniaBE>>();
             try
             {
                 using (panelEntities db = new panelEntities())
@@ -65,9 +65,9 @@ namespace BanBif.Nuevo.Pandora.DA
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public ReinventaDatosCampaniaResponse<ReinventaDatosCampaniaBE> Obtener(ReinventaDatosCampaniaRequest request)
+        public NewPandoraResponse<ReinventaDatosCampaniaBE> Obtener(ReinventaDatosCampaniaRequest request)
         {
-            ReinventaDatosCampaniaResponse<ReinventaDatosCampaniaBE> response = new ReinventaDatosCampaniaResponse<ReinventaDatosCampaniaBE>();
+            NewPandoraResponse<ReinventaDatosCampaniaBE> response = new NewPandoraResponse<ReinventaDatosCampaniaBE>();
             try
             {
                 using (panelEntities db = new panelEntities())
@@ -109,9 +109,9 @@ namespace BanBif.Nuevo.Pandora.DA
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public ReinventaDatosCampaniaResponse<int> Crear(ReinventaDatosCampaniaRequest request)
+        public NewPandoraResponse<int> Crear(ReinventaDatosCampaniaRequest request)
         {
-            ReinventaDatosCampaniaResponse<int> response = new ReinventaDatosCampaniaResponse<int>();
+            NewPandoraResponse<int> response = new NewPandoraResponse<int>();
             try
             {
                 using (panelEntities db = new panelEntities())
@@ -152,9 +152,9 @@ namespace BanBif.Nuevo.Pandora.DA
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public ReinventaDatosCampaniaResponse<int> Modificar(ReinventaDatosCampaniaRequest request)
+        public NewPandoraResponse<int> Modificar(ReinventaDatosCampaniaRequest request)
         {
-            ReinventaDatosCampaniaResponse<int> response = new ReinventaDatosCampaniaResponse<int>();
+            NewPandoraResponse<int> response = new NewPandoraResponse<int>();
             try
             {
                 using (panelEntities db = new panelEntities())

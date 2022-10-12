@@ -1,5 +1,5 @@
 ﻿using BanBif.Nuevo.Pandora.BE;
-//using BanBif.Nuevo.Pandora.BE.Conyugues;
+using BanBif.Nuevo.Pandora.DA.ModelApp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,17 +10,17 @@ namespace BanBif.Nuevo.Pandora.DA
 {
     public class RolDA
     {
-        public NewPandoraRolResponse Listar(int IdOrdenSuperior)
+        public NewPandoraResponse<List<NewPandoraRolBE>> Listar(int IdOrdenSuperior)
         {
-            NewPandoraRolResponse response = new NewPandoraRolResponse();
+            NewPandoraResponse<List<NewPandoraRolBE>> response = new NewPandoraResponse<List<NewPandoraRolBE>>();
             try
             {
                 using (panelEntities db = new panelEntities())
                 {
 
                     var listRol = db.NewPandora_Rol.Where(p => p.Orden > IdOrdenSuperior || 1 == IdOrdenSuperior).ToList();
-                    response.Data = new List<NewPandoraRolBE>();
-                    listRol.ForEach(p => { response.Data.Add(new NewPandoraRolBE { IdRol = p.IdRol, NombreRol = p.NombreRol }); });
+                    response.data = new List<NewPandoraRolBE>();
+                    listRol.ForEach(p => { response.data.Add(new NewPandoraRolBE { IdRol = p.IdRol, NombreRol = p.NombreRol }); });
                 }
             }
             catch (Exception ex)

@@ -17,12 +17,7 @@ namespace BanBif.Nuevo.Pandora.BE
         public string Correo { get; set; }
         public Nullable<bool> FlagEstado { get; set; }
     }
-    public class NewPandoraUsuarioResponse<T>
-    {
-        public bool Result { get; set; } = false;
-        public string Mensaje { get; set; } = String.Empty;
-        public T data { get; set; }
-    }
+
     public class NewPandoraUsuarioRequest
     {
         public int IdUsuario { get; set; }

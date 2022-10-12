@@ -23,7 +23,7 @@ $(function () {
 
     // Users datatable
     if (dt_Propuesta_table.length) {
-        debugger
+        
         dt_Propuesta = dt_Propuesta_table.DataTable({
             "ajax": {
                 "url": $("#hdn_Listar_Propuesta").val(),
@@ -44,15 +44,11 @@ $(function () {
             //},
 
             columns: [
-                // columns according to JSON
                 /*{ data: '' },*/
                 { data: 'NombrePropuestaExperimento' },
                 { data: 'Descripcion' },
                 { data: 'Tecnologia' },
-                { data: 'DesarrolladoPor' },
-               /* { data: 'Indicador' },*/
                 { data: 'FechaSolicitudString' },
-                { data: 'Url' },
                 { data: 'FlagPublico' },
                 { data: 'action' }
             ],
@@ -506,7 +502,7 @@ $(function () {
         var UrlEjecutar = $("#hdn_Crear_Propuesta").val();
         Experimento.IdPropuestaExperimento = 0;
        
-        if ($('#hdn_user_id').val() != "0") {
+        if ($('#modalhdnIdPropuestaExperimento').val() != "0") {
             Experimento.IdPropuestaExperimento = $('#modalhdnIdPropuestaExperimento').val();
             UrlEjecutar = $("#hdn_Modificar_Propuesta").val();
         }
@@ -514,11 +510,10 @@ $(function () {
         Experimento.NombrePropuestaExperimento = $('#modaltxtNombre').val();
         Experimento.Descripcion = $('#modaltxtDescripcion').val();
         Experimento.Tecnologia = $('#modaltxtTecnologia').val();
-        Experimento.DesarrolladoPor = $('#modaltxtDesarrolladoPor').val();
         Experimento.Indicador = $('#modaltxtNombre').val();
         Experimento.FechaSolicitud = $('#modaltxtfechasolicitud').val();
-        Experimento.Url = $('#modaltxtUrl').val();
-        Experimento.IdUsuarioContacto = $('#modaltxtNombre').val();
+        
+        /*Experimento.IdUsuarioContacto = $('#modaltxtNombre').val();*/
         Experimento.FlagPublico = $('#modalchkPublicado').is(":checked");
         Experimento.IdStatusExperimento = $('#modalSelectIdEstado').val();
 
@@ -530,22 +525,30 @@ $(function () {
             processData: true,
             data: JSON.stringify(Experimento),
             success: function (response) {
-                alert("exitoso")
                 dt_Propuesta.ajax.reload();                
                 myModaleditExperimento.hide();
+                Swal.fire({
+                    title: $('#modalhdnIdPropuestaExperimento').val() == '0' ? 'Se registro correctamente!' : 'Se modifico correctamente',
+                    //text: 'You clicked the button!',
+                    icon: 'success',
+                    customClass: {
+                        confirmButton: 'btn btn-primary'
+                    },
+                    buttonsStyling: false
+                });
             },
             failure: function (msg) {
-                debugger
+                
                 console.log(msg);
                 // $.unblockUI();
             },
             error: function (xhr, status, error) {
-                debugger
+                
                 console.log(error);
                 //$.unblockUI();
             },
             complete: function () {
-                debugger
+                
                 //$.unblockUI();
                 //$("#prueba").dialog("close")
             }

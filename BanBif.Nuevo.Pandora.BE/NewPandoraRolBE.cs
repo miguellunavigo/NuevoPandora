@@ -13,12 +13,7 @@ namespace BanBif.Nuevo.Pandora.BE
         public Nullable<int> Orden { get; set; }
         public Nullable<bool> FlagEstado { get; set; }
     }
-    public class NewPandoraRolResponse
-    {
-        public bool Result { get; set; } = false;
-        public string Mensaje { get; set; } = String.Empty;
-        public List<NewPandoraRolBE> Data { get; set; }
-    }
+
     public class NewPandoraRolRequest
     {
         public int IdRol { get; set; }

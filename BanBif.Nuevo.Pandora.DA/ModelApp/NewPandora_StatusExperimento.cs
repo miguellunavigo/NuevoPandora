@@ -7,28 +7,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BanBif.Nuevo.Pandora.DA
+namespace BanBif.Nuevo.Pandora.DA.ModelApp
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class NewPandora_Opcion
+    public partial class NewPandora_StatusExperimento
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public NewPandora_Opcion()
+        public NewPandora_StatusExperimento()
         {
-            this.NewPandora_ExperimentoOpcion = new HashSet<NewPandora_ExperimentoOpcion>();
-            this.NewPandora_RolOpcion = new HashSet<NewPandora_RolOpcion>();
+            this.NewPandora_PropuestaExperimento = new HashSet<NewPandora_PropuestaExperimento>();
+            this.NewPandora_Experimento = new HashSet<NewPandora_Experimento>();
         }
     
-        public int IdOpcion { get; set; }
-        public string NombreOpcion { get; set; }
-        public string Url { get; set; }
-        public Nullable<bool> FlagEstado { get; set; }
+        public int IdStatusExperimento { get; set; }
+        public string Status { get; set; }
+        public Nullable<bool> FlagExperimento { get; set; }
+        public Nullable<int> Orden { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<NewPandora_ExperimentoOpcion> NewPandora_ExperimentoOpcion { get; set; }
+        public virtual ICollection<NewPandora_PropuestaExperimento> NewPandora_PropuestaExperimento { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<NewPandora_RolOpcion> NewPandora_RolOpcion { get; set; }
+        public virtual ICollection<NewPandora_Experimento> NewPandora_Experimento { get; set; }
     }
 }

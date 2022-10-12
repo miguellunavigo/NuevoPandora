@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace BanBif.Nuevo.Pandora.BL
 {
-    public class ExperimentoStatusBL
+    public class ProductoBL
     {
 
-        public NewPandoraResponse<List<NewPandoraExperimentoStatusBE>> Listar(NewPandoraExperimentoStatusRequest request)
+        public NewPandoraResponse<List<NewPandoraProductoBE>> Listar()
         {
-            NewPandoraResponse<List<NewPandoraExperimentoStatusBE>> response = new NewPandoraResponse<List<NewPandoraExperimentoStatusBE>>();
+            NewPandoraResponse<List<NewPandoraProductoBE>> response = new NewPandoraResponse<List<NewPandoraProductoBE>>();
             try
             {
-                var experimentoStatusDA = new ExperimentoStatusDA();
-                response = experimentoStatusDA.Listar(request);
+                var rolDA = new ProductoDA();
+                response = rolDA.Listar();
             }
             catch (Exception ex)
             {

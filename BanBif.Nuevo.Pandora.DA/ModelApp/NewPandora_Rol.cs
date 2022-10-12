@@ -7,28 +7,30 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BanBif.Nuevo.Pandora.DA
+namespace BanBif.Nuevo.Pandora.DA.ModelApp
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class NewPandora_StatusExperimento
+    public partial class NewPandora_Rol
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public NewPandora_StatusExperimento()
+        public NewPandora_Rol()
         {
-            this.NewPandora_Experimento = new HashSet<NewPandora_Experimento>();
-            this.NewPandora_PropuestaExperimento = new HashSet<NewPandora_PropuestaExperimento>();
+            this.NewPandora_RolOpcion = new HashSet<NewPandora_RolOpcion>();
+            this.NewPandora_Usuario = new HashSet<NewPandora_Usuario>();
         }
     
-        public int IdStatusExperimento { get; set; }
-        public string Status { get; set; }
-        public Nullable<bool> FlagExperimento { get; set; }
+        public int IdRol { get; set; }
+        public string NombreRol { get; set; }
         public Nullable<int> Orden { get; set; }
+        public Nullable<bool> FlagEstado { get; set; }
+        public Nullable<int> IdVp { get; set; }
     
+        public virtual NewPandora_VP NewPandora_VP { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<NewPandora_Experimento> NewPandora_Experimento { get; set; }
+        public virtual ICollection<NewPandora_RolOpcion> NewPandora_RolOpcion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<NewPandora_PropuestaExperimento> NewPandora_PropuestaExperimento { get; set; }
+        public virtual ICollection<NewPandora_Usuario> NewPandora_Usuario { get; set; }
     }
 }

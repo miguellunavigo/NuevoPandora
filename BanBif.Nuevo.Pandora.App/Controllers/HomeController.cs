@@ -13,8 +13,43 @@ namespace BanBif.Nuevo.Pandora.App.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index() {
+        public ActionResult Index()
+        {
             ViewBag.URL = ConfigurationManager.AppSettings.Get("UrlApp").ToString();
+
+            var ListarOrder = JsonConvert.DeserializeObject<NewPandoraResponse<Dashboard>>(WebApi<NewPandoraIndicadorRequest>.
+                RequestWebApi(new NewPandoraIndicadorRequest(), ConfigurationManager.AppSettings["BaseUrlService"] + "api/Dashboard/ListarOrder")).data;
+
+            var ListarPayments = JsonConvert.DeserializeObject<NewPandoraResponse<int>>(WebApi<NewPandoraIndicadorRequest>.
+                RequestWebApi(new NewPandoraIndicadorRequest(), ConfigurationManager.AppSettings["BaseUrlService"] + "api/Dashboard/ListarPayments")).data;
+
+            var ListarRevenue = JsonConvert.DeserializeObject<NewPandoraResponse<Dashboard>>(WebApi<NewPandoraIndicadorRequest>.
+                RequestWebApi(new NewPandoraIndicadorRequest(), ConfigurationManager.AppSettings["BaseUrlService"] + "api/Dashboard/ListarRevenue")).data;
+
+            var ListarTotalRevenue = JsonConvert.DeserializeObject<NewPandoraResponse<Dashboard>>(WebApi<NewPandoraIndicadorRequest>.
+                RequestWebApi(new NewPandoraIndicadorRequest(), ConfigurationManager.AppSettings["BaseUrlService"] + "api/Dashboard/ListarTotalRevenue")).data;
+
+            var ListarTecnologia = JsonConvert.DeserializeObject<NewPandoraResponse<Dashboard>>(WebApi<NewPandoraIndicadorRequest>.
+                RequestWebApi(new NewPandoraIndicadorRequest(), ConfigurationManager.AppSettings["BaseUrlService"] + "api/Dashboard/ListarTecnologia")).data;
+
+            var ListarTransactions = JsonConvert.DeserializeObject<NewPandoraResponse<Dashboard>>(WebApi<NewPandoraIndicadorRequest>.
+            RequestWebApi(new NewPandoraIndicadorRequest(), ConfigurationManager.AppSettings["BaseUrlService"] + "api/Dashboard/ListarTransactions")).data;
+
+            var ListarBrowser = JsonConvert.DeserializeObject<NewPandoraResponse<Dashboard>>(WebApi<NewPandoraIndicadorRequest>.
+            RequestWebApi(new NewPandoraIndicadorRequest(), ConfigurationManager.AppSettings["BaseUrlService"] + "api/Dashboard/ListarBrowser")).data;
+
+
+            ViewBag.orderString = Newtonsoft.Json.JsonConvert.SerializeObject(ListarOrder);
+            
+            ViewBag.revenueString = Newtonsoft.Json.JsonConvert.SerializeObject(ListarRevenue);
+            ViewBag.totalRevenueString = Newtonsoft.Json.JsonConvert.SerializeObject(ListarTotalRevenue);
+            ViewBag.tecnologiaString = Newtonsoft.Json.JsonConvert.SerializeObject(ListarTecnologia);
+
+
+            ViewBag.ListarPayments = ListarPayments;
+            ViewBag.ListarTransactions = ListarTransactions;
+            ViewBag.ListarBrowser = ListarBrowser;
+
             return View();
         }
         //public ActionResult Index(string id)

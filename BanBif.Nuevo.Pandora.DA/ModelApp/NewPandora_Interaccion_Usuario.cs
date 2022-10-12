@@ -7,19 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BanBif.Nuevo.Pandora.DA
+namespace BanBif.Nuevo.Pandora.DA.ModelApp
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class ReinventaDatosCampaniaCarrusel
+    public partial class NewPandora_Interaccion_Usuario
     {
-        public int IdCarrusel { get; set; }
-        public Nullable<int> IdCampania { get; set; }
-        public Nullable<int> Orden { get; set; }
-        public string TextoPrimario { get; set; }
-        public Nullable<int> Estado { get; set; }
-    
-        public virtual ReinventaDatosCampania ReinventaDatosCampania { get; set; }
+        public int Id { get; set; }
+        public string IdUsuario { get; set; }
+        public Nullable<int> IDOpcion { get; set; }
+        public Nullable<System.DateTime> Fecha { get; set; }
     }
 }

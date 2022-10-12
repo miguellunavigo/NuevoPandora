@@ -25,16 +25,16 @@ namespace BanBif.Nuevo.Pandora.App.Controllers
 
         public ActionResult Autenticacion(NewPandoraLoginRequest request)
         {
-            NewPandoraLoginResponse logResponse = new NewPandoraLoginResponse();
+            NewPandoraResponse<NewPandoraLoginBE> logResponse = new NewPandoraResponse<NewPandoraLoginBE>();
             try
             {
                 request.Password = BanBif.Comunes.Util.Seguridad.Encrypt(request.Password);
                 string strURL = ConfigurationManager.AppSettings["BaseUrlService"] + "api/Login/Autenticacion";
                 string response = WebApi<NewPandoraLoginRequest>.RequestWebApi(request, strURL);
-                logResponse = JsonConvert.DeserializeObject<NewPandoraLoginResponse>(response);
+                logResponse = JsonConvert.DeserializeObject<NewPandoraResponse<NewPandoraLoginBE>>(response);
                 if (logResponse.Result)
                 {
-                    Session["UsuarioAutentificado"] = logResponse.Data;
+                    Session["UsuarioAutentificado"] = logResponse.data;
                     //return RedirectToAction("Index", "Home");
                 }
             }

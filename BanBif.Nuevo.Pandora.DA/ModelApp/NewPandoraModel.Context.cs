@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BanBif.Nuevo.Pandora.DA
+namespace BanBif.Nuevo.Pandora.DA.ModelApp
 {
     using System;
     using System.Data.Entity;
@@ -25,12 +25,13 @@ namespace BanBif.Nuevo.Pandora.DA
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<NewPandora_Experimento> NewPandora_Experimento { get; set; }
         public virtual DbSet<NewPandora_ExperimentoCorreo> NewPandora_ExperimentoCorreo { get; set; }
         public virtual DbSet<NewPandora_ExperimentoOpcion> NewPandora_ExperimentoOpcion { get; set; }
         public virtual DbSet<NewPandora_Indicador> NewPandora_Indicador { get; set; }
         public virtual DbSet<NewPandora_IndicadorRegistro> NewPandora_IndicadorRegistro { get; set; }
+        public virtual DbSet<NewPandora_Interaccion_Usuario> NewPandora_Interaccion_Usuario { get; set; }
         public virtual DbSet<NewPandora_Opcion> NewPandora_Opcion { get; set; }
+        public virtual DbSet<NewPandora_Productos> NewPandora_Productos { get; set; }
         public virtual DbSet<NewPandora_PropuestaExperimento> NewPandora_PropuestaExperimento { get; set; }
         public virtual DbSet<NewPandora_Rol> NewPandora_Rol { get; set; }
         public virtual DbSet<NewPandora_RolOpcion> NewPandora_RolOpcion { get; set; }
@@ -40,5 +41,6 @@ namespace BanBif.Nuevo.Pandora.DA
         public virtual DbSet<ReinventaDatosCampania> ReinventaDatosCampania { get; set; }
         public virtual DbSet<ReinventaDatosCampaniaCarrusel> ReinventaDatosCampaniaCarrusel { get; set; }
         public virtual DbSet<ReinventaDatosCampaniaRegistro> ReinventaDatosCampaniaRegistro { get; set; }
+        public virtual DbSet<NewPandora_Experimento> NewPandora_Experimento { get; set; }
     }
 }

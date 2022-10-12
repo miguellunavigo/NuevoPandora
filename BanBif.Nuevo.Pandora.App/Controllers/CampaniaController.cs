@@ -16,13 +16,13 @@ namespace BanBif.Nuevo.Pandora.App.Controllers
         public ActionResult Index()
         {
             var login = (NewPandoraLoginBE)Session["UsuarioAutentificado"];
-            NewPandoraExperimentoResponse<List<NewPandoraExperimentoBE>> listExperimentoStatusResponse = new NewPandoraExperimentoResponse<List<NewPandoraExperimentoBE>>();
+            NewPandoraResponse<List<NewPandoraExperimentoBE>> listExperimentoStatusResponse = new NewPandoraResponse<List<NewPandoraExperimentoBE>>();
             NewPandoraExperimentoRequest request = new NewPandoraExperimentoRequest();
             try
             {
                 string strURL = ConfigurationManager.AppSettings["BaseUrlService"] + "api/Experimento/Listar";
                 string response = WebApi<NewPandoraExperimentoRequest>.RequestWebApi(request, strURL);
-                listExperimentoStatusResponse = JsonConvert.DeserializeObject<NewPandoraExperimentoResponse<List<NewPandoraExperimentoBE>>>(response);
+                listExperimentoStatusResponse = JsonConvert.DeserializeObject<NewPandoraResponse<List<NewPandoraExperimentoBE>>>(response);
                 ViewBag.ListaExperimento = listExperimentoStatusResponse.data;
             }
             catch (Exception ex)
@@ -35,7 +35,7 @@ namespace BanBif.Nuevo.Pandora.App.Controllers
 
         public ActionResult Listar()
         {
-            ReinventaDatosCampaniaResponse<List<ReinventaDatosCampaniaBE>> ReinventaDatosCampaniaResponse = new ReinventaDatosCampaniaResponse<List<ReinventaDatosCampaniaBE>>();
+            NewPandoraResponse<List<ReinventaDatosCampaniaBE>> NewPandoraResponse = new NewPandoraResponse<List<ReinventaDatosCampaniaBE>>();
             ReinventaDatosCampaniaRequest request = new ReinventaDatosCampaniaRequest();
             var login = (NewPandoraLoginBE)Session["UsuarioAutentificado"];
             //request.IdRol = login.IdRol.Value;
@@ -44,65 +44,65 @@ namespace BanBif.Nuevo.Pandora.App.Controllers
 
                 string strURL = ConfigurationManager.AppSettings["BaseUrlService"] + "api/ReinventaDatosCampania/Listar";
                 string response = WebApi<ReinventaDatosCampaniaRequest>.RequestWebApi(request, strURL);
-                ReinventaDatosCampaniaResponse = JsonConvert.DeserializeObject<ReinventaDatosCampaniaResponse<List<ReinventaDatosCampaniaBE>>>(response);
+                NewPandoraResponse = JsonConvert.DeserializeObject<NewPandoraResponse<List<ReinventaDatosCampaniaBE>>>(response);
             }
             catch (Exception ex)
             {
-                ReinventaDatosCampaniaResponse.Result = false;
+                NewPandoraResponse.Result = false;
             }
 
-            return Json(ReinventaDatosCampaniaResponse);
+            return Json(NewPandoraResponse);
         }
         public ActionResult Obtener(ReinventaDatosCampaniaRequest request)
         {
-            ReinventaDatosCampaniaResponse<ReinventaDatosCampaniaBE> ReinventaDatosCampaniaResponse = new ReinventaDatosCampaniaResponse<ReinventaDatosCampaniaBE>();
+            NewPandoraResponse<ReinventaDatosCampaniaBE> NewPandoraResponse = new NewPandoraResponse<ReinventaDatosCampaniaBE>();
             try
             {
 
                 string strURL = ConfigurationManager.AppSettings["BaseUrlService"] + "api/ReinventaDatosCampania/Obtener";
                 string response = WebApi<ReinventaDatosCampaniaRequest>.RequestWebApi(request, strURL);
-                ReinventaDatosCampaniaResponse = JsonConvert.DeserializeObject<ReinventaDatosCampaniaResponse<ReinventaDatosCampaniaBE>>(response);
+                NewPandoraResponse = JsonConvert.DeserializeObject<NewPandoraResponse<ReinventaDatosCampaniaBE>>(response);
             }
             catch (Exception ex)
             {
-                ReinventaDatosCampaniaResponse.Result = false;
+                NewPandoraResponse.Result = false;
             }
 
-            return Json(ReinventaDatosCampaniaResponse);
+            return Json(NewPandoraResponse);
         }
         public ActionResult Crear(ReinventaDatosCampaniaRequest request)
         {
-            ReinventaDatosCampaniaResponse<int> ReinventaDatosCampaniaResponse = new ReinventaDatosCampaniaResponse<int>();
+            NewPandoraResponse<int> NewPandoraResponse = new NewPandoraResponse<int>();
             try
             {
 
                 string strURL = ConfigurationManager.AppSettings["BaseUrlService"] + "api/ReinventaDatosCampania/Crear";
                 string response = WebApi<ReinventaDatosCampaniaRequest>.RequestWebApi(request, strURL);
-                ReinventaDatosCampaniaResponse = JsonConvert.DeserializeObject<ReinventaDatosCampaniaResponse<int>>(response);
+                NewPandoraResponse = JsonConvert.DeserializeObject<NewPandoraResponse<int>>(response);
             }
             catch (Exception ex)
             {
-                ReinventaDatosCampaniaResponse.Result = false;
+                NewPandoraResponse.Result = false;
             }
 
-            return Json(ReinventaDatosCampaniaResponse);
+            return Json(NewPandoraResponse);
         }
         public ActionResult Modificar(ReinventaDatosCampaniaRequest request)
         {
-            ReinventaDatosCampaniaResponse<int> ReinventaDatosCampaniaResponse = new ReinventaDatosCampaniaResponse<int>();
+            NewPandoraResponse<int> NewPandoraResponse = new NewPandoraResponse<int>();
             try
             {
 
                 string strURL = ConfigurationManager.AppSettings["BaseUrlService"] + "api/ReinventaDatosCampania/Modificar";
                 string response = WebApi<ReinventaDatosCampaniaRequest>.RequestWebApi(request, strURL);
-                ReinventaDatosCampaniaResponse = JsonConvert.DeserializeObject<ReinventaDatosCampaniaResponse<int>>(response);
+                NewPandoraResponse = JsonConvert.DeserializeObject<NewPandoraResponse<int>>(response);
             }
             catch (Exception ex)
             {
-                ReinventaDatosCampaniaResponse.Result = false;
+                NewPandoraResponse.Result = false;
             }
 
-            return Json(ReinventaDatosCampaniaResponse);
+            return Json(NewPandoraResponse);
         }
     }
 }

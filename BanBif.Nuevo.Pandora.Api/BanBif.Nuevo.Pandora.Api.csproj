@@ -92,10 +92,12 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AgendaComercialPJ\acClienteController.cs" />
+    <Compile Include="Controllers\DashboardApiController.cs" />
     <Compile Include="Controllers\PropuestaApiController.cs" />
     <Compile Include="Controllers\ReinventaDatosCampaniaApiController.cs" />
     <Compile Include="Controllers\ExperimentoApiController.cs" />
     <Compile Include="Controllers\ExperimentoStatusApiController.cs" />
+    <Compile Include="Controllers\ProductoApiController.cs" />
     <Compile Include="Controllers\UsuarioApiController.cs" />
     <Compile Include="Controllers\RolApiController.cs" />
     <Compile Include="Controllers\LoginApiController.cs" />

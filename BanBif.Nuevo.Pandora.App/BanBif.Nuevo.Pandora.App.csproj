@@ -122,6 +122,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AgendaComercialPJController.cs" />
     <Compile Include="Controllers\CampaniaController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\PropuestaController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\SinCampaniaController.cs" />

@@ -11,9 +11,9 @@ namespace BanBif.Nuevo.Pandora.BL
     public class RolBL
     {
 
-        public NewPandoraRolResponse Listar(int IdOrdenSuperior)
+        public NewPandoraResponse<List<NewPandoraRolBE>> Listar(int IdOrdenSuperior)
         {
-            NewPandoraRolResponse response = new NewPandoraRolResponse();
+            NewPandoraResponse<List<NewPandoraRolBE>> response = new NewPandoraResponse<List<NewPandoraRolBE>>();
             try
             {
                 var rolDA = new RolDA();

@@ -11,9 +11,9 @@ namespace BanBif.Nuevo.Pandora.BL
     public class UsuarioBL
     {
 
-        public NewPandoraUsuarioResponse<List<NewPandoraUsuarioBE>> Listar(NewPandoraUsuarioRequest request)
+        public NewPandoraResponse<List<NewPandoraUsuarioBE>> Listar(NewPandoraUsuarioRequest request)
         {
-            NewPandoraUsuarioResponse<List<NewPandoraUsuarioBE>> response = new NewPandoraUsuarioResponse<List<NewPandoraUsuarioBE>>();
+            NewPandoraResponse<List<NewPandoraUsuarioBE>> response = new NewPandoraResponse<List<NewPandoraUsuarioBE>>();
             try
             {
                 var usuarioDA = new UsuarioDA();
@@ -27,9 +27,9 @@ namespace BanBif.Nuevo.Pandora.BL
             return response;
         }
 
-        public NewPandoraUsuarioResponse<NewPandoraUsuarioBE> Obtener(NewPandoraUsuarioRequest request)
+        public NewPandoraResponse<NewPandoraUsuarioBE> Obtener(NewPandoraUsuarioRequest request)
         {
-            NewPandoraUsuarioResponse<NewPandoraUsuarioBE> response = new NewPandoraUsuarioResponse<NewPandoraUsuarioBE>();
+            NewPandoraResponse<NewPandoraUsuarioBE> response = new NewPandoraResponse<NewPandoraUsuarioBE>();
             try
             {
                 var usuarioDA = new UsuarioDA();
@@ -43,9 +43,9 @@ namespace BanBif.Nuevo.Pandora.BL
             return response;
         }
 
-        public NewPandoraUsuarioResponse<int> Crear(NewPandoraUsuarioRequest request)
+        public NewPandoraResponse<int> Crear(NewPandoraUsuarioRequest request)
         {
-            NewPandoraUsuarioResponse<int> response = new NewPandoraUsuarioResponse<int>();
+            NewPandoraResponse<int> response = new NewPandoraResponse<int>();
             try
             {
                 var usuarioDA = new UsuarioDA();
@@ -59,9 +59,9 @@ namespace BanBif.Nuevo.Pandora.BL
             }
             return response;
         }
-        public NewPandoraUsuarioResponse<int> Modificar(NewPandoraUsuarioRequest request)
+        public NewPandoraResponse<int> Modificar(NewPandoraUsuarioRequest request)
         {
-            NewPandoraUsuarioResponse<int> response = new NewPandoraUsuarioResponse<int>();
+            NewPandoraResponse<int> response = new NewPandoraResponse<int>();
             try
             {
                 var usuarioDA = new UsuarioDA();

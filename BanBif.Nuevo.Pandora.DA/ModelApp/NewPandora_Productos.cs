@@ -7,27 +7,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BanBif.Nuevo.Pandora.DA
+namespace BanBif.Nuevo.Pandora.DA.ModelApp
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class NewPandora_Indicador
+    public partial class NewPandora_Productos
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public NewPandora_Indicador()
+        public NewPandora_Productos()
         {
-            this.NewPandora_IndicadorRegistro = new HashSet<NewPandora_IndicadorRegistro>();
+            this.NewPandora_Experimento = new HashSet<NewPandora_Experimento>();
         }
     
-        public int IdIndicador { get; set; }
-        public Nullable<int> IdExperimento { get; set; }
-        public string Indicador { get; set; }
+        public int IdProducto { get; set; }
+        public string Nombre { get; set; }
         public Nullable<bool> Estado { get; set; }
-        public Nullable<bool> FlagMostrar { get; set; }
     
-        public virtual NewPandora_Experimento NewPandora_Experimento { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<NewPandora_IndicadorRegistro> NewPandora_IndicadorRegistro { get; set; }
+        public virtual ICollection<NewPandora_Experimento> NewPandora_Experimento { get; set; }
     }
 }
