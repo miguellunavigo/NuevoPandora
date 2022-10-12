@@ -1,11 +1,13 @@
 ﻿using BanBif.Nuevo.Pandora.App.Util;
 using BanBif.Nuevo.Pandora.BE;
+using Microsoft.Owin.Security;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,6 +37,22 @@ namespace BanBif.Nuevo.Pandora.App.Controllers
                 if (logResponse.Result)
                 {
                     Session["UsuarioAutentificado"] = logResponse.data;
+                    AuthenticationProperties options = new AuthenticationProperties
+                    {
+                        AllowRefresh = true,
+                        IsPersistent = false,
+                        ExpiresUtc = DateTime.UtcNow.AddSeconds(8000)
+                    };
+
+                    //Init User Info
+                    var claims = new[]
+                    {
+                        new Claim(ClaimTypes.Name, logResponse.data.UsuarioWindows),
+                        new Claim(ClaimTypes.NameIdentifier, string.Format(logResponse.data.IdUsuario.ToString()))
+                    };
+
+                    var identity = new ClaimsIdentity(claims, "ApplicationCookie");
+                    Request.GetOwinContext().Authentication.SignIn(options, identity);
                     //return RedirectToAction("Index", "Home");
                 }
             }

@@ -47,7 +47,7 @@ namespace BanBif.Nuevo.Pandora.BE
     }
     public class Series {
         public string name { get; set; }
-        public List<int> data { get; set; } = new List<int>();
+        public List<decimal> data { get; set; } = new List<decimal>();
     }
     
 }

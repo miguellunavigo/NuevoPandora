@@ -1,4 +1,5 @@
-﻿using BanBif.Nuevo.Pandora.App.Util;
+﻿using BanBif.Nuevo.Pandora.App.Seguridad;
+using BanBif.Nuevo.Pandora.App.Util;
 using BanBif.Nuevo.Pandora.BE;
 using Newtonsoft.Json;
 using System;
@@ -8,8 +9,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace BanBif.Nuevo.Pandora.App.Controllers
 {
+    [AppAuthorizeAttribute]
     public class PropuestaController : Controller
     {
         // GET: Experimento

@@ -181,7 +181,7 @@ namespace BanBif.Nuevo.Pandora.DA
                         series.name = itemAnio.Key.ToString();
 
                         for (int i = 1; i < 13; i++)
-                        {                            
+                        {
                             if (!list.Where(p => p.Anio == itemAnio.Key && p.Mes == i).Any())
                             {
                                 list.Add(new NewPandoraIndicadorGraficaBE() { Contador = 0, Anio = itemAnio.Key, Mes = i });
@@ -247,7 +247,7 @@ namespace BanBif.Nuevo.Pandora.DA
                 {
                     Dashboard data = new Dashboard();
                     Series series = new Series();
-                    var list = (from m in db.NewPandora_Experimento                                
+                    var list = (from m in db.NewPandora_Experimento
                                 group m by new { Tecnologia = m.Tecnologia } into g
                                 orderby g.Key.Tecnologia
                                 select new NewPandoraIndicadorGraficaBE
@@ -286,7 +286,7 @@ namespace BanBif.Nuevo.Pandora.DA
                 using (panelEntities db = new panelEntities())
                 {
                     Dashboard data = new Dashboard();
-                    
+
                     var list = (from m in db.NewPandora_Experimento
                                 group m by new { TipoUsuario = m.TipoUsuario } into g
                                 orderby g.Key.TipoUsuario
@@ -296,7 +296,7 @@ namespace BanBif.Nuevo.Pandora.DA
                                     Contador = g.Count(),
                                 }).ToList();
 
-                    
+
 
                     foreach (var item in list)
                     {
@@ -305,7 +305,7 @@ namespace BanBif.Nuevo.Pandora.DA
                         series.data.Add(item.Contador);
                         data.series.Add(series);
                     }
-                    
+
                     response.Result = true;
                     response.data = data;
                 }
@@ -327,8 +327,9 @@ namespace BanBif.Nuevo.Pandora.DA
                     Dashboard data = new Dashboard();
 
                     var list = (from m in db.NewPandora_Experimento
-                                group m by new { StatusExperimento = m.NewPandora_StatusExperimento.Status } into g
-                                orderby g.Key.StatusExperimento
+                                where m.NewPandora_StatusExperimento.FlagExperimento.Value == true
+                                group m by new { StatusExperimento = m.NewPandora_StatusExperimento.Status, Order = m.NewPandora_StatusExperimento.Orden } into g
+                                orderby g.Key.Order
                                 select new NewPandoraIndicadorGraficaBE
                                 {
                                     Indicador = g.Key.StatusExperimento,

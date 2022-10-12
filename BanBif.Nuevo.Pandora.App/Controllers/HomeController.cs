@@ -8,9 +8,11 @@ using System.Web;
 using System.Web.Mvc;
 using Newtonsoft.Json;
 using BanBif.Nuevo.Pandora.App.Util;
+using BanBif.Nuevo.Pandora.App.Seguridad;
 
 namespace BanBif.Nuevo.Pandora.App.Controllers
 {
+    [AppAuthorizeAttribute]
     public class HomeController : Controller
     {
         public ActionResult Index()
