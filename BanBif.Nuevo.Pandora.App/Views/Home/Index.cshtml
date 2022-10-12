@@ -658,7 +658,7 @@
                                 {
                                     var dat = listarBrowser.series.Sum(p => p.data.Sum(d => d));
                                     var obj = listarBrowser.series[i - 1];
-                                    var porc = (obj.data.First() * 100) / 112;
+                                    var porc = (obj.data.First() * 100) / dat;
                                     <tr>
                                         @*<td>@i</td>*@
                                         <td>
